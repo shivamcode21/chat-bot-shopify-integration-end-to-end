@@ -305,6 +305,148 @@ Check the backend source for the current request/response schemas and available 
 
 ---
 
+
+## 🛒 Try the demo with any Shopify store
+
+You can test the product-discovery flow with **any Shopify storefront that exposes its public JSON catalog endpoints**. You do not need to use the original store from this repository.
+
+For a Shopify storefront such as:
+
+```text
+https://your-store.com
+```
+
+try:
+
+```text
+https://your-store.com/products.json
+https://your-store.com/collections.json
+```
+
+These endpoints can provide public product and collection data that you can use to build a searchable catalog for the demo.
+
+### Recommended demo flow
+
+```text
+Shopify storefront
+       │
+       ├── /products.json
+       └── /collections.json
+              │
+              ▼
+       Load product catalog
+              │
+              ▼
+     Clean + normalize products
+              │
+              ▼
+       Create embeddings
+              │
+              ▼
+   Vector / search engine
+   (Upstash, pgvector, Qdrant,
+    Pinecone, Elasticsearch, etc.)
+              │
+              ▼
+       EcommAgents search
+              │
+              ▼
+       AI shopping assistant
+```
+
+### 1. Load products
+
+Example:
+
+```bash
+curl "https://your-store.com/products.json?limit=250"
+curl "https://your-store.com/collections.json?limit=250"
+```
+
+The exact pagination/availability of these public endpoints depends on the storefront and Shopify configuration. Treat the returned catalog as **public storefront data**, not as a replacement for the Shopify Admin API.
+
+### 2. Index the catalog
+
+Convert each product into a searchable document containing useful fields such as:
+
+```json
+{
+  "id": "shopify-product-id",
+  "title": "Product name",
+  "description": "Product description",
+  "product_type": "Shirts",
+  "tags": ["black", "cotton"],
+  "variants": [],
+  "price": 1999,
+  "url": "https://your-store.com/products/product-handle",
+  "image_url": "https://cdn.shopify.com/..."
+}
+```
+
+Create an embedding from the product title, description, product type, tags, and other useful attributes, then store the vector together with the product metadata.
+
+You can use **Upstash Vector** or another vector/search engine. The important part is that your search layer can return the product metadata needed to render product cards.
+
+### 3. Connect the search layer to the agent
+
+The included demo already has a product-search abstraction and its main implementation can use the project's Upstash search integration.
+
+If you use another vector database, keep the same contract:
+
+```text
+User query
+   ↓
+Embedding / semantic search
+   ↓
+Top matching products
+   ↓
+Product metadata
+   ↓
+LLM
+   ↓
+Product recommendations + answer
+```
+
+For another search provider, adapt the product-search service rather than changing the Chrome extension.
+
+### 4. Run the demo
+
+Configure your LLM and search credentials in the environment, start the backend, and load the Chrome extension.
+
+```bash
+cd ecommagents/fashion_bot/demo_plugin/backend
+pip install -r requirements.txt
+uvicorn demo_chat_backend:app --port 8001 --reload
+```
+
+Then load:
+
+```text
+ecommagents/fashion_bot/demo_plugin/chrome_extension/
+```
+
+as an unpacked Chrome extension and point it at:
+
+```text
+http://localhost:8001
+```
+
+Now open the Shopify storefront and ask questions such as:
+
+```text
+Show me black shirts
+Show me products under ₹2,000
+Find something similar to this product
+Show me products from the men's collection
+What would you recommend for a party?
+```
+
+### Important
+
+The `products.json` and `collections.json` endpoints are useful for a **public-catalog demo**. They do not provide private customer, order, inventory, or Admin API data.
+
+For production Shopify integrations, use the appropriate Shopify APIs and authentication for the data and actions your application needs.
+
 ## 🧠 Intent-driven behavior
 
 The demo maps natural-language questions to useful commerce operations.
