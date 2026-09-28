@@ -143,6 +143,58 @@ You should receive a healthy response from the API.
 
 ---
 
+
+# 🛍️ Run the demo with your own Shopify store
+
+You can try EcommAgents against a Shopify storefront of your choice.
+
+If the storefront exposes Shopify's public catalog JSON endpoints, start with:
+
+```text
+https://your-store.com/products.json
+https://your-store.com/collections.json
+```
+
+Load the products and collections, normalize the catalog, create embeddings, and push the product documents into a vector/search engine such as **Upstash Vector** (or another provider such as pgvector, Qdrant, Pinecone, or Elasticsearch).
+
+Then connect that search layer to the agent:
+
+```text
+Shopify /products.json + /collections.json
+              ↓
+       Product catalog
+              ↓
+     Embeddings + metadata
+              ↓
+       Vector / Search DB
+              ↓
+       EcommAgents tool
+              ↓
+      AI shopping assistant
+```
+
+For example, index metadata such as:
+
+```text
+title
+description
+product_type
+tags
+price
+variants
+product URL
+image URL
+collection
+```
+
+The included demo already has a product-search abstraction and an Upstash search integration. If you prefer another vector/search provider, replace the search implementation while keeping the same product-result contract.
+
+See the [Demo Plugin README](ecommagents/fashion_bot/demo_plugin/README.md) for the complete walkthrough.
+
+> **Note:** `products.json` and `collections.json` are public storefront catalog endpoints. They are useful for demonstrating product discovery, but they do not expose private customer/order data or replace authenticated Shopify Admin APIs.
+
+---
+
 # 🧪 What can you try?
 
 Once the application is running, the main API includes:
