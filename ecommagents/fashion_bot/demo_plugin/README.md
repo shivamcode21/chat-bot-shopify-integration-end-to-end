@@ -1,200 +1,271 @@
-# Product Chat Demo Plugin - Enhanced with Shopify Runtime
+# Demo Plugin — AI Shopping Assistant for Shopify & E-commerce
 
-A Chrome extension + FastAPI backend for demonstrating AI-powered product chat on ANY website, with **special Shopify runtime data fetching** capabilities.
+> **Run the included browser demo and put an AI shopping assistant on an e-commerce website without building the chat experience from scratch.**
 
-## ✨ Key Features
+This demo is part of **EcommAgents**, the open-source AI commerce agent for Shopify.
 
-### 🛒 Shopify Runtime Data (NEW!)
-- **Zero Integration Required**: Works on any Shopify store without backend setup
-- **Real-time Product Fetching**: Live access to `/products.json`, `/collections.json`
-- **Intent Detection**: Smart understanding of user queries (price, availability, policies)
-- **Product Cards**: Visual product recommendations in chat
-- **Automatic Caching**: 2-minute TTL for optimal performance
+It provides a **Chrome extension + standalone FastAPI backend** that can read the current product/page context, understand shopper questions, fetch public Shopify runtime data, and return product recommendations and product cards.
 
-### 🎯 Smart Recommendations (NEW!)
-- **Category-based**: "More sunglasses you may like" - same collection, different products
-- **Tag Similarity**: "Similar styles" - overlapping tags, same product_type
-- **Price-band**: "More options around ₹2500" - price ±20%, same category
-- **Discount-driven**: "Best deals right now 🔥" - highest discounts first
-- **New Arrivals**: "New arrivals ✨" - sorted by created_at/published_at
-- **Collection Popularity**: Prioritizes frontpage, bestsellers, trending collections
+## 🎯 Use case
 
-### 🔍 Universal Page Scraping
-- Extracts product name, price, discount, description, images
-- Parses JSON-LD structured data
-- Reads Open Graph metadata
-- Works on WooCommerce, custom stores, and general e-commerce sites
+The demo answers a simple question:
 
-### 💬 Smart Chat Widget
-- Dark theme with cyan accents
-- Maximize/minimize support
-- Dynamic quick actions based on context
-- Product cards for visual shopping
+> **What if a shopper could open an AI assistant directly on an online store and ask about the products they are looking at?**
+
+A shopper can visit a Shopify or other e-commerce site and ask:
+
+- “What is this product?”
+- “What is the price?”
+- “Is this available in size M?”
+- “Show me similar products.”
+- “Show me something under ₹2,500.”
+- “What are the best deals?”
+- “What’s new?”
+- “Show me the men's collection.”
+- “What is the return policy?”
+
+The extension sends the page context to the backend. For Shopify stores, the backend can also query public Shopify endpoints for current product and collection data.
+
+## ✨ What is included
+
+### Shopify runtime data
+
+The demo can use public Shopify endpoints for:
+
+- Products
+- Individual product details
+- Collections
+- Products inside collections
+- Predictive/search suggestions
+
+This means the demo can work with **live store data** without requiring a custom Shopify backend integration for the basic read-only shopping experience.
+
+### Smart product recommendations
+
+The recommendation logic supports:
+
+| Use case | Example | Approach |
+|---|---|---|
+| Similar products | “Show me similar products” | Product type, tags, collection |
+| Price range | “More options around ₹2,500” | Price-band filtering |
+| Deals | “What is on sale?” | Compare-at-price / discount data |
+| New arrivals | “What’s new?” | Created/published date |
+| Collection browsing | “Show me men's products” | Collection data |
+| General discovery | “What should I buy?” | Context + available catalog |
+
+The goal is to provide a useful baseline that developers can customize for their own store, catalog, ranking logic, or AI workflow.
+
+### Universal page understanding
+
+On non-Shopify or custom e-commerce sites, the Chrome extension can extract useful page information such as:
+
+- Product name
+- Price
+- Description
+- Images
+- Open Graph metadata
+- JSON-LD structured data
+- Current URL and page title
+
+This lets the demo work as a general **AI product assistant**, while Shopify stores receive additional runtime catalog capabilities.
+
+### Chat widget
+
+The extension includes a browser chat experience with:
+
+- Product-aware conversations
+- Product cards
+- Quick actions
+- Minimize/maximize controls
 - SPA navigation support
+- Context-aware questions
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
+```text
+                    Shopper
+                       │
+                       ▼
+              Chrome Extension
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+        Page Scraping       Page Context
+             │                   │
+             └─────────┬─────────┘
+                       ▼
+               FastAPI Backend
+                       │
+              ┌────────┴────────┐
+              ▼                 ▼
+        Intent Detection   Shopify Runtime
+              │                 │
+              └────────┬────────┘
+                       ▼
+                 LLM Response
+                       │
+                       ▼
+              Product Cards / Reply
 ```
-User → Chrome Extension (Content Script)
-                ↓
-         Page Scraping
-                ↓
-    Backend (FastAPI @ /demo)
-                ↓
-    Intent Detection → Shopify API Fetch → LLM Response
-                ↓
-    Response with Product Cards
-```
+
+The standalone demo backend is:
+
+`backend/demo_chat_backend.py`
+
+The Chrome extension is under:
+
+`chrome_extension/`
 
 ---
 
-## Shopify API Endpoints Used
+## 🚀 Run the demo
 
-| Intent | Endpoint | Data Retrieved |
-|--------|----------|----------------|
-| Product Search | `/products.json` | All products (paginated) |
-| Single Product | `/products/<handle>.json` | Full product details |
-| Collections | `/collections.json` | Store collections |
-| Collection Products | `/collections/<handle>/products.json` | Products in collection |
-| Search | `/search/suggest.json` | Search results |
+### Prerequisites
 
-**Note**: These are public Shopify endpoints, available on most stores by default.
+- Python 3.10+
+- Google Chrome
+- An OpenAI API key for LLM-powered responses
+- Internet access to the target store
 
----
+### 1. Start the backend
 
-## Recommendation Engine
-
-The demo includes a smart recommendation engine that works without any sales data:
-
-### Recommendation Types
-
-| Type | Trigger | Logic | Best For |
-|------|---------|-------|----------|
-| **Category-based** | "Similar products", "More like this" | Same collection, different product ID, sorted by price | Product pages |
-| **Tag Similarity** | "Similar styles" | Overlapping tags (≥2), same product_type | Fashion/lifestyle |
-| **Price Band** | "More options around ₹X" | Price ±20%, same category preferred | Budget shoppers |
-| **Deals** | "Best deals", "On sale" | Products with compare_at_price, highest discount first | Deal hunters |
-| **New Arrivals** | "New arrivals", "Latest" | Sorted by created_at/published_at | Returning customers |
-| **Collection Popularity** | Automatic fallback | Prioritizes frontpage, bestsellers, trending | General browsing |
-
-### How It Works
-
-1. **On Product Page**: When user asks for recommendations, fetches all products and filters by:
-   - Same product_type (e.g., "Sunglass")
-   - Overlapping tags (e.g., ["Men", "Sunglasses"])
-   - Similar price range
-
-2. **On Collection Page**: Returns products from the current collection with smart sorting
-
-3. **General Browsing**: Shows deals or new arrivals based on user intent
-
-### Example Queries
-
-```
-"Show me similar products"           → Category + Tag recommendations
-"More options under ₹2500"           → Price-filtered products
-"Best deals right now"               → Discount-sorted products
-"What's new?"                        → New arrivals
-"Show me trending sunglasses"        → Collection products with popularity proxy
-```
-
----
-
-## Installation
-
-### 1. Backend Setup (Integrated with Fashion Bot)
-
-The demo backend is now integrated into the main `agent_controller.py` at the `/demo` prefix.
+From the demo backend directory:
 
 ```bash
-# Navigate to fashion_bot directory
-cd fashion_bot
+cd ecommagents/fashion_bot/demo_plugin/backend
 
-# Install dependencies (if not already done)
-pip install httpx openai python-dotenv
+pip install -r requirements.txt
 
-# Run the server
-python -m fashion_bot.agent_controller
+export OPENAI_API_KEY="your-key"
+uvicorn demo_chat_backend:app --port 8001 --reload
 ```
 
-The demo endpoints will be available at:
-- `http://localhost:8000/demo/health`
-- `http://localhost:8000/demo/chat`
-- `http://localhost:8000/demo/fetch-products?store_url=<url>`
-- `http://localhost:8000/demo/fetch-collections?store_url=<url>`
+On Windows PowerShell:
 
-### 2. Chrome Extension
+```powershell
+$env:OPENAI_API_KEY="your-key"
+uvicorn demo_chat_backend:app --port 8001 --reload
+```
 
-1. Open Chrome and go to `chrome://extensions/`
-2. Enable "Developer mode" (top right toggle)
-3. Click "Load unpacked"
-4. Select the `demo_plugin/chrome_extension/` folder
-5. Click the extension icon and configure:
-   - **Backend URL**: `http://localhost:8000/demo` (local) or your deployed URL
-   - **API Key**: Optional, for authentication
-   - **Enable Widget**: Toggle the chat widget on/off
+The demo backend will run at:
 
----
+```text
+http://localhost:8001
+```
 
-## Usage
+The backend source also supports loading a `.env` file from the demo/project locations.
 
-### Basic Flow
+### 2. Install the Chrome extension
 
-1. Install the extension
-2. Visit any e-commerce website (e.g., `samandmarshall.com`)
-3. Click the chat button (bottom right)
-4. Ask questions about products!
+1. Open Chrome.
+2. Go to `chrome://extensions/`.
+3. Enable **Developer mode**.
+4. Select **Load unpacked**.
+5. Choose:
 
-### Example Questions
+```text
+ecommagents/fashion_bot/demo_plugin/chrome_extension/
+```
 
-**On a product page:**
-- "What's the price?"
-- "Is this available in size M?"
-- "Tell me about this product"
-- "I want to order this"
+6. Open the extension settings.
+7. Point the backend URL to your running demo backend.
+8. Enable the widget.
 
-**On any Shopify store:**
-- "Show me all products"
-- "What are your best sellers?"
-- "Any products under ₹1000?"
-- "What's your return policy?"
-- "Show me the men's collection"
+### 3. Open an e-commerce website
 
-### Intent Detection
+Visit a Shopify store or another supported e-commerce website.
 
-The backend automatically detects user intent:
+Open the chat widget and try:
 
-| Intent | Keywords | Action |
-|--------|----------|--------|
-| `product_search` | show me, find, recommend | Fetch `/products.json` |
-| `price_check` | price, cost, discount | Get pricing data |
-| `availability` | available, stock, size | Check variant availability |
-| `collection` | collection, category, men, women | Fetch collections |
-| `policy` | return, shipping, refund | Fetch policy pages |
-| `order` | order, buy, add to cart | Mock order flow |
+```text
+What's the price of this product?
+```
+
+Then try:
+
+```text
+Show me similar products
+```
+
+or:
+
+```text
+Show me products under ₹2500
+```
 
 ---
 
-## API Reference
+## 🧪 Example shopper flow
+
+### Product page
+
+The shopper is viewing a product.
+
+```text
+Shopper
+  ↓
+"What is this product?"
+  ↓
+Extension reads page context
+  ↓
+Backend understands intent
+  ↓
+AI generates response
+```
+
+### Shopify catalog discovery
+
+```text
+Shopper
+  ↓
+"Show me similar sunglasses"
+  ↓
+Backend detects recommendation intent
+  ↓
+Fetch Shopify catalog data
+  ↓
+Filter/rank products
+  ↓
+AI response + product cards
+```
+
+### Price-based discovery
+
+```text
+"Show me something under ₹2,000"
+  ↓
+Detect max-price intent
+  ↓
+Fetch catalog
+  ↓
+Filter products
+  ↓
+Return matching product cards
+```
+
+---
+
+## 🔌 API
 
 ### POST `/demo/chat`
 
-Main chat endpoint with Shopify runtime support.
+Main chat endpoint.
 
-**Request:**
+Example request:
+
 ```json
 {
   "message": "Show me products under ₹2000",
   "context": {
-    "url": "https://store.myshopify.com/products/example",
-    "domain": "store.myshopify.com",
+    "url": "https://store.example.com/products/example",
+    "domain": "store.example.com",
     "title": "Example Product",
     "product": {
       "name": "Example Product",
       "price": "₹1,999",
-      "description": "..."
+      "description": "Example description"
     }
   },
   "history": [
@@ -204,184 +275,225 @@ Main chat endpoint with Shopify runtime support.
 }
 ```
 
-**Response:**
-```json
-{
-  "reply": "Here are some products under ₹2000...",
-  "action": null,
-  "metadata": {
-    "intent": "product_search",
-    "entities": {"max_price": 2000},
-    "shopify_enabled": true,
-    "products_count": 15
-  },
-  "products": [
-    {
-      "id": 123,
-      "title": "Product Name",
-      "price": "₹1,499",
-      "originalPrice": "₹1,999",
-      "discount": "25% OFF",
-      "image": "https://...",
-      "available": true,
-      "url": "/products/product-handle"
-    }
-  ]
-}
-```
+A typical response contains the assistant reply, detected intent, metadata, and optional product cards.
 
 ### GET `/demo/fetch-products`
 
-Debug endpoint to test Shopify product fetching.
+Fetch Shopify products for a store.
 
-```
-GET /demo/fetch-products?store_url=https://samandmarshall.com&limit=10
+```text
+GET /demo/fetch-products?store_url=https://example.com&limit=10
 ```
 
 ### GET `/demo/fetch-collections`
 
-Debug endpoint to test Shopify collection fetching.
+Fetch Shopify collections.
 
-```
-GET /demo/fetch-collections?store_url=https://samandmarshall.com
+```text
+GET /demo/fetch-collections?store_url=https://example.com
 ```
 
 ### DELETE `/demo/cache`
 
-Clear the runtime cache.
+Clear the in-memory runtime cache.
 
-```
+```text
 DELETE /demo/cache
 ```
 
----
-
-## Performance
-
-### Caching Strategy
-- **TTL**: 2 minutes for all Shopify API responses
-- **Key Format**: `products:{store_url}`, `product:{store_url}:{handle}`
-- **Memory-based**: Simple in-process cache (no Redis required for demo)
-
-### Timeouts
-- Shopify API calls: 5 second timeout
-- Graceful fallback to page context if API fails
-
-### Best Practices
-- Product list limited to 20 items by default
-- Only fetches data relevant to detected intent
-- Lazy loading of policies (only when asked)
+Check the backend source for the current request/response schemas and available routes.
 
 ---
 
-## Demo Script for Clients
+## 🧠 Intent-driven behavior
 
-### Opening Pitch
-> "Our AI shopping assistant works on any Shopify store in real-time — no integration, no data upload, no setup."
+The demo maps natural-language questions to useful commerce operations.
 
-### Live Demo Steps
+| Intent | Example | Action |
+|---|---|---|
+| Product search | “Find sunglasses” | Search/fetch products |
+| Price | “How much is this?” | Read product pricing |
+| Availability | “Is this available?” | Inspect variants/page context |
+| Recommendation | “Show similar products” | Run recommendation logic |
+| Collection | “Show women's products” | Fetch collection/catalog data |
+| Policy | “What's your return policy?” | Use page/context information |
+| Order | “I want to order this” | Demo/mock action flow |
 
-1. **Install Extension** (30 sec)
-   - Show Chrome extension installation
-   - Point to backend URL
-
-2. **Visit Client's Store** (1 min)
-   - Navigate to their Shopify store
-   - Show the chat widget appearing automatically
-
-3. **Product Questions** (2 min)
-   - "Show me your products"
-   - "What's this product's price?"
-   - "Is size M available?"
-   - Show product cards appearing
-
-4. **Smart Features** (1 min)
-   - "Any discounts?"
-   - "What's your return policy?"
-   - "Order this product" (show mock order)
-
-5. **Close** (30 sec)
-   > "All of this works out of the box. For deeper integration, we can customize the responses and add actual order placement."
+These behaviors are intended as an **example implementation**. Developers can change the intent detection, tools, ranking, prompts, and actions for their own application.
 
 ---
 
-## Troubleshooting
+## ⚙️ Configuration
 
-### "Could not fetch products"
-- Store might block API access (rare)
-- Store might use non-standard Shopify setup
-- Check if store is actually on Shopify
+The demo uses environment variables for its LLM and optional integrations.
 
-### "LLM fallback responses"
-- Set `OPENAI_API_KEY` in `.env`
-- Check API key is valid
-
-### Widget not appearing
-- Check if extension is enabled
-- Verify "Enable Widget" is on in popup
-- Check console for errors
-
-### Slow responses
-- Shopify API might be slow
-- Check network tab for bottlenecks
-- Clear cache: `DELETE /demo/cache`
-
----
-
-## Environment Variables
+Example:
 
 ```env
-# Required for intelligent responses
-OPENAI_API_KEY=sk-...
-
-# Optional
-LANGSMITH_API_KEY=...
+OPENAI_API_KEY=your-key
+LANGSMITH_API_KEY=optional
 LANGSMITH_PROJECT=demo-chat
 ```
 
+Do not commit real API keys or customer/store credentials.
+
 ---
 
-## File Structure
+## ⚡ Performance
 
+The demo uses lightweight in-process caching for Shopify runtime requests.
+
+Current behavior includes:
+
+- Short TTL caching for Shopify responses
+- Product list limits
+- Shopify request timeouts
+- Graceful fallback to page context when runtime fetching fails
+- Lazy policy fetching based on intent
+
+This is a **demo/reference implementation**. For production use, add the authentication, rate limiting, observability, caching, privacy controls, and deployment architecture appropriate for your application.
+
+---
+
+## 🧩 Customize it
+
+The most important reason this demo is included in EcommAgents is that you can **start with working code and change it for your own use case**.
+
+You can customize:
+
+### UI
+
+Edit:
+
+```text
+chrome_extension/
+├── content.js
+├── widget.css
+├── popup.html
+└── popup.js
 ```
+
+Use this to change the widget, branding, quick actions, product cards, and page behavior.
+
+### Backend
+
+Edit:
+
+```text
+backend/demo_chat_backend.py
+```
+
+Use this to change:
+
+- Intent detection
+- Shopify fetching
+- Recommendation logic
+- LLM prompts
+- API responses
+- Custom business actions
+
+### Recommendations
+
+Replace the baseline ranking logic with your own:
+
+- Vector search
+- Semantic product search
+- Inventory-aware ranking
+- Customer history
+- Merchandising rules
+- Bestseller data
+- Personalized recommendations
+
+### Integrations
+
+You can extend the backend with your own:
+
+- Shopify Admin API
+- Product database
+- Search engine
+- CRM
+- Order system
+- Inventory service
+- Analytics platform
+- Custom agent tools
+
+---
+
+## 🔒 Security and privacy
+
+The demo is designed primarily as a read-oriented shopping-assistant example.
+
+Before using it with real customers:
+
+- Add authentication between the extension and backend.
+- Restrict CORS to trusted origins.
+- Add rate limiting.
+- Validate and sanitize incoming page context.
+- Avoid sending unnecessary customer information to the LLM.
+- Do not expose private Shopify Admin API credentials in the extension.
+- Store secrets only on the server.
+- Add logging/monitoring appropriate for your deployment.
+
+**Never put Shopify Admin API access tokens or LLM API keys inside the Chrome extension.**
+
+---
+
+## 📁 File structure
+
+```text
 demo_plugin/
-├── chrome_extension/
-│   ├── manifest.json      # Extension manifest (v3)
-│   ├── content.js         # Page scraper + chat widget
-│   ├── widget.css         # Chat widget styles
-│   ├── popup.html         # Settings popup
-│   ├── popup.js           # Popup logic
-│   ├── background.js      # Service worker
-│   └── icons/             # Extension icons
+├── README.md
+├── CLIENT_LOCATION.md
 │
-└── README.md              # This file
-
-fashion_bot/
-├── demo_chat_router.py    # Backend router (integrated)
-└── agent_controller.py    # Main app (includes demo router)
+├── backend/
+│   ├── demo_chat_backend.py
+│   └── requirements.txt
+│
+└── chrome_extension/
+    ├── manifest.json
+    ├── content.js
+    ├── widget.css
+    ├── popup.html
+    ├── popup.js
+    ├── background.js
+    └── icons/
 ```
 
 ---
 
-## What This Proves
+## 🌍 Who can use this?
 
-✅ **Real-time commerce AI** - No pre-indexing needed  
-✅ **Zero manual setup** - Works instantly on Shopify  
-✅ **Production-safe** - Read-only API access  
-✅ **Extensible** - Easy to add custom features  
+This demo is useful for:
+
+- Shopify store owners
+- Shopify agencies
+- AI developers
+- E-commerce startups
+- Product recommendation projects
+- Customer-support experiments
+- AI shopping-assistant prototypes
+- Developers learning Shopify + LLM integrations
+- Developers building browser-based commerce assistants
+
+You can use the demo as-is, fork it, or use it as a starting point for your own EcommAgents implementation.
 
 ---
 
-## Next Steps After Demo
+## 🔗 Part of EcommAgents
 
-1. **Custom Branding**: Match client's brand colors
-2. **Order Integration**: Connect to actual checkout
-3. **Analytics**: Track popular questions
-4. **Training**: Fine-tune responses for specific products
-5. **Multi-channel**: Add WhatsApp, Instagram support
+This demo is one component of the larger **EcommAgents open-source AI commerce agent**.
 
----
+Start here:
+
+```text
+ecommagents/
+└── fashion_bot/
+    ├── fashion_bot/       # Main AI commerce agent
+    └── demo_plugin/       # Browser shopping assistant demo
+```
+
+For the complete system, see the [EcommAgents README](../../README.md).
 
 ## License
 
-Internal use only - Demo purposes.
+See the repository's [LICENSE.md](../../LICENSE.md) for the project license and usage terms.
