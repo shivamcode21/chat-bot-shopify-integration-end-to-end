@@ -2,3 +2,13 @@
 __pycache__/
 *.py[cod]
 *.log
+
+# Local secrets and runtime data
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+__pycache__/
+*.py[cod]
