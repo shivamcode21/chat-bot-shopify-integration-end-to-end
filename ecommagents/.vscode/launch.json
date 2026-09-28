@@ -1,0 +1,78 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+    
+        {
+            "name": "Python: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+    
+        
+        {
+            "name": "Python: Run fashion_bot.main as module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fashion_bot.main",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/fashion_bot"
+        },
+        {
+            "name": "Python: Run fashion_bot.interactive_bot as module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fashion_bot.interactive_bot",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/fashion_bot"
+        },
+        {
+            "name": "Python: Run fashion_bot.main_meta as module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fashion_bot.main_meta",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/fashion_bot"
+        },
+        {
+            "name": "Python: Run all tests",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.run_tests_clean",
+            "console": "integratedTerminal",
+            "args": ["--top-x", "15"],
+            "cwd": "${workspaceFolder}/fashion_bot"
+        },
+        {
+            "name": "Python: Run test with specific id",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "tests.run_tests_clean",
+            "console": "integratedTerminal",
+            "args": ["--test-id", "sales--delivery_enquiry--product_found-1"],
+            "cwd": "${workspaceFolder}/fashion_bot"
+        },
+        {
+            "name": "Python: Run fashion_bot.agent_controller as module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "fashion_bot.agent_controller",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/fashion_bot"
+        }
+        ,
+        {
+            "name": "Streamlit: Run streamlit_app",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "streamlit",
+            "args": ["run", "streamlit_app.py"],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}/fashion_bot"
+        }
+    ]
+}

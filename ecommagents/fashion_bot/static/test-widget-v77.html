@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget v77 Launcher Config Test</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: linear-gradient(180deg, #fbfaf8 0%, #edf2ef 100%);
+            color: #171717;
+        }
+        .page {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 28px 20px 128px;
+        }
+        .panel {
+            border: 1px solid #d9ded8;
+            background: rgba(255,255,255,0.94);
+            border-radius: 8px;
+            box-shadow: 0 12px 32px rgba(30, 46, 38, 0.08);
+            padding: 22px;
+            margin-bottom: 18px;
+        }
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+            gap: 20px;
+            align-items: stretch;
+        }
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            height: 28px;
+            padding: 0 10px;
+            border-radius: 999px;
+            background: #0f3d2e;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        h1 {
+            margin: 16px 0 10px;
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.04;
+        }
+        h2 {
+            margin: 0 0 12px;
+            font-size: 18px;
+        }
+        p {
+            max-width: 720px;
+            color: #525b55;
+            font-size: 15px;
+            line-height: 1.65;
+        }
+        code, pre {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+        }
+        pre {
+            margin: 0;
+            min-height: 248px;
+            max-height: 420px;
+            overflow: auto;
+            white-space: pre-wrap;
+            padding: 16px;
+            border-radius: 8px;
+            background: #121614;
+            color: #edf7f1;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        button, a.button {
+            appearance: none;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 750;
+            cursor: pointer;
+            text-decoration: none;
+            line-height: 1;
+        }
+        .primary { background: #0f3d2e; color: #ffffff; }
+        .secondary { background: #ffffff; color: #163327; border-color: #cbd5cf; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .meta {
+            display: grid;
+            gap: 10px;
+        }
+        .meta-item {
+            padding: 12px;
+            border-radius: 8px;
+            background: #f6f8f6;
+            border: 1px solid #e0e5e1;
+        }
+        .meta-item strong {
+            display: block;
+            margin-bottom: 5px;
+            color: #657168;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .swatches {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .swatch {
+            min-height: 68px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            align-items: flex-end;
+            color: #111111;
+            background: #ffffff;
+            font-size: 11px;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
+        .hint {
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #eef5f1;
+            color: #40534a;
+            line-height: 1.55;
+            font-size: 14px;
+        }
+        @media (max-width: 780px) {
+            .hero, .grid { grid-template-columns: 1fr; }
+            .page { padding: 18px 12px 112px; }
+            .panel { padding: 18px; }
+            .swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <section class="hero">
+            <div class="panel">
+                <span class="eyebrow">Widget v77</span>
+                <h1>Launcher Config Test</h1>
+                <p>
+                    This page loads <code>/static/chat-widget.v77.js</code> directly and previews the
+                    <code>widget_launcher_theme</code> and <code>mobile_widget_text</code> endpoints.
+                    Use this to verify desktop launcher positioning: watch the launcher on load, and
+                    again once the desktop config resolves and (if <code>desktop_widget_text.isDisplay</code>
+                    is <code>false</code> for the client) it collapses to icon-only — it should stay flush
+                    against the configured corner (<code>bottom-right</code> below) both before and after
+                    the collapse, not jump into the middle of the page.
+                </p>
+                <div class="actions">
+                    <button class="primary" id="open-chat-btn" type="button">Open Chat</button>
+                    <button class="secondary" id="refresh-btn" type="button">Refresh Config</button>
+                    <a class="button secondary" id="mobile-link" href="#">Mobile Width URL</a>
+                </div>
+                <div class="hint">
+                    Pass a specific client with
+                    <code>?clientId=&lt;uuid&gt;&clientName=&lt;name&gt;</code>. Defaults are set to Concept Groove.
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>Runtime</h2>
+                <div class="meta">
+                    <div class="meta-item">
+                        <strong>Bundle</strong>
+                        <code>/static/chat-widget.v77.js</code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Client Name</strong>
+                        <code id="client-name-value"></code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Client ID</strong>
+                        <code id="client-id-value"></code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Viewport</strong>
+                        <code id="viewport-value"></code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid">
+            <div class="panel">
+                <h2>Launcher Theme</h2>
+                <pre id="theme-output">Loading...</pre>
+                <div class="swatches">
+                    <div class="swatch" id="background-swatch">background</div>
+                    <div class="swatch" id="border-swatch">border</div>
+                    <div class="swatch" id="ring-swatch">ring</div>
+                    <div class="swatch" id="text-swatch">text</div>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>Mobile Text</h2>
+                <pre id="mobile-output">Loading...</pre>
+                <div class="hint">
+                    Expected sample behavior: mobile launcher shows <code>Ask Sereko</code>,
+                    text color comes from <code>mobile_text_color</code>, and mobile border
+                    only applies when <code>apply_mobile_border_color</code> is true.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var clientName = params.get('clientName') || 'Concept Groove';
+            var clientId = params.get('clientId') || 'c3ffcb1b-afb9-4ca4-8746-a06698bec870';
+            var baseQuery = 'client_id=' + encodeURIComponent(clientId) + '&client_name=' + encodeURIComponent(clientName);
+            var themeEndpoint = '/widget/launcher-theme?' + baseQuery;
+            var mobileTextEndpoint = '/widget/mobile-widget-text?' + baseQuery;
+
+            window.fashionBotSettings = {
+                clientName: clientName,
+                clientId: clientId
+            };
+
+            function setText(id, value) {
+                var el = document.getElementById(id);
+                if (el) el.textContent = value;
+            }
+
+            function paintSwatches(theme) {
+                var background = theme && theme.background ? theme.background : '#ffffff';
+                var borderColor = theme && theme.border_color ? theme.border_color : '#d1d5db';
+                var ringColor = theme && theme.ring_color ? theme.ring_color : '#d1d5db';
+                var textColor = theme && theme.text_color ? theme.text_color : '#111111';
+                document.getElementById('background-swatch').style.background = background;
+                document.getElementById('border-swatch').style.background = borderColor;
+                document.getElementById('ring-swatch').style.background = ringColor;
+                document.getElementById('text-swatch').style.background = textColor;
+            }
+
+            function refreshViewport() {
+                setText('viewport-value', window.innerWidth + ' x ' + window.innerHeight);
+            }
+
+            function refreshConfig() {
+                Promise.all([
+                    fetch(themeEndpoint, { credentials: 'same-origin' }).then(function(res) { return res.json(); }),
+                    fetch(mobileTextEndpoint, { credentials: 'same-origin' }).then(function(res) { return res.json(); })
+                ]).then(function(results) {
+                    var themePayload = results[0];
+                    var mobilePayload = results[1];
+                    setText('theme-output', JSON.stringify(themePayload, null, 2));
+                    setText('mobile-output', JSON.stringify(mobilePayload, null, 2));
+                    paintSwatches(themePayload && themePayload.launcher_theme ? themePayload.launcher_theme : {});
+                }).catch(function(err) {
+                    setText('theme-output', 'Failed to load config: ' + err.message);
+                    setText('mobile-output', 'Failed to load config: ' + err.message);
+                });
+            }
+
+            setText('client-name-value', clientName);
+            setText('client-id-value', clientId);
+            document.getElementById('mobile-link').href = window.location.pathname + '?' + baseQuery + '&mobile=true';
+            document.getElementById('refresh-btn').addEventListener('click', refreshConfig);
+            window.addEventListener('resize', refreshViewport);
+            refreshViewport();
+            refreshConfig();
+        })();
+    </script>
+    <script src="/static/chat-widget.v77.js"></script>
+    <script>
+        FashionBotWidget.init({
+            clientName: window.fashionBotSettings.clientName,
+            clientId: window.fashionBotSettings.clientId,
+            theme: 'light',
+            position: 'bottom-right'
+        });
+
+        document.getElementById('open-chat-btn').addEventListener('click', function() {
+            FashionBotWidget.open();
+        });
+    </script>
+</body>
+</html>

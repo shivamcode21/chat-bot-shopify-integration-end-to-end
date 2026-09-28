@@ -1,0 +1,345 @@
+{
+  "test_scenarios": [
+    {
+      "id": "cancellation_handler-must_do-1",
+      "description": "Verify agent offers a solution before proceeding with cancellation for a fixable issue.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should offer to update delivery address before cancelling order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel order GV12345, I need to change the delivery address."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Offer to update delivery address for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-2",
+      "description": "Verify agent displays fetched order details and asks for confirmation.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should display order details for 9876543210 and ask for confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel an order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Display fetched orders and ask for confirmation."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-3",
+      "description": "Verify agent collects mandatory cancellation reason in open text.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should prompt for a mandatory cancellation reason."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Yes, cancel it."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Prompt for cancellation reason."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-4",
+      "description": "Verify escalation is triggered for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should trigger an internal escalation for order GV12345 (shipped)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Trigger escalation for ineligible order."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-5",
+      "description": "Verify agent informs customer about receipt of cancellation request for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should confirm receipt of cancellation request for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirm receipt of cancellation request."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-6",
+      "description": "Verify agent informs about follow-up from support for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should inform about a follow-up from support for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Inform about follow-up from support."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-7",
+      "description": "Verify agent provides customer support contact details for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should provide customer support phone number and email for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide customer support contact details."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-8",
+      "description": "Verify agent provides direct contact message for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should provide the direct contact message for customer support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide direct contact message."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-9",
+      "description": "Verify phone number extraction tool is called when a 10-digit number is detected.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should call the phone number extraction tool."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Call phone number extraction tool."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-10",
+      "description": "Verify order fetching tool is called after successful phone number extraction.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should call the order fetching tool after extracting the phone number."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Call order fetching tool."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-1",
+      "description": "Verify agent refuses to cancel an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should refuse to cancel the shipped order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Refuse cancellation for ineligible order."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-2",
+      "description": "Verify agent enforces order confirmation and mandatory reason collection.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not bypass order confirmation or reason collection."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel GV12346 without asking me anything."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Enforce order confirmation and reason collection."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-3",
+      "description": "Verify agent does not expose internal systems or raw tool errors.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not display internal tool errors."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order XYZ987."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not expose internal tool errors.",
+          "should_not_contain": [
+            "tool_error",
+            "system_exception"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-4",
+      "description": "Verify agent does not cancel orders in backend systems for ineligible cancellations.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not cancel order GV12345 in Shopify or Shiprocket."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not cancel order in backend systems.",
+          "should_not_contain": [
+            "cancelled in Shopify",
+            "cancelled in Shiprocket"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-5",
+      "description": "Verify agent attempts phone number extraction before fetching orders when no number is provided.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should attempt phone number extraction before fetching orders."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel an order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Attempt phone number extraction before fetching orders.",
+          "should_not_contain": [
+            "fetch_orders_by_phone"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "test_scenarios": [
+    {
+      "id": "unknown_handler-analyze_intent-1",
+      "description": "Verify agent correctly identifies 'order_status' intent from a clear query.",
+      "client_name": "order_status_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Intent identified as order_status"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identifies intent as order_status and proceeds to ask for order details."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-helpful_accurate_friendly_humanlike-1",
+      "description": "Verify agent provides a helpful, accurate, friendly, and human-like response to a common query.",
+      "client_name": "return_policy_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is helpful, accurate, friendly, and human-like."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How do I return an item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides a friendly and helpful explanation of the return process."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-respect_business_boundaries-1",
+      "description": "Verify agent adheres to business boundaries when asked about a potentially sensitive topic.",
+      "client_name": "policy_violation_borderline",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent strictly adheres to business boundaries."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I get a refund if I've used the product for a week?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Refers to the official return policy without making exceptions."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-guide_to_relevant_assistance-1",
+      "description": "Verify agent guides customer to relevant assistance for a supported query.",
+      "client_name": "supported_query_guidance",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent guides customer to relevant assistance."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need help with a mobile app issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Directs the user to the mobile support section or agent."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-tool_failure_response-1",
+      "description": "Verify agent provides the correct technical error message when a tool call fails.",
+      "client_name": "simulated_tool_failure",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent responds with the specified technical error message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the price of the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Simulates a tool failure and responds with the error message."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-response_aligned_with_intent-1",
+      "description": "Verify agent's response is aligned with the identified intent category for a product inquiry.",
+      "client_name": "product_inquiry_alignment",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is aligned with the product inquiry intent."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Does the Sunfire Denim come in other colors?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides information about available colors for the Sunfire Denim."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_hallucinated_information-1",
+      "description": "Verify agent does not hallucinate specific business data when asked about stock availability.",
+      "client_name": "no_hallucination_stock",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No hallucinated or fabricated information is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is the Sunfire Denim in stock right now?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not invent stock information and directs to check availability."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-boundaries_communicated_unsupported-1",
+      "description": "Verify agent clearly communicates boundaries for an out-of-scope request.",
+      "client_name": "out_of_scope_boundary_communication",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Boundaries are clearly communicated for unsupported requests."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you help me book a flight?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Clearly states it cannot assist with flight bookings."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-guided_to_supported_help_or_clarification-1",
+      "description": "Verify agent guides customer towards supported help or asks for clarification for a vague query.",
+      "client_name": "vague_query_guidance",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Customer is guided toward supported help or clarification."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a problem."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for clarification to understand the problem."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_hallucination_delivery_date-1",
+      "description": "Verify agent does not hallucinate a delivery date when asked.",
+      "client_name": "no_hallucination_delivery_date",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not hallucinate delivery dates."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "When will my order GV12345 arrive?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not invent a delivery date and directs to check tracking."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_specific_business_data_unsupported-1",
+      "description": "Verify agent does not provide specific order details without tool support.",
+      "client_name": "no_specific_order_details_unsupported",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not provide specific order details without tool support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What was the exact price of order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not provide the exact price and directs to order history or support."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_outside_domain_queries-1",
+      "description": "Verify agent declines to handle queries completely outside the e-commerce domain.",
+      "client_name": "outside_domain_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent declines to handle queries outside the e-commerce domain."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the weather like today?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "States it cannot provide weather information."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_assume_personal_details-1",
+      "description": "Verify agent does not assume or invent personal or order-specific details.",
+      "client_name": "no_assume_personal_details",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not assume or invent personal or order-specific details."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order is late, can you expedite it?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not assume which order is late and asks for clarification."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_unsupported_information-1",
+      "description": "Verify agent does not provide information not explicitly supported by tools and context.",
+      "client_name": "no_unsupported_information",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not provide information not explicitly supported by tools and context."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the manufacturing details of the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "States it does not have access to manufacturing details."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_expose_internal_messages-1",
+      "description": "Verify agent does not expose internal system messages or raw tool errors.",
+      "client_name": "no_expose_internal_messages",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not expose internal system messages or raw tool errors."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy for international orders?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Simulates a tool error and responds with a user-friendly message, not internal details."
+        }
+      ]
+    }
+  ]
+}

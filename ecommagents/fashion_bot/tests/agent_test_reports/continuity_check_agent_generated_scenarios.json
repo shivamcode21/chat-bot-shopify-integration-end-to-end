@@ -1,0 +1,367 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-continuity_check_agent-1",
+      "description": "Tests that agent analyzes entire conversation context for resolution status.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Analyze entire conversation context for resolution status."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I received my order GV12345 yesterday, and it's exactly what I wanted. Thank you!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledges resolution based on multiple turns."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-2",
+      "description": "Tests that agent generates a warm closure message when the conversation is resolved.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a warm closure message when conversation is resolved."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 arrived and it's perfect. Thanks for your help!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a warm closure message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-3",
+      "description": "Tests that agent generates a polite follow-up message when resolution is unclear or pending.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a polite follow-up message when resolution is unclear or pending."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order GV12346."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a polite follow-up message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-4",
+      "description": "Tests that agent outputs only the final customer-facing message text.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Output only the final customer-facing message text."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is my order GV12345 shipped yet?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Outputs only the customer-facing message.",
+          "unexpected_keywords": [
+            "internal_reasoning",
+            "system_message",
+            "analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-5",
+      "description": "Tests that agent maintains a friendly, warm, helpful, and non-pushy tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintain a friendly, warm, helpful, and non-pushy tone."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need help with my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with a friendly and helpful tone.",
+          "unexpected_keywords": [
+            "urgent",
+            "now",
+            "must"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-6",
+      "description": "Tests that agent responds to technical errors with a specific message.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Respond to technical errors with: 'I won\u2019t be able to answer your query due to a technical error.'"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with the technical error message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-7",
+      "description": "Tests that agent does not perform order updates, cancellations, returns, or escalations directly.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not perform order updates, cancellations, returns, or escalations directly."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not perform cancellation directly.",
+          "unexpected_keywords": [
+            "cancelled",
+            "order cancelled"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-8",
+      "description": "Tests that agent does not introduce new information, actions, or assumptions beyond the conversation context.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not introduce new information, actions, or assumptions beyond the conversation context."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy for this item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds based only on provided context.",
+          "unexpected_keywords": [
+            "discount",
+            "new product",
+            "shipping address"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-9",
+      "description": "Tests that agent does not sound urgent, forceful, or sales-driven.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not sound urgent, forceful, or sales-driven."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in buying this product."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds without urgency or sales tactics.",
+          "unexpected_keywords": [
+            "buy now",
+            "limited time",
+            "don't miss out"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-10",
+      "description": "Tests that agent does not include internal reasoning, analysis, or system messages in the output.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not include internal reasoning, analysis, or system messages in the output."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where is my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Outputs only the customer-facing message.",
+          "unexpected_keywords": [
+            "internal_thought",
+            "system_log",
+            "analysis_complete"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-11",
+      "description": "Tests that agent generates a closure message when all customer questions are answered and the customer appears satisfied.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a closure message if all customer questions have been answered, no confirmations/actions/follow-ups are pending, and the customer appears satisfied."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 arrived and it's perfect. Thank you for your help!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a closure message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-12",
+      "description": "Tests that agent generates a follow-up message when there are pending actions or resolution is unclear.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a follow-up message if there are pending actions or resolution is unclear."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order GV12346."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a follow-up message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-13",
+      "description": "Tests that agent does not perform escalations directly.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "The agent does not perform escalations directly."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to speak to a manager about my order issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not perform escalation directly.",
+          "unexpected_keywords": [
+            "escalating",
+            "transferring"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-14",
+      "description": "Tests that agent requires full conversation context up to the current message for assessment.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Requires full conversation context up to the current message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for more context or provides a general helpful response."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-15",
+      "description": "Tests that agent thanks the customer in closure messages.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Thank the customer in closure messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order arrived and it's perfect. Thanks!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Includes thanks in the closure message."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+    "fixture_id": "cross_topic_switch",
+    "description": "User was in a product inquiry flow but now wants to cancel an order. Tests if intent detection correctly switches topics.",
+    "state": {
+        "messages": [
+            {"role": "human", "content": "tell me about the sunfire denim"},
+            {"role": "ai", "content": "The Sunfire Denim is a premium pair of jeans priced at ₹2,999. It's made from 14oz heavyweight cotton denim and available in sizes: 28, 30, 32, 34, 36, 38, 40. Would you like to place an order?"},
+            {"role": "human", "content": "what sizes are available?"},
+            {"role": "ai", "content": "The Sunfire Denim is available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know your size preference!"}
+        ],
+        "phone_number": "9876543210",
+        "client_id": "{{client_id}}",
+        "inquiry_product_info": {
+            "title": "Sunfire Denim",
+            "handle": "sunfire-denim",
+            "price": 2999,
+            "sizes": ["28", "30", "32", "34", "36", "38", "40"]
+        },
+        "known_orders": null,
+        "selected_order_id": null,
+        "conversation_context": {
+            "topic": "product_inquiry",
+            "topic_status": "open",
+            "focal_entity": {
+                "type": "product",
+                "id": "sunfire-denim",
+                "display": "Sunfire Denim - ₹2,999"
+            },
+            "last_skill_node": "product_details"
+        }
+    }
+}
+

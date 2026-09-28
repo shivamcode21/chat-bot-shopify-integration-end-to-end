@@ -1,0 +1,27 @@
+{
+  "default": [
+    "Show me denims",
+    "What is your latest collection?",
+    "I want a Goa look",
+    "Do you have white shirts?",
+    "Track my order"
+  ],
+  "byClientName": {
+    "Concept Groove": [
+      "Show me Goa outfits",
+      "Suggest oversized streetwear",
+      "Do you have white shirts?",
+      "What is your latest collection?",
+      "Track my order"
+    ]
+  },
+  "byDomainSubstring": {
+    "groovee.in": [
+      "Show me Goa outfits",
+      "Suggest oversized streetwear",
+      "Do you have white shirts?",
+      "What is your latest collection?",
+      "Track my order"
+    ]
+  }
+}

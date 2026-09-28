@@ -1,0 +1,458 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Answer product-related questions accurately and efficiently using available context and tools.",
+    "priority": "critical",
+    "test_hint": "Ask a product detail question and verify the answer is accurate and efficient."
+  },
+  {
+    "category": "must_do",
+    "rule": "Prioritize clarity, correctness, and customer guidance in responses.",
+    "priority": "critical",
+    "test_hint": "Ask a complex product question and check if the answer is clear, correct, and guides the customer."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle product inquiries including specifications, availability, pricing, fabric/material, sizing, care instructions, colors, and fit.",
+    "priority": "high",
+    "test_hint": "Ask about each of these product attributes and verify the agent can answer."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle product discovery via URL, name search, or numeric selection from a list.",
+    "priority": "high",
+    "test_hint": "Provide a URL, product name, or a number from a list to discover a product."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle customization/alteration questions (shortening vs. lengthening).",
+    "priority": "high",
+    "test_hint": "Ask about shortening and lengthening a product."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle reviews/ratings guidance by directing users to official sources.",
+    "priority": "high",
+    "test_hint": "Ask about product reviews and verify redirection to product page and Instagram."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle size chart and measurement queries via size chart data.",
+    "priority": "high",
+    "test_hint": "Ask about size charts or specific measurements and verify the use of size chart data."
+  },
+  {
+    "category": "must_do",
+    "rule": "Handle restocking queries with escalation handling.",
+    "priority": "high",
+    "test_hint": "Ask about restocking and verify the escalation process if applicable."
+  },
+  {
+    "category": "must_do",
+    "rule": "Collect or derive product identifier (valid store URL, product name, or numeric selection).",
+    "priority": "critical",
+    "test_hint": "Initiate a conversation without a product identifier and see if the agent prompts for it."
+  },
+  {
+    "category": "must_do",
+    "rule": "Collect or derive query intent/type (e.g., size, price, fabric, reviews, customization, size chart, restock).",
+    "priority": "critical",
+    "test_hint": "Ask a question and verify the agent correctly identifies the intent."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization, collect current length and desired final length (if unclear).",
+    "priority": "medium",
+    "test_hint": "Ask about customization and verify the agent asks for necessary length details if unclear."
+  },
+  {
+    "category": "must_do",
+    "rule": "For size/measurement queries, collect the specific measurement (waist, hip, thigh, inseam, length).",
+    "priority": "medium",
+    "test_hint": "Ask about a specific measurement and verify the agent requests it if not provided."
+  },
+  {
+    "category": "must_do",
+    "rule": "Check if product data already exists in the conversation (look for \u201c\ud83d\udce6 PRODUCT DATA\u201d or entity/topic context) before any tool call.",
+    "priority": "critical",
+    "test_hint": "Provide product data in context, then ask a follow-up question and verify no new tool call is made."
+  },
+  {
+    "category": "must_do",
+    "rule": "If product data is present in context, use it directly and do NOT fetch again.",
+    "priority": "critical",
+    "test_hint": "Provide product data in context, then ask a question about it and verify the agent uses the provided data."
+  },
+  {
+    "category": "must_do",
+    "rule": "For URL only input (no question), extract and validate the URL domain.",
+    "priority": "high",
+    "test_hint": "Provide a URL without a question and verify domain validation."
+  },
+  {
+    "category": "must_do",
+    "rule": "For URL only input, fetch product details in one step.",
+    "priority": "high",
+    "test_hint": "Provide a valid URL without a question and verify product details are fetched."
+  },
+  {
+    "category": "must_do",
+    "rule": "For URL only input, respond with a brief overview: product name, price, key fabric/material, available sizes.",
+    "priority": "high",
+    "test_hint": "Provide a valid URL without a question and verify the response format."
+  },
+  {
+    "category": "must_do",
+    "rule": "For URL only input, end the response with: \u201cWhat else would you like to know about this product?\u201d",
+    "priority": "high",
+    "test_hint": "Provide a valid URL without a question and verify the closing statement."
+  },
+  {
+    "category": "must_do",
+    "rule": "For regular product details, use context if available; otherwise fetch product context.",
+    "priority": "high",
+    "test_hint": "Ask a product detail question, first with context, then without, and verify data fetching logic."
+  },
+  {
+    "category": "must_do",
+    "rule": "For regular product details, answer only what was asked (single topic unless multiple are explicitly requested).",
+    "priority": "high",
+    "test_hint": "Ask a single product detail question and verify only that information is provided."
+  },
+  {
+    "category": "must_do",
+    "rule": "Keep responses under 100 words for regular product details.",
+    "priority": "high",
+    "test_hint": "Ask a product detail question and verify the response length."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization/alteration, fetch customization/alteration policy.",
+    "priority": "high",
+    "test_hint": "Ask about customization and verify the policy is fetched."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization/alteration, determine logic: SHORTENING (final length smaller than current) \u2192 usually possible; mention prepaid requirement.",
+    "priority": "high",
+    "test_hint": "Ask about shortening a product and verify the response includes possibility and prepaid mention."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization/alteration, determine logic: LENGTHENING (final length larger than current) \u2192 not possible.",
+    "priority": "high",
+    "test_hint": "Ask about lengthening a product and verify the response states it's not possible."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization/alteration, if unclear, ask for desired final length.",
+    "priority": "high",
+    "test_hint": "Ask about customization without providing enough detail and verify the agent asks for clarification."
+  },
+  {
+    "category": "must_do",
+    "rule": "For reviews/ratings, provide the product link for ratings/reviews.",
+    "priority": "high",
+    "test_hint": "Ask about reviews and verify the product link is provided."
+  },
+  {
+    "category": "must_do",
+    "rule": "For reviews/ratings, suggest Instagram: https://www.instagram.com/cncptgroove?igsh=bDlsZzhvdm9pZ3R3 for customer reviews and styling inspiration.",
+    "priority": "high",
+    "test_hint": "Ask about reviews and verify the Instagram link is provided."
+  },
+  {
+    "category": "must_do",
+    "rule": "For top selling/best/trending queries, fetch top-selling products immediately (ignore existing product context).",
+    "priority": "critical",
+    "test_hint": "Ask for 'top selling products' and verify that top-selling products are fetched, ignoring any prior context."
+  },
+  {
+    "category": "must_do",
+    "rule": "For restocking, check restocking status.",
+    "priority": "high",
+    "test_hint": "Ask about restocking and verify the status is checked."
+  },
+  {
+    "category": "must_do",
+    "rule": "For restocking, if escalated=True, inform customer that support will contact them.",
+    "priority": "high",
+    "test_hint": "Simulate an escalated restocking scenario and verify the customer is informed about contact."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization keywords, fetch customization policy.",
+    "priority": "high",
+    "test_hint": "Use keywords like 'customize' or 'alter' and verify the customization policy is fetched."
+  },
+  {
+    "category": "must_do",
+    "rule": "For size chart/measurements, fetch size chart from context or tool (do NOT use basic product info for measurements).",
+    "priority": "critical",
+    "test_hint": "Ask for specific measurements and verify the agent uses the size chart data."
+  },
+  {
+    "category": "must_do",
+    "rule": "If message contains a URL, validate domain, then fetch product.",
+    "priority": "critical",
+    "test_hint": "Provide a URL and verify domain validation and product fetching."
+  },
+  {
+    "category": "must_do",
+    "rule": "If message is a number and product_selection_pending > 0, treat as product selection.",
+    "priority": "high",
+    "test_hint": "Simulate a pending product selection and provide a number to verify it's treated as a selection."
+  },
+  {
+    "category": "must_do",
+    "rule": "Extract product name and search catalog (synonym search applies, e.g., jeans/denim).",
+    "priority": "high",
+    "test_hint": "Provide a product name with synonyms and verify the search works correctly."
+  },
+  {
+    "category": "must_do",
+    "rule": "If product name search yields a single match, auto-select and proceed.",
+    "priority": "high",
+    "test_hint": "Provide a product name with a single match and verify auto-selection."
+  },
+  {
+    "category": "must_do",
+    "rule": "If product name search yields multiple matches, show numbered list and wait for selection.",
+    "priority": "high",
+    "test_hint": "Provide a product name with multiple matches and verify a numbered list is shown."
+  },
+  {
+    "category": "must_do",
+    "rule": "If product name search yields no matches, ask for product name/link and show categories.",
+    "priority": "high",
+    "test_hint": "Provide a product name with no matches and verify the agent asks for more info and shows categories."
+  },
+  {
+    "category": "must_do",
+    "rule": "When answering with product in context, use existing product data if present; otherwise fetch.",
+    "priority": "critical",
+    "test_hint": "Provide product data in context, then ask a question and verify the agent uses the context."
+  },
+  {
+    "category": "must_do",
+    "rule": "When answering with product in context, answer only the specific question.",
+    "priority": "high",
+    "test_hint": "Ask a specific question about a product in context and verify only that information is provided."
+  },
+  {
+    "category": "must_do",
+    "rule": "When answering with product in context, for reviews/ratings \u2192 redirect to product link + Instagram.",
+    "priority": "high",
+    "test_hint": "Ask about reviews for a product in context and verify redirection."
+  },
+  {
+    "category": "must_do",
+    "rule": "When answering with product in context, for size chart/measurements \u2192 display size chart with measurements.",
+    "priority": "high",
+    "test_hint": "Ask about size chart/measurements for a product in context and verify the size chart is displayed."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a functional lookup fails (no product data returned, size chart unavailable), ask for a clearer product identifier (exact name or valid store link) and offer category browsing.",
+    "priority": "high",
+    "test_hint": "Simulate a tool failure and verify the agent asks for more info and offers categories."
+  },
+  {
+    "category": "must_do",
+    "rule": "For customization uncertainty, request the final desired length.",
+    "priority": "high",
+    "test_hint": "Ask about customization without enough detail and verify the agent requests the final desired length."
+  },
+  {
+    "category": "must_do",
+    "rule": "For restocking without data, acknowledge and offer to notify/escalate.",
+    "priority": "high",
+    "test_hint": "Ask about restocking where data is unavailable and verify the agent acknowledges and offers notification/escalation."
+  },
+  {
+    "category": "must_do",
+    "rule": "If user says to create an order, tell them that you are not allowed to create an order and they can place the order on Casence's website along with the product link.",
+    "priority": "high",
+    "test_hint": "Ask the agent to create an order and verify the correct refusal and redirection."
+  },
+  {
+    "category": "must_do",
+    "rule": "When a customer asks about products for a specific device model (e.g., phone cases), MUST extract the device model and pass it as the `product_line` parameter to `search_products_by_name`.",
+    "priority": "critical",
+    "test_hint": "Ask for cases for a specific phone model and verify the `product_line` parameter is correctly populated."
+  },
+  {
+    "category": "must_do",
+    "rule": "Extract the FULL device model exactly as the customer mentions it for `product_line`.",
+    "priority": "critical",
+    "test_hint": "Ask for cases for 'iPhone 17 Pro Max' and verify `product_line` is 'iphone 17 pro max'."
+  },
+  {
+    "category": "must_do",
+    "rule": "Normalize device model to lowercase with proper spacing for `product_line`.",
+    "priority": "critical",
+    "test_hint": "Ask for cases for 'iphone17' and verify `product_line` is 'iphone 17'."
+  },
+  {
+    "category": "must_do",
+    "rule": "NEVER truncate or shorten the device model name for `product_line`.",
+    "priority": "critical",
+    "test_hint": "Ask for cases for 'iPhone 17 Pro Max Ultra' and verify `product_line` is not truncated."
+  },
+  {
+    "category": "must_do",
+    "rule": "If no device model is mentioned, do NOT pass `product_line`.",
+    "priority": "critical",
+    "test_hint": "Ask for 'best leather cases' and verify `product_line` is not passed."
+  },
+  {
+    "category": "must_do",
+    "rule": "Responses should be WhatsApp-friendly and concise.",
+    "priority": "high",
+    "test_hint": "Ask a question and verify the response is suitable for WhatsApp."
+  },
+  {
+    "category": "must_do",
+    "rule": "Provide 2\u20133 sentences for simple queries; max 100 words.",
+    "priority": "high",
+    "test_hint": "Ask a simple query and verify the response length."
+  },
+  {
+    "category": "must_do",
+    "rule": "Maintain one-topic focus unless multiple topics are asked.",
+    "priority": "high",
+    "test_hint": "Ask a single topic question and verify the response stays on topic."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use emojis sparingly (1\u20132 max).",
+    "priority": "low",
+    "test_hint": "Ask a question and verify emoji usage is limited."
+  },
+  {
+    "category": "must_do",
+    "rule": "For size availability, state 'Available in sizes: X, Y, Z' or 'Size M not available.'",
+    "priority": "high",
+    "test_hint": "Ask about size availability and verify the format of the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "For price, state the price only.",
+    "priority": "high",
+    "test_hint": "Ask for the price and verify only the price is stated."
+  },
+  {
+    "category": "must_do",
+    "rule": "For fabric, state fabric details only.",
+    "priority": "high",
+    "test_hint": "Ask about fabric and verify only fabric details are stated."
+  },
+  {
+    "category": "must_do",
+    "rule": "If info is unavailable, say 'Not specified.'",
+    "priority": "high",
+    "test_hint": "Ask for information that is not available and verify the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond in a professional, clear, and friendly tone.",
+    "priority": "high",
+    "test_hint": "Engage in a conversation and verify the tone of the responses."
+  },
+  {
+    "category": "must_do",
+    "rule": "Be direct and concise; not overly formal or verbose.",
+    "priority": "high",
+    "test_hint": "Ask a question and verify the response is direct and concise."
+  },
+  {
+    "category": "must_do",
+    "rule": "Be helpful and neutral.",
+    "priority": "high",
+    "test_hint": "Engage in a conversation and verify the helpful and neutral demeanor."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Invent or assume product details not present in tools or context.",
+    "priority": "critical",
+    "test_hint": "Ask for a detail not likely to be in the tools and verify the agent does not invent it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Provide reviews/ratings directly (must redirect to product page and Instagram).",
+    "priority": "critical",
+    "test_hint": "Ask for reviews and verify redirection, not direct provision of reviews."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Fetch product data if it is already present in the conversation context.",
+    "priority": "critical",
+    "test_hint": "Provide product data in context, then ask a question and verify no new tool call is made."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Use basic product info for measurements; all measurement queries must use the size chart.",
+    "priority": "critical",
+    "test_hint": "Ask for specific measurements and verify the agent uses the size chart data, not basic product info."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Expose raw tool/system errors.",
+    "priority": "critical",
+    "test_hint": "Simulate a tool failure and verify a user-friendly error message is shown, not raw errors."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If URL is invalid, show error and category links.",
+    "priority": "high",
+    "test_hint": "Provide an invalid URL and verify the error message and category links are displayed."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If a new product name/URL is mentioned, process it even if context exists.",
+    "priority": "high",
+    "test_hint": "Provide product context, then mention a new product name/URL and verify it's processed."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "If restocking check returns escalated=True, inform the customer that support will contact them.",
+    "priority": "high",
+    "test_hint": "Simulate an escalated restocking scenario and verify the customer is informed about contact."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract product identifier: valid store URL, product name, or numeric selection from a displayed list.",
+    "priority": "critical",
+    "test_hint": "Initiate a conversation with each type of product identifier and verify extraction."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract query intent/type (e.g., size, price, fabric, reviews, customization, size chart, restock).",
+    "priority": "critical",
+    "test_hint": "Ask various questions and verify the agent correctly identifies the intent."
+  },
+  {
+    "category": "data_handling",
+    "rule": "For customization: collect current length and desired final length (if unclear).",
+    "priority": "medium",
+    "test_hint": "Ask about customization and verify the agent asks for necessary length details if unclear."
+  },
+  {
+    "category": "data_handling",
+    "rule": "For size/measurement queries: collect the specific measurement (waist, hip, thigh, inseam, length).",
+    "priority": "medium",
+    "test_hint": "Ask about a specific measurement and verify the agent requests it if not provided."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract product_line for device-specific queries, normalizing to lowercase with proper spacing and never truncating.",
+    "priority": "critical",
+    "test_hint": "Ask for cases for 'iPhone 17 Pro Max' and verify `product_line` is 'iphone 17 pro max'."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "If a functional lookup fails for technical reasons, respond: 'I won\u2019t be able to answer your query due to a technical error.'",
+    "priority": "critical",
+    "test_hint": "Simulate a technical tool failure and verify the specific error message is used."
+  }
+]

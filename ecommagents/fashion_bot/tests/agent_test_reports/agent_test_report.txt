@@ -1,0 +1,221 @@
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              Agent Test Suite — Context-Aware Report                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Generated: 2026-02-17 11:55:33
+
+📊 SUMMARY
+═══════════════════════════════════════════════════════════════════════════════
+• Total Tests:    8
+• Passed:         6
+• Failed:         2
+• Pass Rate:      75.0%
+• Status:         ✅ PASS
+
+🎯 SCORES (Average)
+═══════════════════════════════════════════════════════════════════════════════
+• Base LLM Score:     3.62/5.0
+• Context Score:      4.28/5.0
+• Combined Score:     3.95/5.0
+
+🔍 PER-TEST DETAILS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. ctx-1-cancellation-cold-start ❌ FAIL
+───────────────────────────────────────────────────────────────────────────
+   Description:  Full cancellation flow from scratch - user provides phone, confirms order, gives reason
+   Client:       casence
+   Fixture:      cold_start
+   Combined:     2.55/5.0
+   Base Score:   2.5/5.0
+   Context Score: 2.6/5.0
+     • context_utilization: 1/5 — The pre-seeded state was empty. The bot's first response correctly identified th
+     • no_redundant_questions: 1/5 — In Turn 1, the bot correctly asked for the order to cancel. In Turn 2, the custo
+     • flow_continuity: 1/5 — The bot did not have any waiting_for_* flags set from the pre-seeded state. In T
+     • correct_routing: 5/5 — The target agent is 'cancel_or_update_order'. The customer's initial intent was 
+     • prompt_compliance: 4/5 — The bot correctly identified the need to ask for the order to cancel and present
+
+   🔧 Tool Calls (6): get_recent_orders_tool → store_cancellation_reason → add_order_note_shopify_tool → add_order_note_shopify_tool → extract_phone_from_message → get_recent_orders_tool
+
+   Conversation:
+     Customer: I want to cancel my order
+     Bot:      I see you have two recent orders. To confirm, which order would you like to cancel?
+
+📦 Order: GV12345 (Sunfire Denim, ₹2999)
+📦 Order: GV12346 (Evolve Shacket, ₹1999)
+
+Please reply with the Order ID (e...
+     Tools:    get_recent_orders_tool → store_cancellation_reason → add_order_note_shopify_tool → add_order_note_shopify_tool
+
+     Customer: 9876543210
+     Bot:      I see you have two recent orders. To confirm, which order would you like to cancel?
+
+📦 Order: GV12345 (Sunfire Denim, ₹2999)
+📦 Order: GV12346 (Evolve Shacket, ₹1999)
+
+Please reply with the Order ID (e...
+     Tools:    extract_phone_from_message → get_recent_orders_tool
+
+   Timing: conv=18.9s eval=5.3s
+
+2. ctx-2-cancellation-mid-flow-reason ❌ FAIL
+───────────────────────────────────────────────────────────────────────────
+   Description:  User provides cancellation reason when agent is waiting for it - tests flow continuity
+   Client:       casence
+   Fixture:      mid_cancellation_flow
+   Combined:     3.35/5.0
+   Base Score:   2.5/5.0
+   Context Score: 4.2/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the pre-seeded context by referencing the order ID (G
+     • no_redundant_questions: 5/5 — The bot did not ask for the phone number or order ID, as this information was al
+     • flow_continuity: 4/5 — The bot treated the customer's message as a continuation of the conversation, as
+     • correct_routing: 4/5 — The bot correctly identified the intent as related to order modification and can
+     • prompt_compliance: 3/5 — The bot incorrectly cancelled the order directly instead of escalating per polic
+
+   🔧 Tool Calls (3): store_cancellation_reason → cancel_order_in_shopify_tool → cancel_order_in_shiprocket_tool
+   🔴 FORBIDDEN: cancel_order_in_shopify_tool, cancel_order_in_shiprocket_tool
+   ⚠️  MISSING: trigger_agent_escalation, add_order_note_shopify_tool
+
+   Conversation:
+     Customer: wrong size ordered
+     Bot:      Your order GV12345 - Sunfire Denim (Size 32) for ₹2,999 has been cancelled. You'll receive a confirmation email shortly.
+     Tools:    store_cancellation_reason → cancel_order_in_shopify_tool → cancel_order_in_shiprocket_tool
+
+   Timing: conv=6.2s eval=4.9s
+
+3. ctx-3-product-page-context-inquiry ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  User asks about product while on product page - should use page_context without asking for URL
+   Client:       casence
+   Fixture:      product_page_context
+   Combined:     4.5/5.0
+   Base Score:   4.0/5.0
+   Context Score: 5.0/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the 'product - Sunfire Denim' page context to answer 
+     • no_redundant_questions: 5/5 — The bot did not ask for a URL, link, or which product, as it already had the pro
+     • flow_continuity: 5/5 — There were no waiting_for_* flags set, so this criterion is not directly applica
+     • correct_routing: 5/5 — The bot correctly identified the intent as product_details and handled it approp
+     • prompt_compliance: 5/5 — The bot followed all specified behavioral rules. It provided product details dir
+
+   🔧 Tool Calls (1): get_product_info_from_context
+
+   Conversation:
+     Customer: what is the price of this?
+     Bot:      Price: ₹2,999.
+     Tools:    get_product_info_from_context
+
+   Timing: conv=4.6s eval=4.4s
+
+4. ctx-4-identified-user-no-repeat-phone ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  User already identified by phone - agent should NOT ask for phone again
+   Client:       casence
+   Fixture:      identified_user_with_orders
+   Combined:     4.4/5.0
+   Base Score:   4.0/5.0
+   Context Score: 4.8/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the pre-seeded context by referencing the order numbe
+     • no_redundant_questions: 5/5 — The bot did not ask for the phone number, which was known. It also correctly ide
+     • flow_continuity: 5/5 — The conversation was in the 'order_modification' topic, and the bot treated the 
+     • correct_routing: 5/5 — The message was correctly handled by the 'cancel_or_update_order' agent as it di
+     • prompt_compliance: 4/5 — The bot followed the prompt by directly addressing the cancellation of GV12346. 
+
+   Conversation:
+     Customer: cancel GV12346
+     Bot:      I understand you want to cancel order GV12346. Before I proceed, could you please provide the reason for cancellation? This helps us improve our service. 😊
+
+   Timing: conv=4.4s eval=4.5s
+
+5. ctx-5-cross-topic-product-to-cancel ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  User switches from product inquiry to cancellation - tests topic switching
+   Client:       casence
+   Fixture:      cross_topic_switch
+   Combined:     4.0/5.0
+   Base Score:   4.0/5.0
+   Context Score: 4.0/5.0
+     • context_utilization: 4/5 — The bot correctly identified the customer's intent to cancel, which is a modific
+     • no_redundant_questions: 4/5 — The bot did not ask for the phone number or product details, which it already ha
+     • flow_continuity: 4/5 — The bot treated the message as a continuation of the conversation, recognizing t
+     • correct_routing: 4/5 — The bot correctly identified the need to handle an order cancellation and initia
+     • prompt_compliance: 4/5 — The bot correctly detected the cancellation intent despite the prior context and
+
+   Conversation:
+     Customer: actually I want to cancel one of my orders
+     Bot:      I can help with that. Please share the Order ID of the order you'd like to cancel.
+
+   Timing: conv=3.9s eval=4.6s
+
+6. ctx-6-cancellation-size-issue-should-offer-fix ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  User says wrong size as reason - agent should offer size change FIRST per prompt rules
+   Client:       casence
+   Fixture:      cold_start
+   Combined:     4.2/5.0
+   Base Score:   4.0/5.0
+   Context Score: 4.4/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the pre-seeded context by identifying the order (GV12
+     • no_redundant_questions: 5/5 — The bot did not ask for redundant information like phone number or order details
+     • flow_continuity: 4/5 — The bot correctly interpreted the customer's message as a continuation of the or
+     • correct_routing: 4/5 — The bot correctly identified that the intent was related to modifying or cancell
+     • prompt_compliance: 4/5 — The bot followed the prompt's behavioral rules by offering a size change (exchan
+
+   🔧 Tool Calls (2): extract_phone_from_message → get_recent_orders_tool
+
+   Conversation:
+     Customer: I ordered wrong size, I want to cancel
+     Bot:      I see you ordered the wrong size and want to cancel. Would you like to exchange it for the correct size instead?
+
+Your recent order GV12345 (Sunfire Denim, Size: 32) is ₹2999.
+
+Let me know if you'd pr...
+     Tools:    extract_phone_from_message → get_recent_orders_tool
+
+   Timing: conv=6.8s eval=4.8s
+
+7. ctx-7-address-update-no-ask-name ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  Address update should auto-fill name and phone - only ask for address fields
+   Client:       casence
+   Fixture:      cold_start
+   Combined:     4.4/5.0
+   Base Score:   4.0/5.0
+   Context Score: 4.8/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the pre-seeded context by directly referencing order 
+     • no_redundant_questions: 5/5 — The bot did not ask for redundant information such as phone number or order deta
+     • flow_continuity: 5/5 — The bot treated the customer's message as a continuation of the interaction, dir
+     • correct_routing: 5/5 — The message was correctly handled by the 'cancel_or_update_order' agent as it pe
+     • prompt_compliance: 4/5 — The bot followed the expected behavior of updating the delivery address. However
+
+   🔧 Tool Calls (2): get_order_details_from_shopify_tool → update_order_address
+
+   Conversation:
+     Customer: I need to update my delivery address for order GV12345
+     Bot:      I've updated the delivery address for your order GV12345 to 123 Main Street, New Delhi, Delhi, 110001.
+     Tools:    get_order_details_from_shopify_tool → update_order_address
+
+   Timing: conv=7.3s eval=4.7s
+
+8. ctx-8-multi-order-selection ✅ PASS
+───────────────────────────────────────────────────────────────────────────
+   Description:  User has multiple orders - agent should ask which one, not just pick first
+   Client:       casence
+   Fixture:      identified_user_with_orders
+   Combined:     4.2/5.0
+   Base Score:   4.0/5.0
+   Context Score: 4.4/5.0
+     • context_utilization: 5/5 — The bot correctly utilized the pre-seeded context by recognizing the open topic 
+     • no_redundant_questions: 4/5 — The bot correctly avoided asking for the phone number. It did ask for the Order 
+     • flow_continuity: 4/5 — The bot correctly interpreted the customer's message as a continuation of the 'o
+     • correct_routing: 5/5 — The bot correctly identified that the customer's intent to 'cancel my order' fal
+     • prompt_compliance: 4/5 — The bot followed the expected behavior by presenting both known orders and askin
+
+   🔧 Tool Calls (2): get_order_details_from_shopify_tool → get_order_details_from_shopify_tool
+
+   Conversation:
+     Customer: I want to cancel my order
+     Bot:      To cancel an order, please confirm the Order ID (GV12345 or GV12346) you'd like to cancel.
+     Tools:    get_order_details_from_shopify_tool → get_order_details_from_shopify_tool
+
+   Timing: conv=6.8s eval=4.6s

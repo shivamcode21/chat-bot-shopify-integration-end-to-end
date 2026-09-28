@@ -1,0 +1,82 @@
+<svg width="1400" height="860" viewBox="0 0 1400 860" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1400" y2="860" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8FA"/>
+      <stop offset="1" stop-color="#F5ECEF"/>
+    </linearGradient>
+    <linearGradient id="p1" x1="0" y1="0" x2="340" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8A5B63"/>
+      <stop offset="0.48" stop-color="#C28C8B"/>
+      <stop offset="1" stop-color="#E9C9C3"/>
+    </linearGradient>
+    <linearGradient id="p2" x1="0" y1="0" x2="340" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6E4B44"/>
+      <stop offset="0.5" stop-color="#B37C74"/>
+      <stop offset="1" stop-color="#E6C1B6"/>
+    </linearGradient>
+    <linearGradient id="p3" x1="0" y1="0" x2="340" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#70465A"/>
+      <stop offset="0.52" stop-color="#A96C82"/>
+      <stop offset="1" stop-color="#DDB1C0"/>
+    </linearGradient>
+    <linearGradient id="p4" x1="0" y1="0" x2="340" y2="78" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9A6E67"/>
+      <stop offset="0.5" stop-color="#D4A79B"/>
+      <stop offset="1" stop-color="#F4DDD3"/>
+    </linearGradient>
+    <filter id="shadow2" x="-20%" y="-60%" width="140%" height="220%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#8F6670" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1400" height="860" rx="28" fill="url(#bg2)"/>
+
+  <text x="70" y="92" fill="#4A3138" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700">
+    Underneat Launcher Alternate Palettes
+  </text>
+  <text x="70" y="128" fill="#74545E" font-family="Arial, Helvetica, sans-serif" font-size="21">
+    Softer, warmer options beyond the first pink set
+  </text>
+
+  <g transform="translate(70 190)">
+    <text x="0" y="-20" fill="#62464E" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">1. Soft Nude Rose</text>
+    <rect x="0" y="0" width="340" height="78" rx="39" fill="url(#p1)" filter="url(#shadow2)"/>
+    <text x="28" y="48" fill="#FFF9FB" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="290" cy="39" r="28" fill="rgba(255,255,255,0.18)"/>
+    <text x="0" y="118" fill="#7A5E67" font-family="Arial, Helvetica, sans-serif" font-size="18">#8A5B63 → #C28C8B → #E9C9C3</text>
+  </g>
+
+  <g transform="translate(500 190)">
+    <text x="0" y="-20" fill="#62464E" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">2. Warm Cocoa Blush</text>
+    <rect x="0" y="0" width="340" height="78" rx="39" fill="url(#p2)" filter="url(#shadow2)"/>
+    <text x="28" y="48" fill="#FFF9FB" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="290" cy="39" r="28" fill="rgba(255,255,255,0.18)"/>
+    <text x="0" y="118" fill="#7A5E67" font-family="Arial, Helvetica, sans-serif" font-size="18">#6E4B44 → #B37C74 → #E6C1B6</text>
+  </g>
+
+  <g transform="translate(930 190)">
+    <text x="0" y="-20" fill="#62464E" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">3. Plum Rose</text>
+    <rect x="0" y="0" width="340" height="78" rx="39" fill="url(#p3)" filter="url(#shadow2)"/>
+    <text x="28" y="48" fill="#FFF9FB" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="290" cy="39" r="28" fill="rgba(255,255,255,0.18)"/>
+    <text x="0" y="118" fill="#7A5E67" font-family="Arial, Helvetica, sans-serif" font-size="18">#70465A → #A96C82 → #DDB1C0</text>
+  </g>
+
+  <g transform="translate(285 470)">
+    <text x="0" y="-20" fill="#62464E" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700">4. Champagne Blush</text>
+    <rect x="0" y="0" width="340" height="78" rx="39" fill="url(#p4)" filter="url(#shadow2)"/>
+    <text x="28" y="48" fill="#FFF9FB" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="290" cy="39" r="28" fill="rgba(255,255,255,0.18)"/>
+    <text x="0" y="118" fill="#7A5E67" font-family="Arial, Helvetica, sans-serif" font-size="18">#9A6E67 → #D4A79B → #F4DDD3</text>
+  </g>
+
+  <g transform="translate(780 470)">
+    <text x="0" y="8" fill="#4A3138" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">My pick from this set</text>
+    <text x="0" y="56" fill="#6E525B" font-family="Arial, Helvetica, sans-serif" font-size="24">
+      Warm Cocoa Blush feels the most premium and unique.
+    </text>
+    <text x="0" y="100" fill="#6E525B" font-family="Arial, Helvetica, sans-serif" font-size="24">
+      Soft Nude Rose is the safer, softer choice.
+    </text>
+  </g>
+</svg>

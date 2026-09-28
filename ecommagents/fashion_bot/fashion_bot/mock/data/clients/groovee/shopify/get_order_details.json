@@ -1,0 +1,192 @@
+{
+  "scenarios": {
+    "fulfilled": {
+      "order": {
+        "id": 5678901234,
+        "admin_graphql_api_id": "gid://shopify/Order/5678901234",
+        "name": "#GRV1001",
+        "order_number": 1001,
+        "email": "rahul.sharma@example.com",
+        "created_at": "2025-12-01T10:30:00Z",
+        "updated_at": "2025-12-05T14:00:00Z",
+        "financial_status": "paid",
+        "fulfillment_status": "fulfilled",
+        "total_price": "2999.00",
+        "subtotal_price": "2999.00",
+        "total_tax": "0.00",
+        "total_discounts": "0.00",
+        "currency": "INR",
+        "phone": "+919876543210",
+        "note": null,
+        "tags": "",
+        "line_items": [
+          {
+            "id": 12345678901,
+            "name": "Cosmic Shacket - M",
+            "title": "Cosmic Shacket",
+            "variant_title": "M",
+            "quantity": 1,
+            "price": "2999.00",
+            "sku": "CS-M-001",
+            "product_id": 987654321,
+            "variant_id": 456789012
+          }
+        ],
+        "shipping_address": {
+          "first_name": "Rahul",
+          "last_name": "Sharma",
+          "name": "Rahul Sharma",
+          "address1": "123 Test Street",
+          "address2": "Apt 4B",
+          "city": "Mumbai",
+          "province": "Maharashtra",
+          "province_code": "MH",
+          "zip": "400001",
+          "country": "India",
+          "country_code": "IN",
+          "phone": "+919876543210"
+        },
+        "billing_address": {
+          "first_name": "Rahul",
+          "last_name": "Sharma",
+          "name": "Rahul Sharma",
+          "address1": "123 Test Street",
+          "city": "Mumbai",
+          "province": "Maharashtra",
+          "zip": "400001",
+          "country": "India",
+          "phone": "+919876543210"
+        },
+        "customer": {
+          "id": 111222333,
+          "first_name": "Rahul",
+          "last_name": "Sharma",
+          "email": "rahul.sharma@example.com",
+          "phone": "+919876543210",
+          "orders_count": 3
+        },
+        "fulfillments": [
+          {
+            "id": 99988877,
+            "status": "success",
+            "created_at": "2025-12-02T09:00:00Z",
+            "tracking_company": "Bluedart",
+            "tracking_number": "SRKT123456789",
+            "tracking_url": "https://shiprocket.co/tracking/SRKT123456789"
+          }
+        ]
+      }
+    },
+    "pending": {
+      "order": {
+        "id": 5678901235,
+        "admin_graphql_api_id": "gid://shopify/Order/5678901235",
+        "name": "#GRV1002",
+        "order_number": 1002,
+        "email": "priya.patel@example.com",
+        "created_at": "2025-12-06T09:00:00Z",
+        "updated_at": "2025-12-06T09:00:00Z",
+        "financial_status": "paid",
+        "fulfillment_status": null,
+        "total_price": "1499.00",
+        "subtotal_price": "1499.00",
+        "total_tax": "0.00",
+        "total_discounts": "0.00",
+        "currency": "INR",
+        "phone": "+919876543211",
+        "note": null,
+        "tags": "",
+        "line_items": [
+          {
+            "id": 12345678902,
+            "name": "Classic Tee - L",
+            "title": "Classic Tee",
+            "variant_title": "L",
+            "quantity": 1,
+            "price": "1499.00",
+            "sku": "CT-L-001",
+            "product_id": 987654322,
+            "variant_id": 456789013
+          }
+        ],
+        "shipping_address": {
+          "first_name": "Priya",
+          "last_name": "Patel",
+          "name": "Priya Patel",
+          "address1": "456 Main Road",
+          "city": "Bangalore",
+          "province": "Karnataka",
+          "province_code": "KA",
+          "zip": "560001",
+          "country": "India",
+          "country_code": "IN",
+          "phone": "+919876543211"
+        },
+        "customer": {
+          "id": 111222334,
+          "first_name": "Priya",
+          "last_name": "Patel",
+          "email": "priya.patel@example.com",
+          "phone": "+919876543211",
+          "orders_count": 1
+        },
+        "fulfillments": []
+      }
+    },
+    "cancelled": {
+      "order": {
+        "id": 5678901236,
+        "admin_graphql_api_id": "gid://shopify/Order/5678901236",
+        "name": "#GRV1003",
+        "order_number": 1003,
+        "email": "amit.kumar@example.com",
+        "created_at": "2025-12-03T15:00:00Z",
+        "updated_at": "2025-12-04T10:00:00Z",
+        "cancelled_at": "2025-12-04T10:00:00Z",
+        "financial_status": "refunded",
+        "fulfillment_status": null,
+        "total_price": "3499.00",
+        "currency": "INR",
+        "phone": "+919876543212",
+        "cancel_reason": "customer",
+        "line_items": [
+          {
+            "id": 12345678903,
+            "name": "Premium Hoodie - XL",
+            "title": "Premium Hoodie",
+            "variant_title": "XL",
+            "quantity": 1,
+            "price": "3499.00"
+          }
+        ],
+        "shipping_address": {
+          "first_name": "Amit",
+          "last_name": "Kumar",
+          "city": "Delhi",
+          "province": "Delhi",
+          "zip": "110001",
+          "country": "India"
+        },
+        "customer": {
+          "id": 111222335,
+          "first_name": "Amit",
+          "last_name": "Kumar",
+          "email": "amit.kumar@example.com",
+          "phone": "+919876543212"
+        }
+      }
+    }
+  },
+  "default_scenario": "fulfilled",
+  "mapping": {
+    "GRV1001": "fulfilled",
+    "GRV1002": "pending",
+    "GRV1003": "cancelled",
+    "1001": "fulfilled",
+    "1002": "pending",
+    "1003": "cancelled",
+    "#GRV1001": "fulfilled",
+    "#GRV1002": "pending",
+    "#GRV1003": "cancelled"
+  }
+}

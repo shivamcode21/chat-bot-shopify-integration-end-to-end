@@ -1,0 +1,57 @@
+{
+  "scenarios": {
+    "multiple_orders": {
+      "orders": [
+        {
+          "id": 5678901234,
+          "name": "#GRV1001",
+          "order_number": 1001,
+          "email": "customer@groovee.in",
+          "created_at": "2025-12-01T10:30:00Z",
+          "financial_status": "paid",
+          "fulfillment_status": "fulfilled",
+          "total_price": "2999.00",
+          "currency": "INR"
+        },
+        {
+          "id": 5678901235,
+          "name": "#GRV1002",
+          "order_number": 1002,
+          "email": "customer@groovee.in",
+          "created_at": "2025-12-06T09:00:00Z",
+          "financial_status": "paid",
+          "fulfillment_status": "pending",
+          "total_price": "1499.00",
+          "currency": "INR"
+        }
+      ]
+    },
+    "single_order": {
+      "orders": [
+        {
+          "id": 5678901234,
+          "name": "#GRV1001",
+          "order_number": 1001,
+          "email": "customer@groovee.in",
+          "created_at": "2025-12-01T10:30:00Z",
+          "financial_status": "paid",
+          "fulfillment_status": "fulfilled",
+          "total_price": "2999.00",
+          "currency": "INR"
+        }
+      ]
+    },
+    "no_orders": {
+      "orders": []
+    }
+  },
+  "default_scenario": "multiple_orders",
+  "mapping": {
+    "+919876543210": "multiple_orders",
+    "9876543210": "multiple_orders",
+    "+919876543211": "single_order",
+    "9876543211": "single_order",
+    "+919999999999": "no_orders"
+  }
+}
+

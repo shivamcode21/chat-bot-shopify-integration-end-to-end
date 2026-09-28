@@ -1,0 +1,350 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Always follow the predefined first action instruction provided in system state before any other step.",
+    "priority": "critical",
+    "test_hint": "Initiate a return/exchange request and verify the agent performs the system-defined first action."
+  },
+  {
+    "category": "must_do",
+    "rule": "Attempt to extract an Order ID from the customer message if no order ID is in state.",
+    "priority": "critical",
+    "test_hint": "Send a message without an order ID and verify the agent tries to extract it."
+  },
+  {
+    "category": "must_do",
+    "rule": "If Order ID is not found and a 10-digit phone number is present, extract the phone number first, then fetch delivered orders.",
+    "priority": "critical",
+    "test_hint": "Provide a 10-digit phone number without an order ID and verify the agent extracts the number before fetching orders."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a phone number already exists in state, fetch delivered orders.",
+    "priority": "high",
+    "test_hint": "Ensure the agent fetches delivered orders when a phone number is already known."
+  },
+  {
+    "category": "must_do",
+    "rule": "When a customer provides a 10-digit phone number, first extract and store the phone number.",
+    "priority": "critical",
+    "test_hint": "Send a 10-digit phone number and verify it's stored before any order fetching."
+  },
+  {
+    "category": "must_do",
+    "rule": "Retrieve order details after identifying the order.",
+    "priority": "critical",
+    "test_hint": "After providing an order ID or phone number, verify the agent retrieves and uses order details."
+  },
+  {
+    "category": "must_do",
+    "rule": "Confirm the order is DELIVERED.",
+    "priority": "critical",
+    "test_hint": "Attempt to process a return/exchange for a delivered order and verify this confirmation step."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use the exact delivery date from order details to check grace period eligibility.",
+    "priority": "critical",
+    "test_hint": "Provide an order with a specific delivery date and verify the agent uses that exact date for the grace period check."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always ask the customer for the reason before extracting or categorizing it.",
+    "priority": "critical",
+    "test_hint": "Initiate a return/exchange and verify the agent explicitly asks for the reason."
+  },
+  {
+    "category": "must_do",
+    "rule": "Wait for an explicit reason (e.g., size issue, defective, wrong product).",
+    "priority": "high",
+    "test_hint": "Provide a vague reason and verify the agent prompts for a more specific one."
+  },
+  {
+    "category": "must_do",
+    "rule": "Only then categorize the reason.",
+    "priority": "high",
+    "test_hint": "After an explicit reason is provided, verify the agent categorizes it."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer has requested an exchange, after collecting the reason, also request a video proof clearly showing the issue with the product and wait for the customer\u2019s response before proceeding.",
+    "priority": "critical",
+    "test_hint": "Request an exchange and verify the agent asks for video proof after the reason."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer explicitly wants an exchange, do not suggest exchange.",
+    "priority": "critical",
+    "test_hint": "Explicitly state the desire for an exchange and verify the agent does not suggest it."
+  },
+  {
+    "category": "must_do",
+    "rule": "Once reason and required video proof are provided (for exchange), immediately provide the final exchange instructions.",
+    "priority": "critical",
+    "test_hint": "Provide reason and video proof for an exchange and verify the agent immediately provides instructions."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer explicitly wants a return, and the issue is fixable, suggest exchange instead.",
+    "priority": "high",
+    "test_hint": "Explicitly state the desire for a return for a fixable issue and verify the agent suggests an exchange."
+  },
+  {
+    "category": "must_do",
+    "rule": "Check the customer\u2019s response to the exchange suggestion.",
+    "priority": "high",
+    "test_hint": "After suggesting an exchange for a return, verify the agent waits for and processes the customer's response."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer declines the exchange suggestion, proceed with return instructions.",
+    "priority": "high",
+    "test_hint": "Decline an exchange suggestion and verify the agent proceeds with return instructions."
+  },
+  {
+    "category": "must_do",
+    "rule": "Detect intent from conversation if preference is not yet determined.",
+    "priority": "medium",
+    "test_hint": "Make a request without explicitly stating return or exchange and verify the agent detects the intent."
+  },
+  {
+    "category": "must_do",
+    "rule": "Provide the final configured return or exchange message exactly as generated after a valid reason is collected (and video proof in case of exchange).",
+    "priority": "critical",
+    "test_hint": "Complete all required steps for return/exchange and verify the agent provides the exact configured message."
+  },
+  {
+    "category": "must_do",
+    "rule": "Detect and respond with pickup status information for pickup-related queries.",
+    "priority": "medium",
+    "test_hint": "Ask a pickup-related question and verify the agent provides pickup status."
+  },
+  {
+    "category": "must_do",
+    "rule": "Apply any special-case instructions provided in system state before continuing normal flow.",
+    "priority": "high",
+    "test_hint": "Simulate a special case scenario and verify the agent applies the system state instructions first."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond with clear, polite, and structured responses.",
+    "priority": "high",
+    "test_hint": "Review agent responses for clarity, politeness, and structure."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use emojis sparingly where shown in examples.",
+    "priority": "low",
+    "test_hint": "Observe emoji usage in agent responses."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond empathetically and supportively.",
+    "priority": "high",
+    "test_hint": "Send a request that might be frustrating and verify an empathetic response."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond calmly, professionally, and customer-friendly.",
+    "priority": "high",
+    "test_hint": "Observe the agent's overall demeanor and language."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond clearly and reassuringly, especially when denying eligibility.",
+    "priority": "high",
+    "test_hint": "Attempt to process an ineligible request and verify a clear and reassuring denial."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Cannot handle returns or exchanges for orders that are not delivered.",
+    "priority": "critical",
+    "test_hint": "Request a return/exchange for an undelivered order and verify the agent rejects it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Cannot handle requests outside the return/exchange grace period.",
+    "priority": "critical",
+    "test_hint": "Request a return/exchange for an order past its grace period and verify the agent rejects it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Cannot process without mandatory confirmation or reason.",
+    "priority": "critical",
+    "test_hint": "Attempt to process a return/exchange without providing a reason and verify the agent stops the process."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Cannot override company policies or bypass required validation.",
+    "priority": "critical",
+    "test_hint": "Request to bypass a policy or validation step and verify the agent refuses."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Cannot repeat restricted or already-completed tool actions.",
+    "priority": "high",
+    "test_hint": "Attempt to trigger a tool action that has already been performed and verify the agent does not repeat it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never remove, bypass, or reorder mandatory validation steps.",
+    "priority": "critical",
+    "test_hint": "Attempt to skip validation steps and verify the agent enforces them."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Always prefer fixing issues (exchange) over refunds when policy allows.",
+    "priority": "high",
+    "test_hint": "Request a return for a fixable issue and verify the agent suggests an exchange first."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Always require a valid reason before processing return or exchange.",
+    "priority": "critical",
+    "test_hint": "Attempt to process a return/exchange without providing a reason and verify the agent stops the process."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never suggest exchange if the customer already wants an exchange.",
+    "priority": "critical",
+    "test_hint": "Explicitly state the desire for an exchange and verify the agent does not suggest it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never fetch delivered orders before extracting a phone number.",
+    "priority": "critical",
+    "test_hint": "Provide a phone number and verify the agent extracts it before fetching orders."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never fetch delivered orders more than once per session.",
+    "priority": "high",
+    "test_hint": "Fetch delivered orders and then attempt to fetch them again and verify it's not allowed."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never ask for a reason if the grace period has expired.",
+    "priority": "critical",
+    "test_hint": "Request a return/exchange for an expired grace period and verify the agent informs about ineligibility without asking for a reason."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never escalate if the grace period has expired.",
+    "priority": "critical",
+    "test_hint": "Request a return/exchange for an expired grace period and verify the agent does not escalate."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not ask for additional details such as size or variants when providing final instructions.",
+    "priority": "high",
+    "test_hint": "Provide all necessary information for a return/exchange and verify the agent provides final instructions without asking for more details."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not expose internal states, tool names, or system errors.",
+    "priority": "critical",
+    "test_hint": "Observe agent responses for any leakage of internal information."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never expose raw tool errors, system messages, or internal logic.",
+    "priority": "critical",
+    "test_hint": "Simulate a tool failure and verify the agent provides a safe alternative response."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If order is not delivered, cancelled, or inaccessible, stop and request verification if applicable.",
+    "priority": "critical",
+    "test_hint": "Attempt to process a return/exchange for a non-delivered order and verify the agent requests verification."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If grace period is expired, inform the customer that return/exchange is not allowed.",
+    "priority": "critical",
+    "test_hint": "Request a return/exchange for an expired grace period and verify the agent informs about ineligibility."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer explicitly wants a return and the issue is fixable, suggest exchange instead.",
+    "priority": "high",
+    "test_hint": "Request a return for a fixable issue and verify the agent suggests an exchange."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer declines the exchange suggestion, proceed with return instructions.",
+    "priority": "high",
+    "test_hint": "Decline an exchange suggestion and verify the agent proceeds with return instructions."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If any tool call fails for technical reasons, respond with: 'I won\u2019t be able to answer your query due to a technical error.'",
+    "priority": "critical",
+    "test_hint": "Simulate a technical tool failure and verify the agent provides the specified error message."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If a functional failure occurs (missing order data, lookup failure, unavailable results), provide safe alternative guidance such as asking the customer to recheck details or contact support, instead of stopping abruptly.",
+    "priority": "high",
+    "test_hint": "Simulate a functional failure (e.g., invalid order ID) and verify the agent provides safe alternative guidance."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate to a human agent when required by policy (e.g., bank transfer refund preference or policy-mandated cases).",
+    "priority": "critical",
+    "test_hint": "Request a bank transfer refund and verify the agent escalates to a human."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Order ID (explicitly provided or extracted from conversation).",
+    "priority": "critical",
+    "test_hint": "Verify the agent can identify and store the Order ID."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Customer phone number (10 digits, used for order lookup when order ID is unavailable).",
+    "priority": "critical",
+    "test_hint": "Verify the agent can extract and store a 10-digit phone number."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Order status and delivery date.",
+    "priority": "critical",
+    "test_hint": "Verify the agent retrieves and uses order status and delivery date."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Grace period eligibility result.",
+    "priority": "high",
+    "test_hint": "Verify the agent correctly determines and communicates grace period eligibility."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Customer\u2019s return or exchange preference.",
+    "priority": "critical",
+    "test_hint": "Verify the agent can determine if the customer wants a return or exchange."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Clear return or exchange reason from the customer.",
+    "priority": "critical",
+    "test_hint": "Verify the agent prompts for and stores a clear reason."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Video proof of the issue (mandatory for exchange requests).",
+    "priority": "critical",
+    "test_hint": "Verify the agent requests and waits for video proof for exchange requests."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Customer confirmation where required.",
+    "priority": "high",
+    "test_hint": "Verify the agent seeks confirmation for specific actions."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Customer response to exchange suggestion (accepted or declined).",
+    "priority": "high",
+    "test_hint": "Verify the agent captures the customer's decision on an exchange suggestion."
+  }
+]

@@ -1,0 +1,438 @@
+{
+    "test_scenarios": [
+        {
+            "id": "smoke-1-product-inquiry-material-quality",
+            "description": "Customer asks about product details, material, quality, print, wash care - Turns 1-9",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "product_details",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["help"],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "want to know about https://groovee.in/collections/fresh-drop/products/sunfire-denim?variant=51012444717378"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Sunfire", "2,999", "cotton", "sizes", "order"],
+                    "expected_behavior": "The Sunfire Denim is priced at ₹2,999. It's made from 14oz heavyweight cotton denim and available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the material"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["fabric", "denim", "cotton", "order"],
+                    "expected_behavior": "The fabric is 14oz heavyweight cotton denim. Let me know if you have any other questions or if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "is the quality good"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Groovee", "manufacturing", "Delhi", "quality"],
+                    "expected_behavior": "Hello! Groovee is a trendsetting streetwear brand with its own manufacturing unit in Delhi, ensuring quality control. For specific product details, contact them at admin@groovee.in or +91 86078 45846"
+                },
+                {
+                    "role": "customer",
+                    "message": "and whats the print type"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["contact", "print"],
+                    "expected_behavior": "The print type for the Sunfire Denim isn't specified. For more details, please contact Groovee directly at admin@groovee.in or call +91 86078 45846."
+                },
+                {
+                    "role": "customer",
+                    "message": "ok..will the print go away after wash"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["care", "wash"],
+                    "expected_behavior": "To care for your Sunfire Denim, wash inside out on a cold gentle cycle (30°C max) with similar colors. Avoid bleach and strong detergents. Line dry in shade, and iron inside out on low heat if needed."
+                },
+                {
+                    "role": "customer",
+                    "message": "so can i wash in washing machine"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["yes", "wash", "order"],
+                    "expected_behavior": "Yes, you can wash the Sunfire Denim in a washing machine. Turn them inside out and wash on a cold gentle cycle (30°C max) with similar colors. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "great..i like baggy, is this jeans baggy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["baggy", "fit", "order"],
+                    "expected_behavior": "Yes, the Sunfire Denim has a baggy fit. Let me know if you'd like me to place the order for you!"
+                }
+            ]
+        },
+        {
+            "id": "smoke-2-size-delivery-policies",
+            "description": "Customer asks about sizes, delivery, return/exchange policies - Turns 10-17",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "delivery_and_policies",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "want to know about https://groovee.in/collections/fresh-drop/products/sunfire-denim?variant=51012444717378"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Sunfire", "sizes", "order"],
+                    "expected_behavior": "The Sunfire Denim is available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what are the sizes available"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["available", "sizes", "28", "30", "32", "34", "36", "38", "40"],
+                    "expected_behavior": "Available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "i want 32..when can you deliver"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["delivery", "pincode"],
+                    "expected_behavior": "To estimate delivery for the Sunfire Denim size 32, I'll check availability. Please share your delivery pincode for accurate timing"
+                },
+                {
+                    "role": "customer",
+                    "message": "493118"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["32", "available", "pincode", "order"],
+                    "expected_behavior": "The Sunfire Denim in size 32 is available, and delivery to pincode 493118 is estimated by August 18, 2025, via Blue Dart Air. Let me know if you'd like to proceed with the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "is the delivery free"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["delivery", "free"],
+                    "expected_behavior": "Hello! Yes, delivery is free across India. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "do you have open delivery"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["not", "open delivery"],
+                    "expected_behavior": "Hello! We currently do not support open delivery. If you have any other questions or need further assistance, feel free to contact us."
+                },
+                {
+                    "role": "customer",
+                    "message": "so what if the product i recieve is bad"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["return", "exchange", "3 days"],
+                    "expected_behavior": "If the product is damaged, you can initiate a return within 3 days. No extra shipping costs for faulty items. Please share your order ID or phone number, and I'll assist you further!"
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the return policy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["return", "3 days", "200"],
+                    "expected_behavior": "You can return your product within 3 days of delivery. A Rs 200 deduction applies, with the rest credited to your Groovee wallet for future purchases."
+                },
+                {
+                    "role": "customer",
+                    "message": "and exchange policy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["exchange", "7 days", "free"],
+                    "expected_behavior": "You can initiate a one-time free exchange within 7 days of delivery via groovee.in. Multiple exchanges incur a Rs 300 fee."
+                }
+            ]
+        },
+        {
+            "id": "smoke-3-payment-discount-cod",
+            "description": "Customer asks about payment options, discounts, and COD - Turns 18-23",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "payment_and_discounts",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "want to know about https://groovee.in/collections/fresh-drop/products/sunfire-denim?variant=51012444717378"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Sunfire", "sizes", "order"],
+                    "expected_behavior": "The Sunfire Denim is available. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what are your payment options"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["payment", "UPI", "COD", "Card"],
+                    "expected_behavior": "We offer several payment options: Credit/Debit Card, UPI, Google Pay, Amazon Wallet, Cash on Delivery, EMI via Snapmint, and Groovee Wallet. Ready to place your order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "any discounts?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["discount", "10%", "NEW10"],
+                    "expected_behavior": "Use code NEW10 for 10% off. Plus, enjoy another 10% off with online payments. Combine offers for more savings! Ready to order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "so what will be the final price"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["price", "10%", "order"],
+                    "expected_behavior": "The final price for Sunfire Denim Jeans is approx. ₹2,429.19 after using code NEW10 (10% off) and paying online (extra 10% off). Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "no i want COD"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["COD", "name", "address"],
+                    "expected_behavior": "To proceed with your order for Sunfire Denim Jeans using COD, please send your shipping details including phone number and address."
+                },
+                {
+                    "role": "customer",
+                    "message": "so COD is available?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["COD", "Yes", "available"],
+                    "expected_behavior": "Yes, COD is available for the Sunfire Denim Jeans. Please provide your shipping details, including phone number and address."
+                },
+                {
+                    "role": "customer",
+                    "message": "and any discounts for COD"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["COD", "available", "10%", "online"],
+                    "expected_behavior": "For the Sunfire Denim Jeans, the price is ₹2,999. COD is available, but online payments get a 10% discount with code NEW10."
+                },
+                {
+                    "role": "customer",
+                    "message": "great..you helped a lot..i will trust you guys and i hope the product is same as it looks in the images"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["product", "thank"],
+                    "expected_behavior": "Thank you for your trust! We ensure our products match the images online. For any concerns or help, email admin@groovee.in or call +91 86078 45846. We're here to help!"
+                }
+            ]
+        },
+        {
+            "id": "smoke-4-create-and-cancel-order",
+            "description": "Customer creates an order and then cancels it immediately",
+            "dimension": "Order Management",
+            "sub_dimension": "place_order_and_cancel",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "https://groovee.in/products/evolve-the-cosmic-shacket?variant=50489780109634"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Evolve", "Cosmic", "Shacket", "order"],
+                    "expected_behavior": "This is the Evolve: The Cosmic Shacket. Let me know if you'd like to place an order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Order it"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["size", "name", "address"],
+                    "expected_behavior": "Great choice! To place your order, please share: Your preferred size, Your full name, Your phone number, Your complete shipping address."
+                },
+                {
+                    "role": "customer",
+                    "message": "Size L"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["name", "address", "phone"],
+                    "expected_behavior": "Size L noted! Please share your full name, phone number, and complete shipping address to proceed."
+                },
+                {
+                    "role": "customer",
+                    "message": "Name: Dummy Testing, Address: E-9 Jail Road Janak Puri New Delhi 110058"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["confirm", "Dummy Testing", "Janak Puri", "110058"],
+                    "expected_behavior": "Please confirm your order: Evolve: The Cosmic Shacket - Size L, Shipping to: Dummy Testing, E-9 Jail Road Janak Puri New Delhi 110058. Reply 'Yes' to confirm!"
+                },
+                {
+                    "role": "customer",
+                    "message": "yes, confirm"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["order", "placed", "confirmed", "GV"],
+                    "expected_behavior": "Your order has been successfully placed! Order ID: GVxxxxx. You'll receive a confirmation shortly. Thank you for shopping with Groovee!"
+                },
+                {
+                    "role": "customer",
+                    "message": "cancel this order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["cancel", "confirm", "reason"],
+                    "expected_behavior": "I understand you want to cancel your order. Please confirm by saying 'Yes' and let me know the reason for cancellation."
+                },
+                {
+                    "role": "customer",
+                    "message": "yes"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["reason", "cancel"],
+                    "expected_behavior": "Could you please share the reason for cancellation? This helps us improve our service."
+                },
+                {
+                    "role": "customer",
+                    "message": "created by mistake"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["cancelled", "refund"],
+                    "expected_behavior": "Your order has been cancelled successfully. If you paid online, the refund will be processed within 5-7 business days. We're sorry to see you go!"
+                }
+            ]
+        },
+        {
+            "id": "smoke-5-product-search-size-customization-bulk",
+            "description": "Customer searches product, asks for size chart, customization, and bulk discount",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "product_search_customization",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Show me Shacket"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["Shacket", "http"],
+                    "expected_behavior": "Here are our Shackets! [Product links displayed]. Let me know if you'd like more details on any of these."
+                },
+                {
+                    "role": "customer",
+                    "message": "Show me the size chart"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["size", "chart", "S", "M", "L", "XL"],
+                    "expected_behavior": "Here's the size chart for Shackets: S, M, L, XL with measurements. Let me know your size preference!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Can you alter the length for me?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["customization", "alteration", "contact", "team"],
+                    "expected_behavior": "For customization or alteration requests, please contact our team at admin@groovee.in or call +91 86078 45846. We'll be happy to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I want bulk order discount."
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["bulk", "wholesale", "team", "9980896588"],
+                    "expected_behavior": "For bulk orders, we'll have a team member reach out to you. Alternatively, feel free to call us at 9980896588 to discuss your bulk order."
+                }
+            ]
+        },
+        {
+            "id": "smoke-6-product-recommendations",
+            "description": "Customer asks for product recommendations",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "recommendations",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Which is your best jeans?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["jeans", "recommend", "popular"],
+                    "expected_behavior": "We have some great jeans options! Would you like men's or women's jeans? Let me know your preference so I can recommend the best ones for you."
+                },
+                {
+                    "role": "customer",
+                    "message": "For men"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["men", "jeans", "http", "denim"],
+                    "expected_behavior": "Here are our best-selling men's jeans: Sunfire Denim, [other options]. These are popular for their quality and fit. Would you like more details on any of these?"
+                }
+            ]
+        },
+        {
+            "id": "smoke-7-return-exchange-frustration",
+            "description": "Customer asks about return, exchange, and shows frustration",
+            "dimension": "Customer Support",
+            "sub_dimension": "return_exchange_escalation",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Return order gv12503"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["return", "order", "GV12503"],
+                    "expected_behavior": "I'll help you with the return for order GV12503. Let me check the order status and eligibility for return."
+                },
+                {
+                    "role": "customer",
+                    "message": "What about exchange?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["exchange", "7 days", "free"],
+                    "expected_behavior": "You can initiate a free exchange within 7 days of delivery. Would you prefer an exchange instead of a return?"
+                },
+                {
+                    "role": "customer",
+                    "message": "I dont care about your policy. Just fucking return it"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": ["understand", "frustration", "help", "team", "escalate"],
+                    "expected_behavior": "I completely understand your frustration and I'm sorry for the inconvenience. Let me escalate this to our support team who can help you immediately. Someone will contact you shortly."
+                }
+            ]
+        }
+    ]
+}

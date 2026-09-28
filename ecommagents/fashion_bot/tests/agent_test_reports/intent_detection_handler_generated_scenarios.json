@@ -1,0 +1,358 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-intent_detection_handler-1",
+      "description": "Verify that the agent outputs JSON only for a simple user message.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Output must be strictly JSON."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hello"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Output JSON only"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-2",
+      "description": "Verify that the agent routes a message to exactly one agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route message to ONE agent."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to a single agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-3",
+      "description": "Verify that a confirmation response routes to the active topic's agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route to active topic agent on confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate product inquiry"
+        },
+        {
+          "role": "customer",
+          "message": "yes"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to product_inquiry agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-4",
+      "description": "Verify that the agent analyzes template and user response together for intent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Analyze template and user response together."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Would you like to track your recent order? (yes/no)"
+        },
+        {
+          "role": "customer",
+          "message": "yes"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Derive intent from template and response"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-5",
+      "description": "Verify that a simple confirmation to a confirmation template matches the correct agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Match template's ask to correct agent on confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 has been shipped. Reply YES to receive tracking updates."
+        },
+        {
+          "role": "customer",
+          "message": "ok"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent, not default"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-6",
+      "description": "Verify that status/tracking request with orderID routes to 'order_status'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route status/tracking/ETA+orderID to 'order_status'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the tracking for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-7",
+      "description": "Verify that a post-placement cancel request with orderID routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route post-placement cancel/update+orderID+explicit REQUEST to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-8",
+      "description": "Verify that a cancel response to a COD template routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route cancel response to COD template to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 is Cash on Delivery. Please confirm if you wish to proceed."
+        },
+        {
+          "role": "customer",
+          "message": "cancel"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-9",
+      "description": "Verify that a 'no' response to a COD confirmation template routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route template COD confirmation+no/cancel to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 is ready for delivery. Please confirm to receive it."
+        },
+        {
+          "role": "customer",
+          "message": "no"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-10",
+      "description": "Verify that a return request with orderID routes to 'after_delivery_return_exchange'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route return/exchange ACTION+orderID to 'after_delivery_return_exchange'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to after_delivery_return_exchange agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-11",
+      "description": "Verify that expressing anger routes to 'escalation'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route human request/anger/tech issues/conditional cancels to 'escalation'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "This is unacceptable! I want to speak to a human now!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to escalation agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-12",
+      "description": "Verify that a message containing '[Video message]' routes to 'escalation'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route '[Video message]' or '[Image message]' to 'escalation'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Here is a video of the issue: [Video message]"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to escalation agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-13",
+      "description": "Verify that Delivery ETA with orderID routes to 'order_status'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route Delivery ETA+orderID to 'order_status'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "When will order GV12345 be delivered?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-14",
+      "description": "Verify that ETA without order ID routes to 'delivery_timeline'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route ETA without order ID to 'delivery_timeline'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the estimated delivery time?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to delivery_timeline agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-15",
+      "description": "Verify that asking 'can I return?' without an order ID routes to 'return_exchange_policy'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route Policy 'can I return?' to 'return_exchange_policy'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I return an item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to return_exchange_policy agent"
+        }
+      ]
+    }
+  ]
+}

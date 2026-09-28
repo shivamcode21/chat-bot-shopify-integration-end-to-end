@@ -1,0 +1,4170 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-continuity_check_agent-1",
+      "description": "Tests that agent analyzes entire conversation context for resolution status.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Analyze entire conversation context for resolution status."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I received my order GV12345 yesterday, and it's exactly what I wanted. Thank you!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledges resolution based on multiple turns."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-2",
+      "description": "Tests that agent generates a warm closure message when the conversation is resolved.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a warm closure message when conversation is resolved."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 arrived and it's perfect. Thanks for your help!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a warm closure message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-3",
+      "description": "Tests that agent generates a polite follow-up message when resolution is unclear or pending.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a polite follow-up message when resolution is unclear or pending."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order GV12346."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a polite follow-up message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-4",
+      "description": "Tests that agent outputs only the final customer-facing message text.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Output only the final customer-facing message text."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is my order GV12345 shipped yet?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Outputs only the customer-facing message.",
+          "unexpected_keywords": [
+            "internal_reasoning",
+            "system_message",
+            "analysis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-5",
+      "description": "Tests that agent maintains a friendly, warm, helpful, and non-pushy tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintain a friendly, warm, helpful, and non-pushy tone."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need help with my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with a friendly and helpful tone.",
+          "unexpected_keywords": [
+            "urgent",
+            "now",
+            "must"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-6",
+      "description": "Tests that agent responds to technical errors with a specific message.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Respond to technical errors with: 'I won\u2019t be able to answer your query due to a technical error.'"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with the technical error message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-7",
+      "description": "Tests that agent does not perform order updates, cancellations, returns, or escalations directly.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not perform order updates, cancellations, returns, or escalations directly."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not perform cancellation directly.",
+          "unexpected_keywords": [
+            "cancelled",
+            "order cancelled"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-8",
+      "description": "Tests that agent does not introduce new information, actions, or assumptions beyond the conversation context.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not introduce new information, actions, or assumptions beyond the conversation context."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy for this item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds based only on provided context.",
+          "unexpected_keywords": [
+            "discount",
+            "new product",
+            "shipping address"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-9",
+      "description": "Tests that agent does not sound urgent, forceful, or sales-driven.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not sound urgent, forceful, or sales-driven."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in buying this product."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds without urgency or sales tactics.",
+          "unexpected_keywords": [
+            "buy now",
+            "limited time",
+            "don't miss out"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-10",
+      "description": "Tests that agent does not include internal reasoning, analysis, or system messages in the output.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not include internal reasoning, analysis, or system messages in the output."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where is my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Outputs only the customer-facing message.",
+          "unexpected_keywords": [
+            "internal_thought",
+            "system_log",
+            "analysis_complete"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-11",
+      "description": "Tests that agent generates a closure message when all customer questions are answered and the customer appears satisfied.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a closure message if all customer questions have been answered, no confirmations/actions/follow-ups are pending, and the customer appears satisfied."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 arrived and it's perfect. Thank you for your help!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a closure message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-12",
+      "description": "Tests that agent generates a follow-up message when there are pending actions or resolution is unclear.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate a follow-up message if there are pending actions or resolution is unclear."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order GV12346."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a follow-up message."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-13",
+      "description": "Tests that agent does not perform escalations directly.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "The agent does not perform escalations directly."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to speak to a manager about my order issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not perform escalation directly.",
+          "unexpected_keywords": [
+            "escalating",
+            "transferring"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-14",
+      "description": "Tests that agent requires full conversation context up to the current message for assessment.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Requires full conversation context up to the current message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a question about my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for more context or provides a general helpful response."
+        }
+      ]
+    },
+    {
+      "id": "contract-continuity_check_agent-15",
+      "description": "Tests that agent thanks the customer in closure messages.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "continuity_check_agent",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Thank the customer in closure messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order arrived and it's perfect. Thanks!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Includes thanks in the closure message."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-validate_pincode_tool_call",
+      "description": "Verify validate_pincode_tool is called before get_delivery_estimate when a pincode is provided.",
+      "client_name": "pincode_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "validate_pincode_tool is called",
+          "get_delivery_estimate is called after pincode validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for my area? My pincode is 110001."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls validate_pincode_tool and then get_delivery_estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-is_url_in_valid_domain_tool_call",
+      "description": "Verify is_url_in_valid_domain_tool is called before processing product URLs.",
+      "client_name": "url_domain_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery time for this product? https://www.example-ecommerce.com/products/widget-x"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-check_product_availability_tool_call",
+      "description": "Verify check_product_availability_tool is called for size-dependent products before providing delivery timelines.",
+      "client_name": "size_dependent_availability_test",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "check_product_availability_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in the Sunfire Denim, size Medium. When can I expect delivery?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls check_product_availability_tool for size Medium."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-get_order_delivery_status_tool_call",
+      "description": "Verify get_order_delivery_status_tool is called when an order ID is provided.",
+      "client_name": "order_status_test",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "get_order_delivery_status_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery status for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_order_delivery_status_tool for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-get_product_details_from_url_tool_call",
+      "description": "Verify get_product_details_from_url_tool is called if a product URL is provided.",
+      "client_name": "product_url_details_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "get_product_details_from_url_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about the delivery for this item: https://www.example-ecommerce.com/products/super-gadget"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_product_details_from_url_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-full_tool_chain_product_delivery",
+      "description": "Verify the complete tool chain for product-specific delivery is executed sequentially.",
+      "client_name": "full_chain_product_delivery_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called",
+          "get_product_details_from_url_tool is called",
+          "validate_pincode_tool is called",
+          "get_delivery_estimate_tool_enhanced is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for https://www.example-ecommerce.com/products/awesome-thing in pincode 560001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Executes the full tool chain: URL validation, product details, pincode validation, and delivery estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-response_after_tool_call",
+      "description": "Verify a complete customer-facing response is generated after any tool call.",
+      "client_name": "response_generation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "A response is generated after tool execution."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery time for my order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a response after calling get_order_delivery_status_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-show_delivery_estimate_enhanced",
+      "description": "Verify the delivery estimate is shown to the customer when get_delivery_estimate_tool_enhanced is called.",
+      "client_name": "show_estimate_enhanced_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Delivery estimate is displayed to the customer."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How long will it take to deliver to 400001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_delivery_estimate_tool_enhanced and displays the estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-pincode_validation_result_and_next_tool",
+      "description": "Verify the pincode validation result is communicated and the next required tool is called.",
+      "client_name": "pincode_result_next_tool_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Pincode validation result is communicated.",
+          "Next required tool (get_delivery_estimate) is called."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for my pincode 110001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Communicates pincode validation result and calls get_delivery_estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-use_tool_data_in_response",
+      "description": "Ensure all information presented to the customer comes directly from tool outputs.",
+      "client_name": "tool_data_usage_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Customer-facing information is derived from tool outputs."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery status for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Presents delivery status information obtained from get_order_delivery_status_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-url_validation_first",
+      "description": "Verify is_url_in_valid_domain_tool is called first if a URL is provided.",
+      "client_name": "url_first_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called before other product-related tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about the delivery for this product? https://www.example-ecommerce.com/products/cool-item"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool first."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-size_mention_availability_check",
+      "description": "Verify check_product_availability_tool is called before providing delivery timeline if size is mentioned.",
+      "client_name": "size_mention_availability_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "check_product_availability_tool is called when size is mentioned."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to know the delivery time for the 'Comfy T-Shirt' in size Large."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls check_product_availability_tool for size Large."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-out_of_stock_no_timeline",
+      "description": "Verify no delivery timeline is provided if a size is out of stock.",
+      "client_name": "out_of_stock_no_timeline_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No delivery timeline is provided for out-of-stock sizes."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for the 'Stylish Jacket' in size Extra Small?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Informs the customer that the size is out of stock and does not provide a delivery timeline."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-pincode_provided_validate_tool_call",
+      "description": "Verify validate_pincode_tool is called before giving estimates when a postal code is provided.",
+      "client_name": "pincode_provided_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "validate_pincode_tool is called when a postal code is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to know the delivery time for my postal code 700001."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls validate_pincode_tool for postal code 700001."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-url_provided_validate_domain_first",
+      "description": "Verify is_url_in_valid_domain_tool is called first if a URL is provided.",
+      "client_name": "url_provided_domain_first_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called first when a URL is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for this link? https://www.another-shop.com/items/gadget-pro"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool first."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-1",
+      "description": "Escalate when a customer expresses frustration with a delayed order.",
+      "client_name": "frustrated_customer",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when customer expresses frustration."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "This is ridiculous! My order GV12345 was supposed to be here yesterday and it's still not here. I'm really unhappy about this."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to customer frustration."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-2",
+      "description": "Escalate when a customer explicitly requests human support.",
+      "client_name": "direct_request",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when customer explicitly requests human support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to speak to a real person about this issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to explicit request."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-3",
+      "description": "Escalate when the bot cannot resolve a complex issue regarding product compatibility.",
+      "client_name": "complex_issue",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when bot cannot resolve a complex issue."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Will the Sunfire Denim be compatible with a 3rd party accessory that requires a specific voltage output not listed in the product specs?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to complex compatibility issue."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-4",
+      "description": "Escalate for callback scheduling when a callback time is available.",
+      "client_name": "callback_request",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate for callback scheduling when a callback time exists."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can someone call me back about my order GV12346? I'm available between 2 PM and 4 PM today."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate callback scheduling and escalate."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-5",
+      "description": "Verify human agent notification for a frustration-based escalation.",
+      "client_name": "notification_check",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always notify a human agent of an escalation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm so annoyed, this is the third time I've had to contact you about this issue!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and trigger human agent notification."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-6",
+      "description": "Verify logging of an explicit human support request escalation.",
+      "client_name": "logging_check",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always log escalation events for tracking and analytics."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to talk to a human agent now."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and trigger logging."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-7",
+      "description": "Provide customer confirmation after escalating for a complex issue.",
+      "client_name": "confirmation_check",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always provide customer confirmation of escalation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to know if this product will work with my existing setup, it's quite technical."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and provide confirmation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-8",
+      "description": "Test the full escalation sequence for a callback request.",
+      "client_name": "full_sequence_callback",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Follow the full required sequence for the detected escalation type."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Please schedule a callback for me tomorrow morning to discuss my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Execute full callback escalation sequence: notify, log, confirm."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-9",
+      "description": "Ensure bot does not resolve a non-escalation issue end-to-end.",
+      "client_name": "non_escalation_resolution",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never resolve non-escalation issues end-to-end without human involvement."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are your store hours?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide store hours directly, do not escalate."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-10",
+      "description": "Verify bot does not provide contact details not returned by tools.",
+      "client_name": "unauthorized_contact",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never provide contact details not explicitly returned by tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you give me the direct phone number for the customer service manager?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "State inability to provide specific contact details and offer escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-11",
+      "description": "Ensure bot does not make promises about resolution timelines beyond confirming agent outreach.",
+      "client_name": "timeline_promise",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never make promises about resolution timelines beyond confirming agent outreach."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need my issue resolved by the end of the day. Can you guarantee that?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirm agent outreach, do not promise resolution time."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-12",
+      "description": "Verify bot does not expose raw tool errors to the customer.",
+      "client_name": "raw_error_exposure",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never expose raw tool errors, stack traces, or system messages to the customer."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Handle return request gracefully, do not show tool errors."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-13",
+      "description": "Ensure bot does not invent or guess phone numbers or email addresses.",
+      "client_name": "invented_contact",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never invent or guess phone numbers, email addresses, or support contacts."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the direct email for the product development team?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "State inability to provide invented contact details and offer escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-14",
+      "description": "Verify that an interrupted escalation flow still attempts all required steps.",
+      "client_name": "interrupted_flow",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not stop midway through a required escalation flow."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel my order, it's order number GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate cancellation escalation, then interrupt and verify full sequence completion."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-15",
+      "description": "Ensure no notification, logging, or confirmation steps are skipped during an escalation.",
+      "client_name": "skipped_steps",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not skip notification, logging, or confirmation steps."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm having a serious problem with my account and need immediate help."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate, ensuring notification, logging, and confirmation are performed."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-acknowledge-respond",
+      "description": "Tests that the agent acknowledges and responds to positive feedback promptly and authentically.",
+      "client_name": "feedback_user_1",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Timely response",
+          "Authentic tone",
+          "Helpful response"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I just wanted to say I love the new website design! It's so much easier to navigate now."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledge and respond to customer feedback in a timely, authentic, and helpful manner."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-feel-heard",
+      "description": "Tests that the agent makes the customer feel heard, appreciated, and supported after providing feedback.",
+      "client_name": "feedback_user_2",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Empathy shown",
+          "Validation of feelings"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really frustrated with the checkout process. It's taking forever to load and I almost gave up."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Ensure customers feel heard, appreciated, and supported."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-offer-assistance-negative",
+      "description": "Tests that the agent offers assistance or escalation guidance when feedback indicates a problem.",
+      "client_name": "feedback_user_3",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Offer of assistance",
+          "Escalation guidance"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order arrived damaged. The box was crushed and the item inside is broken."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Offer assistance or escalation guidance when feedback indicates a problem."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-positive",
+      "description": "Tests that the agent correctly classifies positive feedback.",
+      "client_name": "feedback_user_4",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Positive"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Your delivery was super fast and the product is exactly what I wanted. Great job!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-negative",
+      "description": "Tests that the agent correctly classifies negative feedback.",
+      "client_name": "feedback_user_5",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Negative"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I received the wrong item. This is not what I ordered at all."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-mixed",
+      "description": "Tests that the agent correctly classifies mixed feedback.",
+      "client_name": "feedback_user_6",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Mixed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The product itself is great, but the shipping took way too long."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-unclear",
+      "description": "Tests that the agent correctly classifies unclear/general feedback.",
+      "client_name": "feedback_user_7",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Unclear/General"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Just wanted to give some feedback."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-apologize-empathy-negative",
+      "description": "Tests that the agent apologizes sincerely and shows empathy for negative feedback.",
+      "client_name": "feedback_user_8",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Sincere apology",
+          "Empathy shown"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm very disappointed with the quality of the product I received. It broke after only one use."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For Negative Feedback: Apologize sincerely and show empathy."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-acknowledge-specific-issue",
+      "description": "Tests that the agent acknowledges the specific issue mentioned in negative feedback.",
+      "client_name": "feedback_user_9",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific issue acknowledged"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The website is crashing every time I try to add an item to my cart."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For Negative Feedback: Acknowledge the specific issue mentioned."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-concise-relevant-aligned",
+      "description": "Tests that the agent's responses are concise, relevant, and aligned with the customer's feedback.",
+      "client_name": "feedback_user_10",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is concise",
+          "Response is relevant",
+          "Response is aligned with feedback"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I found the checkout button to be a bit hard to find."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Keep responses concise, relevant, and aligned with the customer\u2019s feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-reference-specific-details",
+      "description": "Tests that the agent references specific details from the customer's feedback.",
+      "client_name": "feedback_user_11",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific details from feedback referenced"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The delivery for order #ABC12345 was two days late, and the packaging was damaged."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Reference specific details from the feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-authentic-genuine",
+      "description": "Tests that the agent's responses are authentic and genuine, not robotic.",
+      "client_name": "feedback_user_12",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is natural",
+          "Response is not robotic"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really happy with my purchase. It arrived quickly and was exactly as described."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responses should be authentic and genuine, never robotic."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-show-appreciation",
+      "description": "Tests that the agent always shows appreciation for customer feedback.",
+      "client_name": "feedback_user_13",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Appreciation for feedback is present"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The search function isn't working properly."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Always show appreciation for customer feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-tool-failure-message",
+      "description": "Tests that the agent provides the correct message when a tool call fails for technical reasons.",
+      "client_name": "feedback_user_14",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific technical error message displayed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "If any tool call fails for technical reasons, respond to the user with: 'I won\u2019t be able to answer your query due to a technical error.'"
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-functional-failure-fallback",
+      "description": "Tests that the agent provides a safe fallback for functional failures.",
+      "client_name": "feedback_user_15",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Safe fallback provided",
+          "Acknowledges feedback",
+          "Expresses appreciation/apology",
+          "Guides to general support"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm trying to return an item, but the return portal is showing an error and won't let me proceed."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For functional failures (e.g., required information is unavailable), provide a safe fallback by acknowledging the feedback, expressing appreciation or apology as appropriate, and guiding the customer to general support channels without halting the response."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-additional-steps",
+      "description": "Tests that the agent does not proceed to additional operational steps beyond acknowledgment and assistance offering.",
+      "client_name": "feedback_user_16",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No operational steps attempted"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to change my shipping address for order XYZ789."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not proceed to any additional operational steps beyond acknowledgment and assistance offering."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-made-up-details",
+      "description": "Tests that the agent does not make up details, promises, discount codes, or offers.",
+      "client_name": "feedback_user_17",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No fabricated details",
+          "No fabricated promises",
+          "No fabricated discount codes",
+          "No fabricated offers"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really unhappy with the price of this item. It seems too expensive."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not make up details, promises, discount codes, or offers."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-guaranteed-outcomes",
+      "description": "Tests that the agent does not guarantee outcomes or resolutions that cannot be delivered.",
+      "client_name": "feedback_user_18",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No guaranteed outcomes",
+          "Cautious language used"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My product is defective. Will you be able to fix it immediately?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not guarantee outcomes or resolutions that cannot be delivered."
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-1",
+      "description": "Verifies identification of 'delivery policy' category for shipping questions.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Identifies 'delivery policy' category"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your shipping policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identifies 'delivery policy' category"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-2",
+      "description": "Tests that the tool is called with the correct policy category.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Calls tool with 'delivery policy'"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How long does shipping take?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls tool with 'delivery policy'",
+          "expected_tool_calls": [
+            {
+              "tool_name": "get_policy_config",
+              "input": {
+                "policy_category": "delivery policy"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-3",
+      "description": "Verifies that the response is based on retrieved Q&A data, not generated.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is based on retrieved data"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Response is based on retrieved data"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-4",
+      "description": "Ensures the answer is derived solely from the retrieved policy content.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Answer is directly from policy data"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the warranty terms?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Answer is directly from policy data"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-5",
+      "description": "Tests for precise and accurate answers based on retrieved policy information.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Provides exact and correct policy answer"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the maximum weight for standard shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides exact and correct policy answer"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-6",
+      "description": "Verifies the specific error message for technical tool failures.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Responds with specific technical error message"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about your privacy policy."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with specific technical error message",
+          "expected_message": "I won\u2019t be able to answer your query due to a technical error."
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-7",
+      "description": "Tests that the agent does not handle order cancellations and redirects appropriately.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Redirects to appropriate channels for cancellations"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Redirects to appropriate channels for cancellations"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-8",
+      "description": "Ensures the agent does not invent policy details not present in the data.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not fabricate policy details"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on returning items purchased more than 5 years ago?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not fabricate policy details"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-9",
+      "description": "Verifies that internal system messages or tool names are not exposed.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not expose internal system details"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on international shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not expose internal system details",
+          "forbidden_keywords": [
+            "get_policy_config",
+            "internal_error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-10",
+      "description": "Ensures raw errors or tool outputs are not exposed verbatim.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not expose raw errors or tool outputs"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on damaged goods?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not expose raw errors or tool outputs",
+          "forbidden_keywords": [
+            "error_code",
+            "raw_output"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-11",
+      "description": "Provides the closest relevant policy when the exact question is not covered.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Provides closest relevant policy"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What about policies for custom orders?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides closest relevant policy"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-12",
+      "description": "Acknowledges limitations and shares available information when policy data is partially missing.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Acknowledges limitations and shares available info"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on extended warranties for electronics?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledges limitations and shares available info"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-13",
+      "description": "Maintains conversational context for follow-up policy questions.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintains conversational context"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides return policy information"
+        },
+        {
+          "role": "customer",
+          "message": "And what about exchanges?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains conversational context"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-14",
+      "description": "Completes the tool-to-response chain and stops, not handling non-policy requests.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Completes policy handling and stops"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on free shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides free shipping policy and stops"
+        },
+        {
+          "role": "customer",
+          "message": "Can you also tell me the status of my order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Completes policy handling and stops",
+          "forbidden_keywords": [
+            "order status"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-15",
+      "description": "Maintains a friendly, professional, and customer-centric tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintains friendly and professional tone"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hello, I have a question about your return policy."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains friendly and professional tone"
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-1",
+      "description": "Verify that only the WhatsApp-ready message is returned, with no extra text or analysis.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Return ONLY the final WhatsApp-ready message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the final message."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-2",
+      "description": "Test language rule application for a Hinglish-preferring customer.",
+      "client_name": "hinglish_user",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Apply language rules based on customer's messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Mujhe yeh shirt chahiye, kitne ka hai?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in Hinglish."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-3",
+      "description": "Test character limit enforcement for long responses.",
+      "client_name": "casence",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Apply character limits (\u2264200 chars, max 250 for long responses, max 400 for size guides)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me everything about the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Truncates or rephrases response to fit character limit."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-4",
+      "description": "Verify that new information is not added to the draft facts.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Keep draft facts intact, no new information."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the standard return policy, no added info."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-5",
+      "description": "Test the use of only English letters (A-Z) when language is ambiguous.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Use ONLY English letters (A-Z) when in doubt about language."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Order status?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with only A-Z English characters."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-6",
+      "description": "Generate an appropriate apologetic response for [EMPTY_RESPONSE] for a product inquiry.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate an appropriate apologetic response for [EMPTY_RESPONSE] based on customer's recent messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about the new collection."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides an apologetic response for empty response."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-7",
+      "description": "Verify that the agent does not fundamentally change the meaning of the draft reply.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT change the draft reply fundamentally. The meaning and intent must remain the same."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is the shirt available in blue?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains original meaning, does not say it's out of stock if it's not."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-8",
+      "description": "Verify that the agent does not alter core message or facts.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never alter the core message or facts."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides correct status for GV12345, not GV12346."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-9",
+      "description": "Ensure no analysis, commentary, or prefixes are included in the output.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT include analysis, commentary, or prefixes in the output."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How do I track my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the tracking instructions."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-10",
+      "description": "Verify that generic closers are not used.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT use generic closers ('If you have any questions...', 'Let me know if you need help', 'Feel free to ask', etc.)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your payment policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not include generic closing phrases."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-11",
+      "description": "Test Hinglish usage when customer prefers it (90%+ certainty).",
+      "client_name": "hinglish_user",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Use Hinglish ONLY if 90%+ certain customer prefers it."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Mujhe yeh dress chahiye, size kya hai?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in Hinglish."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-12",
+      "description": "Test English response when an ENGLISH TRIGGER is met.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Respond in ENGLISH if any ENGLISH TRIGGERS are met."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to change my shipping address."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in English."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-13",
+      "description": "Handle [EMPTY_RESPONSE] for an order inquiry.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If draft reply is [EMPTY_RESPONSE], generate specific apologetic response based on customer inquiry type."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of order GV99999?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides an apologetic response for an unknown order."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-14",
+      "description": "Verify that the agent limits emojis to a maximum of two.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Add max 2 emojis."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I get a discount?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Includes at most two emojis."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-15",
+      "description": "Maintain a professional and conversational tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintain a professional, conversational tone."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Uses a professional and conversational tone."
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-1",
+      "description": "Verify that the agent outputs JSON only for a simple user message.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Output must be strictly JSON."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hello"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Output JSON only"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-2",
+      "description": "Verify that the agent routes a message to exactly one agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route message to ONE agent."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to a single agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-3",
+      "description": "Verify that a confirmation response routes to the active topic's agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route to active topic agent on confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate product inquiry"
+        },
+        {
+          "role": "customer",
+          "message": "yes"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to product_inquiry agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-4",
+      "description": "Verify that the agent analyzes template and user response together for intent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Analyze template and user response together."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Would you like to track your recent order? (yes/no)"
+        },
+        {
+          "role": "customer",
+          "message": "yes"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Derive intent from template and response"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-5",
+      "description": "Verify that a simple confirmation to a confirmation template matches the correct agent.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Match template's ask to correct agent on confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 has been shipped. Reply YES to receive tracking updates."
+        },
+        {
+          "role": "customer",
+          "message": "ok"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent, not default"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-6",
+      "description": "Verify that status/tracking request with orderID routes to 'order_status'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route status/tracking/ETA+orderID to 'order_status'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the tracking for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-7",
+      "description": "Verify that a post-placement cancel request with orderID routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route post-placement cancel/update+orderID+explicit REQUEST to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-8",
+      "description": "Verify that a cancel response to a COD template routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route cancel response to COD template to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 is Cash on Delivery. Please confirm if you wish to proceed."
+        },
+        {
+          "role": "customer",
+          "message": "cancel"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-9",
+      "description": "Verify that a 'no' response to a COD confirmation template routes to 'cancel_or_update_order'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route template COD confirmation+no/cancel to 'cancel_or_update_order'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "bot",
+          "message": "Bot (Template): Your order GV12345 is ready for delivery. Please confirm to receive it."
+        },
+        {
+          "role": "customer",
+          "message": "no"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to cancel_or_update_order agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-10",
+      "description": "Verify that a return request with orderID routes to 'after_delivery_return_exchange'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route return/exchange ACTION+orderID to 'after_delivery_return_exchange'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to after_delivery_return_exchange agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-11",
+      "description": "Verify that expressing anger routes to 'escalation'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route human request/anger/tech issues/conditional cancels to 'escalation'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "This is unacceptable! I want to speak to a human now!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to escalation agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-12",
+      "description": "Verify that a message containing '[Video message]' routes to 'escalation'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route '[Video message]' or '[Image message]' to 'escalation'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Here is a video of the issue: [Video message]"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to escalation agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-13",
+      "description": "Verify that Delivery ETA with orderID routes to 'order_status'.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route Delivery ETA+orderID to 'order_status'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "When will order GV12345 be delivered?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to order_status agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-14",
+      "description": "Verify that ETA without order ID routes to 'delivery_timeline'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route ETA without order ID to 'delivery_timeline'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the estimated delivery time?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to delivery_timeline agent"
+        }
+      ]
+    },
+    {
+      "id": "contract-intent_detection_handler-15",
+      "description": "Verify that asking 'can I return?' without an order ID routes to 'return_exchange_policy'.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "intent_detection_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Route Policy 'can I return?' to 'return_exchange_policy'."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I return an item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Route to return_exchange_policy agent"
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-accuracy-efficiency",
+      "description": "Verify accurate and efficient answer to a product detail question.",
+      "client_name": "techgadgetstore",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Answer product-related questions accurately and efficiently using available context and tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the battery life of the new X-Phone Pro?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide accurate battery life information for X-Phone Pro."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-clarity-guidance",
+      "description": "Verify clear, correct, and guiding answer to a complex product question.",
+      "client_name": "fashionforward",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Prioritize clarity, correctness, and customer guidance in responses."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm looking for a dress that's suitable for a summer wedding, breathable, and has pockets. What do you recommend?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide clear recommendations for a suitable dress, highlighting breathability and pockets, and guiding the customer."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-collect-product-identifier",
+      "description": "Verify agent prompts for product identifier when none is provided.",
+      "client_name": "electronicsmart",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Collect or derive product identifier (valid store URL, product name, or numeric selection)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about its features."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Prompt the user to specify which product they are interested in."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-collect-query-intent",
+      "description": "Verify agent correctly identifies the query intent.",
+      "client_name": "homegoodsdepot",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Collect or derive query intent/type (e.g., size, price, fabric, reviews, customization, size chart, restock)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How much does the 'Cozy Knit Sweater' cost?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identify the intent as 'price' and provide the cost of the 'Cozy Knit Sweater'."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-check-existing-product-data",
+      "description": "Verify agent does not make a new tool call when product data is already in context.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Check if product data already exists in the conversation (look for \u201c\ud83d\udce6 PRODUCT DATA\u201d or entity/topic context) before any tool call."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What colors is it available in?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the existing product data for 'Sunfire Denim' to answer the question about available colors without making a new tool call."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-use-existing-product-data",
+      "description": "Verify agent uses existing product data directly when present.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If product data is present in context, use it directly and do NOT fetch again."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me more about the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the provided product data for 'Sunfire Denim' to answer the question, not fetch again."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-top-selling-ignore-context",
+      "description": "Verify agent fetches top-selling products immediately, ignoring existing context.",
+      "client_name": "bookworm",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "For top selling/best/trending queries, fetch top-selling products immediately (ignore existing product context)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Show me the top selling books."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Fetch and display top-selling books, ignoring the 'Sunfire Denim' context."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-size-chart-measurements",
+      "description": "Verify agent uses size chart data for measurements.",
+      "client_name": "sportswear",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "For size chart/measurements, fetch size chart from context or tool (do NOT use basic product info for measurements)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the exact chest measurements for a size Large in the 'Performance Tee'?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Fetch and provide the chest measurements for a size Large 'Performance Tee' from the size chart."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-url-validation-fetch",
+      "description": "Verify agent validates domain and fetches product from a provided URL.",
+      "client_name": "onlineboutique",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If message contains a URL, validate domain, then fetch product."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about this product? https://www.example-boutique.com/products/elegant-silk-scarf"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Validate the domain 'example-boutique.com' and fetch product details for 'elegant-silk-scarf'."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-answer-with-context-or-fetch",
+      "description": "Verify agent uses existing product data if present, otherwise fetches.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "When answering with product in context, use existing product data if present; otherwise fetch."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the warranty period for the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the existing product data for 'Sunfire Denim' to answer the warranty question."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-extract-product-line-parameter",
+      "description": "Verify extraction of device model for `product_line` parameter.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "When a customer asks about products for a specific device model (e.g., phone cases), MUST extract the device model and pass it as the `product_line` parameter to `search_products_by_name`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Do you have any cases for the Samsung Galaxy S23 Ultra?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract 'Samsung Galaxy S23 Ultra' as `product_line` and search for cases."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-extract-full-device-model",
+      "description": "Verify extraction of the FULL device model exactly as mentioned.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Extract the FULL device model exactly as the customer mentions it for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need a screen protector for the iPhone 17 Pro Max."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract 'iPhone 17 Pro Max' exactly as mentioned for the `product_line` parameter."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-normalize-device-model",
+      "description": "Verify normalization of device model to lowercase with proper spacing.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Normalize device model to lowercase with proper spacing for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Looking for a case for my Pixel7."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Normalize 'Pixel7' to 'pixel 7' for the `product_line` parameter."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-never-truncate-device-model",
+      "description": "Verify device model name is never truncated or shortened.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "NEVER truncate or shorten the device model name for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need a rugged case for the Samsung Galaxy S23 Ultra Plus Extreme Edition."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract the full device model 'Samsung Galaxy S23 Ultra Plus Extreme Edition' for the `product_line` parameter without truncation."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-no-product-line-if-no-model",
+      "description": "Verify `product_line` is not passed if no device model is mentioned.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If no device model is mentioned, do NOT pass `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the best leather cases available?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Search for 'leather cases' without passing a `product_line` parameter."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-1",
+      "description": "Verify agent follows the predefined first action instruction.",
+      "client_name": "return_request_initiation",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent initiates return/exchange request and performs the system-defined first action."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiates the return/exchange process by asking for order ID."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-2",
+      "description": "Verify agent attempts to extract Order ID when not in state.",
+      "client_name": "order_id_extraction_attempt",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent attempts to extract Order ID from customer message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to return something."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the order ID."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-3",
+      "description": "Verify agent extracts phone number first if Order ID is missing and phone is present.",
+      "client_name": "phone_extraction_before_order_fetch",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent extracts 10-digit phone number and fetches delivered orders."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item. My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extracts phone number and then fetches orders."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-4",
+      "description": "Verify agent extracts and stores a 10-digit phone number first.",
+      "client_name": "phone_number_storage_first",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent extracts and stores the 10-digit phone number before any order fetching."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to initiate a return. My phone number is 1234567890."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Stores the phone number and then proceeds with order lookup."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-5",
+      "description": "Verify agent retrieves order details after identifying the order.",
+      "client_name": "order_details_retrieval",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent retrieves and uses order details after identifying the order."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Retrieves and confirms details for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-6",
+      "description": "Verify agent confirms the order is DELIVERED.",
+      "client_name": "delivered_order_confirmation",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent confirms the order is delivered before proceeding."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirms order GV12345 is delivered."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-7",
+      "description": "Verify agent uses exact delivery date for grace period check.",
+      "client_name": "exact_delivery_date_grace_period",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent uses the exact delivery date from order details for grace period eligibility."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Checks grace period using the exact delivery date of GV12345."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-8",
+      "description": "Verify agent always asks for the reason before extracting it.",
+      "client_name": "ask_reason_before_extract",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent explicitly asks for the reason for return/exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the reason for the return."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-9",
+      "description": "Verify agent asks for video proof for exchange after reason.",
+      "client_name": "exchange_video_proof_request",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent asks for video proof after collecting the reason for an exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345 because it's the wrong size."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Requests video proof of the issue."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-10",
+      "description": "Verify agent does not suggest exchange if customer explicitly wants it.",
+      "client_name": "no_exchange_suggestion_for_exchange",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not suggest exchange when the customer explicitly states they want an exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Proceeds with exchange process without suggesting it."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-11",
+      "description": "Verify agent provides final exchange instructions immediately after reason and video proof.",
+      "client_name": "immediate_exchange_instructions",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent immediately provides final exchange instructions after receiving reason and video proof."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345. The product is damaged. Here is the video: [video_link]"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides final exchange instructions."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-12",
+      "description": "Verify agent provides the exact configured return/exchange message.",
+      "client_name": "exact_final_message",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent provides the exact configured return or exchange message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345 because it's defective."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides the exact configured return message."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-1",
+      "description": "Verify agent rejects returns/exchanges for undelivered orders.",
+      "client_name": "reject_undelivered_order",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent rejects return/exchange for an undelivered order."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12346, it hasn't arrived yet."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Rejects the request as the order is not delivered."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-2",
+      "description": "Verify agent rejects requests outside the return/exchange grace period.",
+      "client_name": "reject_past_grace_period",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent rejects return/exchange for an order past its grace period."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345, it was delivered a month ago."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Rejects the request as it's past the grace period."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-3",
+      "description": "Verify agent stops process without mandatory confirmation or reason.",
+      "client_name": "process_without_reason_denied",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent stops the process if a reason is not provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the reason, does not proceed without it."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-analyze_intent-1",
+      "description": "Verify agent correctly identifies 'order_status' intent from a clear query.",
+      "client_name": "order_status_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Intent identified as order_status"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identifies intent as order_status and proceeds to ask for order details."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-helpful_accurate_friendly_humanlike-1",
+      "description": "Verify agent provides a helpful, accurate, friendly, and human-like response to a common query.",
+      "client_name": "return_policy_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is helpful, accurate, friendly, and human-like."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How do I return an item?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides a friendly and helpful explanation of the return process."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-respect_business_boundaries-1",
+      "description": "Verify agent adheres to business boundaries when asked about a potentially sensitive topic.",
+      "client_name": "policy_violation_borderline",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent strictly adheres to business boundaries."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I get a refund if I've used the product for a week?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Refers to the official return policy without making exceptions."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-guide_to_relevant_assistance-1",
+      "description": "Verify agent guides customer to relevant assistance for a supported query.",
+      "client_name": "supported_query_guidance",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent guides customer to relevant assistance."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need help with a mobile app issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Directs the user to the mobile support section or agent."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-tool_failure_response-1",
+      "description": "Verify agent provides the correct technical error message when a tool call fails.",
+      "client_name": "simulated_tool_failure",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent responds with the specified technical error message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the price of the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Simulates a tool failure and responds with the error message."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-response_aligned_with_intent-1",
+      "description": "Verify agent's response is aligned with the identified intent category for a product inquiry.",
+      "client_name": "product_inquiry_alignment",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is aligned with the product inquiry intent."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Does the Sunfire Denim come in other colors?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides information about available colors for the Sunfire Denim."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_hallucinated_information-1",
+      "description": "Verify agent does not hallucinate specific business data when asked about stock availability.",
+      "client_name": "no_hallucination_stock",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No hallucinated or fabricated information is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is the Sunfire Denim in stock right now?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not invent stock information and directs to check availability."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-boundaries_communicated_unsupported-1",
+      "description": "Verify agent clearly communicates boundaries for an out-of-scope request.",
+      "client_name": "out_of_scope_boundary_communication",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Boundaries are clearly communicated for unsupported requests."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you help me book a flight?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Clearly states it cannot assist with flight bookings."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-guided_to_supported_help_or_clarification-1",
+      "description": "Verify agent guides customer towards supported help or asks for clarification for a vague query.",
+      "client_name": "vague_query_guidance",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Customer is guided toward supported help or clarification."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I have a problem."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for clarification to understand the problem."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_hallucination_delivery_date-1",
+      "description": "Verify agent does not hallucinate a delivery date when asked.",
+      "client_name": "no_hallucination_delivery_date",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not hallucinate delivery dates."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "When will my order GV12345 arrive?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not invent a delivery date and directs to check tracking."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_specific_business_data_unsupported-1",
+      "description": "Verify agent does not provide specific order details without tool support.",
+      "client_name": "no_specific_order_details_unsupported",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not provide specific order details without tool support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What was the exact price of order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not provide the exact price and directs to order history or support."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_outside_domain_queries-1",
+      "description": "Verify agent declines to handle queries completely outside the e-commerce domain.",
+      "client_name": "outside_domain_query",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent declines to handle queries outside the e-commerce domain."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the weather like today?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "States it cannot provide weather information."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_assume_personal_details-1",
+      "description": "Verify agent does not assume or invent personal or order-specific details.",
+      "client_name": "no_assume_personal_details",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not assume or invent personal or order-specific details."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order is late, can you expedite it?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not assume which order is late and asks for clarification."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_unsupported_information-1",
+      "description": "Verify agent does not provide information not explicitly supported by tools and context.",
+      "client_name": "no_unsupported_information",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not provide information not explicitly supported by tools and context."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the manufacturing details of the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "States it does not have access to manufacturing details."
+        }
+      ]
+    },
+    {
+      "id": "unknown_handler-no_expose_internal_messages-1",
+      "description": "Verify agent does not expose internal system messages or raw tool errors.",
+      "client_name": "no_expose_internal_messages",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "unknown_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not expose internal system messages or raw tool errors."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy for international orders?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Simulates a tool error and responds with a user-friendly message, not internal details."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-1",
+      "description": "Verify agent can handle multiple core functions: order status, tracking, delivery timeline, pricing, and billing, with empathy and speed.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Can check order status",
+          "Can provide tracking information",
+          "Can estimate delivery timelines",
+          "Can answer pricing questions",
+          "Can answer billing questions",
+          "Responds with empathy and speed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hi, I'd like to know the status of my order GV12345, when will it arrive, and what was the total cost? Also, I have a question about a charge on my last bill."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should attempt phone validation, then provide status, tracking, delivery estimate, pricing, and address billing question."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-2",
+      "description": "Ensure agent always attempts phone-based validation before sharing any sensitive order details.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent must initiate phone validation",
+          "No order details shared before validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number for validation before providing order status."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-3",
+      "description": "Test agent's ability to detect and handle an escalation scenario (e.g., a delayed order).",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent detects and handles delays",
+          "Agent offers appropriate resolution for delays"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 was supposed to arrive yesterday and it's still not here. This is unacceptable!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should acknowledge the delay, apologize, and initiate escalation/investigation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-4",
+      "description": "Verify that the agent checks for escalation indicators before providing a standard response.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalation indicators are checked before responding",
+          "Escalation is handled if indicated"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where is my order GV12345? It's been stuck in transit for days and I need it urgently for a gift."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should recognize the urgency and potential escalation before providing a standard status update."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-5",
+      "description": "Simulate a technical tool failure and verify the exact error message is returned.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent returns the exact technical error message on tool failure"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about my order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should respond with the specific technical error message."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-6",
+      "description": "Ensure the agent completes the full tool chain for order status inquiry, including validation and retrieval.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent completes all necessary tool calls in sequence",
+          "Agent does not stop early in the tool chain"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to check the status of my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should initiate phone validation, then call order status tool, then potentially tracking tool."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-7",
+      "description": "Verify that if escalation is indicated by tools, it is handled before the final customer response.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalation handling precedes final response",
+          "Agent prioritizes escalation resolution"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 is showing as delivered but I never received it. This is a serious issue!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should acknowledge the issue, indicate escalation, and then provide next steps, not just a delivery confirmation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-8",
+      "description": "Ensure no order details are shared without successful phone validation.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Order details are only shared after successful validation",
+          "Agent enforces validation policy"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about my order? I don't want to give you my phone number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should refuse to share order details and reiterate the need for phone validation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-9",
+      "description": "Verify that escalation fields are checked and handled if required by the system.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent checks and acts on escalation flags",
+          "Escalation logic is correctly applied"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 is severely delayed and I'm considering cancelling the whole order if it doesn't arrive by tomorrow. I need to speak to someone."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should recognize the cancellation threat and potential delay escalation, and offer to connect to support."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-10",
+      "description": "Ensure all information provided by the agent comes strictly from tools or provided context, with no hallucination.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent only uses tool/context data",
+          "Agent does not hallucinate information"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order? I don't have an order number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up orders, and not invent order details or statuses."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-11",
+      "description": "Test that agent does not share order details without successful phone validation.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent refuses to share order details without validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number for validation before proceeding."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-12",
+      "description": "Verify agent does not invent or assume order, tracking, courier, or pricing data.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not invent data",
+          "Agent states when information is unavailable"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order? I don't have an order number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up orders and not invent details."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-13",
+      "description": "Test that agent does not override business rules, escalation requirements, or validation logic.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent adheres to validation rules",
+          "Agent follows escalation procedures"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel my order GV12345 immediately, even though it's already shipped. Just do it."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should explain that cancellation is not possible for shipped orders and offer alternative solutions or escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-14",
+      "description": "Verify agent does not ask the customer directly for an order ID.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent uses phone number lookup instead of asking for order ID"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where's my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up the order, not ask for the order ID."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-15",
+      "description": "Simulate tool errors and check that they are not directly shown to the user.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not expose raw tool errors",
+          "Agent provides a user-friendly error message"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you check the status of my order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should respond with the predefined technical error message, not raw error details."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-1",
+      "description": "Verify agent offers a solution before proceeding with cancellation for a fixable issue.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should offer to update delivery address before cancelling order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel order GV12345, I need to change the delivery address."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Offer to update delivery address for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-2",
+      "description": "Verify agent displays fetched order details and asks for confirmation.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should display order details for 9876543210 and ask for confirmation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel an order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Display fetched orders and ask for confirmation."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-3",
+      "description": "Verify agent collects mandatory cancellation reason in open text.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should prompt for a mandatory cancellation reason."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Yes, cancel it."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Prompt for cancellation reason."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-4",
+      "description": "Verify escalation is triggered for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should trigger an internal escalation for order GV12345 (shipped)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Trigger escalation for ineligible order."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-5",
+      "description": "Verify agent informs customer about receipt of cancellation request for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should confirm receipt of cancellation request for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirm receipt of cancellation request."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-6",
+      "description": "Verify agent informs about follow-up from support for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should inform about a follow-up from support for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Inform about follow-up from support."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-7",
+      "description": "Verify agent provides customer support contact details for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should provide customer support phone number and email for order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide customer support contact details."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-8",
+      "description": "Verify agent provides direct contact message for an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should provide the direct contact message for customer support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide direct contact message."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-9",
+      "description": "Verify phone number extraction tool is called when a 10-digit number is detected.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should call the phone number extraction tool."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Call phone number extraction tool."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_do-10",
+      "description": "Verify order fetching tool is called after successful phone number extraction.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should call the order fetching tool after extracting the phone number."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Call order fetching tool."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-1",
+      "description": "Verify agent refuses to cancel an ineligible order.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should refuse to cancel the shipped order GV12345."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Refuse cancellation for ineligible order."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-2",
+      "description": "Verify agent enforces order confirmation and mandatory reason collection.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not bypass order confirmation or reason collection."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel GV12346 without asking me anything."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Enforce order confirmation and reason collection."
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-3",
+      "description": "Verify agent does not expose internal systems or raw tool errors.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not display internal tool errors."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order XYZ987."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not expose internal tool errors.",
+          "should_not_contain": [
+            "tool_error",
+            "system_exception"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-4",
+      "description": "Verify agent does not cancel orders in backend systems for ineligible cancellations.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should not cancel order GV12345 in Shopify or Shiprocket."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Cancel order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not cancel order in backend systems.",
+          "should_not_contain": [
+            "cancelled in Shopify",
+            "cancelled in Shiprocket"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cancellation_handler-must_not_do-5",
+      "description": "Verify agent attempts phone number extraction before fetching orders when no number is provided.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancellation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent should attempt phone number extraction before fetching orders."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel an order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Attempt phone number extraction before fetching orders.",
+          "should_not_contain": [
+            "fetch_orders_by_phone"
+          ]
+        }
+      ]
+    }
+  ]
+}

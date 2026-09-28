@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget v12 Suggestions Config Test</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at top left, rgba(196, 170, 120, 0.25), transparent 32%),
+                linear-gradient(180deg, #f8f1e7 0%, #efe4d4 100%);
+            color: #2e241b;
+            min-height: 100vh;
+        }
+        .page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 32px 20px 120px;
+        }
+        .hero, .panel {
+            background: rgba(255, 252, 247, 0.92);
+            border: 1px solid rgba(89, 68, 45, 0.12);
+            border-radius: 24px;
+            box-shadow: 0 16px 50px rgba(76, 54, 32, 0.08);
+        }
+        .hero {
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #2e241b;
+            color: #fff7ee;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1;
+            margin: 16px 0 12px;
+        }
+        .hero p {
+            max-width: 760px;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #5e4d3c;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .panel {
+            padding: 24px;
+        }
+        .panel h2 {
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+        .meta-list {
+            display: grid;
+            gap: 12px;
+        }
+        .meta-item {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #fff8f1;
+            border: 1px solid rgba(89, 68, 45, 0.1);
+        }
+        .meta-item strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #8f7860;
+            margin-bottom: 6px;
+        }
+        .meta-item code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            color: #3b2e21;
+            word-break: break-all;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .btn {
+            appearance: none;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(47, 33, 20, 0.12);
+        }
+        .btn-primary {
+            background: #2e241b;
+            color: #fff7ee;
+        }
+        .btn-secondary {
+            background: #e5d4bf;
+            color: #2e241b;
+        }
+        .callout {
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: #fff4dd;
+            border: 1px solid rgba(163, 123, 56, 0.22);
+            color: #6c532f;
+            line-height: 1.6;
+        }
+        .code-card {
+            background: #261d17;
+            color: #f7ede0;
+            border-radius: 22px;
+            padding: 22px;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 280px;
+            white-space: pre-wrap;
+        }
+        .samples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .sample-chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #f3e7d6;
+            border: 1px solid rgba(89, 68, 45, 0.12);
+            font-size: 13px;
+            color: #5f4a35;
+        }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="hero">
+            <span class="eyebrow">Local Only</span>
+            <h1>Widget v12 Suggestions Config Test</h1>
+            <p>
+                This page loads <code>/static/chat-widget.v12.js</code> with <code>clientId</code> support and shows
+                the live <code>/widget/suggestions-config</code> response. Use it to verify that your DB-backed
+                button config is being picked up before embedding the widget on a client website.
+            </p>
+        </section>
+
+        <section class="grid">
+            <div class="panel">
+                <h2>Runtime Config</h2>
+                <div class="meta-list">
+                    <div class="meta-item">
+                        <strong>Client Name</strong>
+                        <code id="client-name-value">Concept Groove</code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Client ID</strong>
+                        <code id="client-id-value">c3ffcb1b-afb9-4ca4-8746-a06698bec870</code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Suggestions Endpoint</strong>
+                        <code id="suggestions-endpoint-value"></code>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="open-chat-btn" type="button">Open Chat Widget</button>
+                    <button class="btn btn-secondary" id="refresh-config-btn" type="button">Refresh Config Preview</button>
+                </div>
+                <div class="callout">
+                    Set <code>ENABLE_WIDGET_SUGGESTIONS_CONFIG=true</code> and restart the app before using this page.
+                    If the flag is off or the DB row is missing, the widget will intentionally fall back to static chips.
+                </div>
+                <div class="samples">
+                    <span class="sample-chip">Default page context: Home</span>
+                    <span class="sample-chip">Launcher: v12 rotating text</span>
+                    <span class="sample-chip">Config source visible below</span>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>How To Use</h2>
+                <div class="meta-list">
+                    <div class="meta-item">
+                        <strong>1</strong>
+                        Open the widget from the floating launcher and check the first suggestion chips.
+                    </div>
+                    <div class="meta-item">
+                        <strong>2</strong>
+                        Compare them with the JSON response shown on this page.
+                    </div>
+                    <div class="meta-item">
+                        <strong>3</strong>
+                        Override client values with query params if needed:
+                        <code>?clientName=Concept%20Groove&clientId=c3ffcb1b-afb9-4ca4-8746-a06698bec870</code>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Live Suggestions Config Response</h2>
+            <pre class="code-card" id="config-preview">Loading...</pre>
+        </section>
+    </div>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const clientName = params.get('clientName') || 'Concept Groove';
+            const clientId = params.get('clientId') || 'c3ffcb1b-afb9-4ca4-8746-a06698bec870';
+            const endpoint = new URL('/widget/suggestions-config', window.location.origin);
+            endpoint.searchParams.set('client_name', clientName);
+            endpoint.searchParams.set('client_id', clientId);
+
+            document.getElementById('client-name-value').textContent = clientName;
+            document.getElementById('client-id-value').textContent = clientId;
+            document.getElementById('suggestions-endpoint-value').textContent = endpoint.toString();
+
+            async function refreshConfigPreview() {
+                const preview = document.getElementById('config-preview');
+                preview.textContent = 'Loading...';
+                try {
+                    const response = await fetch(endpoint.toString(), { credentials: 'same-origin' });
+                    const data = await response.json();
+                    preview.textContent = JSON.stringify(data, null, 2);
+                } catch (error) {
+                    preview.textContent = 'Failed to load suggestions config:\\n' + String(error);
+                }
+            }
+
+            document.getElementById('refresh-config-btn').addEventListener('click', refreshConfigPreview);
+            document.getElementById('open-chat-btn').addEventListener('click', function() {
+                if (window.FashionBotWidget && typeof window.FashionBotWidget.open === 'function') {
+                    window.FashionBotWidget.open();
+                }
+            });
+
+            window.FashionBotWidgetConfig = {
+                clientName: clientName,
+                clientId: clientId,
+                position: 'bottom-right',
+                theme: 'light'
+            };
+
+            refreshConfigPreview();
+        })();
+    </script>
+    <script src="/static/chat-widget.v12.js" async defer></script>
+</body>
+</html>

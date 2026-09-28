@@ -1,0 +1,26 @@
+{
+	auto_https off
+	admin off
+	persist_config off
+}
+
+:10000 {
+	@auth path /{$MCP_PATH_SECRET}/mcp /{$MCP_PATH_SECRET}/mcp/*
+	handle @auth {
+		uri strip_prefix /{$MCP_PATH_SECRET}
+		reverse_proxy localhost:10001 {
+			flush_interval -1
+			transport http {
+				read_buffer 64KB
+			}
+		}
+	}
+
+	handle /healthz {
+		respond "ok" 200
+	}
+
+	handle {
+		respond 404
+	}
+}

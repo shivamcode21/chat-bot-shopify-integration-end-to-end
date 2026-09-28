@@ -1,0 +1,415 @@
+{
+  "test_scenarios": [
+    {
+      "id": "feedback_handler-acknowledge-respond",
+      "description": "Tests that the agent acknowledges and responds to positive feedback promptly and authentically.",
+      "client_name": "feedback_user_1",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Timely response",
+          "Authentic tone",
+          "Helpful response"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I just wanted to say I love the new website design! It's so much easier to navigate now."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledge and respond to customer feedback in a timely, authentic, and helpful manner."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-feel-heard",
+      "description": "Tests that the agent makes the customer feel heard, appreciated, and supported after providing feedback.",
+      "client_name": "feedback_user_2",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Empathy shown",
+          "Validation of feelings"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really frustrated with the checkout process. It's taking forever to load and I almost gave up."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Ensure customers feel heard, appreciated, and supported."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-offer-assistance-negative",
+      "description": "Tests that the agent offers assistance or escalation guidance when feedback indicates a problem.",
+      "client_name": "feedback_user_3",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Offer of assistance",
+          "Escalation guidance"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order arrived damaged. The box was crushed and the item inside is broken."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Offer assistance or escalation guidance when feedback indicates a problem."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-positive",
+      "description": "Tests that the agent correctly classifies positive feedback.",
+      "client_name": "feedback_user_4",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Positive"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Your delivery was super fast and the product is exactly what I wanted. Great job!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-negative",
+      "description": "Tests that the agent correctly classifies negative feedback.",
+      "client_name": "feedback_user_5",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Negative"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I received the wrong item. This is not what I ordered at all."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-mixed",
+      "description": "Tests that the agent correctly classifies mixed feedback.",
+      "client_name": "feedback_user_6",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Mixed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The product itself is great, but the shipping took way too long."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-classify-unclear",
+      "description": "Tests that the agent correctly classifies unclear/general feedback.",
+      "client_name": "feedback_user_7",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Feedback classified as Unclear/General"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Just wanted to give some feedback."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Analyze the customer feedback to determine its type (Positive, Negative, Mixed, Unclear/General)."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-apologize-empathy-negative",
+      "description": "Tests that the agent apologizes sincerely and shows empathy for negative feedback.",
+      "client_name": "feedback_user_8",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Sincere apology",
+          "Empathy shown"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm very disappointed with the quality of the product I received. It broke after only one use."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For Negative Feedback: Apologize sincerely and show empathy."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-acknowledge-specific-issue",
+      "description": "Tests that the agent acknowledges the specific issue mentioned in negative feedback.",
+      "client_name": "feedback_user_9",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific issue acknowledged"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The website is crashing every time I try to add an item to my cart."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For Negative Feedback: Acknowledge the specific issue mentioned."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-concise-relevant-aligned",
+      "description": "Tests that the agent's responses are concise, relevant, and aligned with the customer's feedback.",
+      "client_name": "feedback_user_10",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is concise",
+          "Response is relevant",
+          "Response is aligned with feedback"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I found the checkout button to be a bit hard to find."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Keep responses concise, relevant, and aligned with the customer\u2019s feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-reference-specific-details",
+      "description": "Tests that the agent references specific details from the customer's feedback.",
+      "client_name": "feedback_user_11",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific details from feedback referenced"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The delivery for order #ABC12345 was two days late, and the packaging was damaged."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Reference specific details from the feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-authentic-genuine",
+      "description": "Tests that the agent's responses are authentic and genuine, not robotic.",
+      "client_name": "feedback_user_12",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is natural",
+          "Response is not robotic"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really happy with my purchase. It arrived quickly and was exactly as described."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responses should be authentic and genuine, never robotic."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-show-appreciation",
+      "description": "Tests that the agent always shows appreciation for customer feedback.",
+      "client_name": "feedback_user_13",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Appreciation for feedback is present"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "The search function isn't working properly."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Always show appreciation for customer feedback."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-tool-failure-message",
+      "description": "Tests that the agent provides the correct message when a tool call fails for technical reasons.",
+      "client_name": "feedback_user_14",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Specific technical error message displayed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "If any tool call fails for technical reasons, respond to the user with: 'I won\u2019t be able to answer your query due to a technical error.'"
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-functional-failure-fallback",
+      "description": "Tests that the agent provides a safe fallback for functional failures.",
+      "client_name": "feedback_user_15",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Safe fallback provided",
+          "Acknowledges feedback",
+          "Expresses appreciation/apology",
+          "Guides to general support"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm trying to return an item, but the return portal is showing an error and won't let me proceed."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "For functional failures (e.g., required information is unavailable), provide a safe fallback by acknowledging the feedback, expressing appreciation or apology as appropriate, and guiding the customer to general support channels without halting the response."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-additional-steps",
+      "description": "Tests that the agent does not proceed to additional operational steps beyond acknowledgment and assistance offering.",
+      "client_name": "feedback_user_16",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No operational steps attempted"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to change my shipping address for order XYZ789."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not proceed to any additional operational steps beyond acknowledgment and assistance offering."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-made-up-details",
+      "description": "Tests that the agent does not make up details, promises, discount codes, or offers.",
+      "client_name": "feedback_user_17",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No fabricated details",
+          "No fabricated promises",
+          "No fabricated discount codes",
+          "No fabricated offers"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm really unhappy with the price of this item. It seems too expensive."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not make up details, promises, discount codes, or offers."
+        }
+      ]
+    },
+    {
+      "id": "feedback_handler-no-guaranteed-outcomes",
+      "description": "Tests that the agent does not guarantee outcomes or resolutions that cannot be delivered.",
+      "client_name": "feedback_user_18",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "feedback_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No guaranteed outcomes",
+          "Cautious language used"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My product is defective. Will you be able to fix it immediately?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Do not guarantee outcomes or resolutions that cannot be delivered."
+        }
+      ]
+    }
+  ]
+}

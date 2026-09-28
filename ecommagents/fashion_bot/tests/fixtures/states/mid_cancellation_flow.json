@@ -1,0 +1,46 @@
+{
+    "fixture_id": "mid_cancellation_flow",
+    "description": "User confirmed order for cancellation, agent is waiting for the cancellation reason. Next message should be treated as a REASON, not a new intent.",
+    "state": {
+        "messages": [
+            {"role": "human", "content": "I want to cancel my order"},
+            {"role": "ai", "content": "I found your order GV12345 - Sunfire Denim (Size 32) for ₹2,999. Is this the order you'd like to cancel?"},
+            {"role": "human", "content": "yes"},
+            {"role": "ai", "content": "Could you please share the reason for cancellation? This helps us improve our service."}
+        ],
+        "phone_number": "9876543210",
+        "client_id": "{{client_id}}",
+        "selected_order_id": "GV12345",
+        "known_orders": [
+            {
+                "order_id": "GV12345",
+                "order_number": "GV12345",
+                "status": "New",
+                "product": "Sunfire Denim",
+                "size": "32",
+                "amount": 2999,
+                "created_at": "2025-08-10",
+                "can_cancel": true
+            }
+        ],
+        "waiting_for_cancellation_reason": true,
+        "waiting_for_order_confirmation": false,
+        "conversation_context": {
+            "topic": "order_modification",
+            "topic_status": "pending_info",
+            "focal_entity": {
+                "type": "order",
+                "id": "GV12345",
+                "display": "Sunfire Denim - Size 32 - ₹2,999"
+            },
+            "entities": [
+                {
+                    "type": "order",
+                    "id": "GV12345",
+                    "data": {"status": "New", "product": "Sunfire Denim"}
+                }
+            ]
+        }
+    }
+}
+

@@ -1,0 +1,57 @@
+{
+    "fixture_id": "identified_user_with_orders",
+    "description": "User has been identified by phone number and orders have been fetched. Agent should NOT ask for phone again or re-fetch orders.",
+    "state": {
+        "messages": [
+            {"role": "human", "content": "9876543210"},
+            {"role": "ai", "content": "I found 2 orders for your number:\n\n📦 Order GV12345 - Sunfire Denim (Size 32) - ₹2,999 - Status: Shipped\n📦 Order GV12346 - Evolve Shacket (Size L) - ₹3,499 - Status: New\n\nWhich order would you like help with?"}
+        ],
+        "phone_number": "9876543210",
+        "client_id": "{{client_id}}",
+        "known_orders": [
+            {
+                "order_id": "GV12345",
+                "order_number": "GV12345",
+                "status": "Shipped",
+                "product": "Sunfire Denim",
+                "size": "32",
+                "amount": 2999,
+                "created_at": "2025-08-05",
+                "shipped_at": "2025-08-07",
+                "tracking_number": "TRK123456",
+                "can_cancel": false
+            },
+            {
+                "order_id": "GV12346",
+                "order_number": "GV12346",
+                "status": "New",
+                "product": "Evolve Shacket",
+                "size": "L",
+                "amount": 3499,
+                "created_at": "2025-08-10",
+                "can_cancel": true
+            }
+        ],
+        "selected_order_id": null,
+        "conversation_context": {
+            "topic": "order_status",
+            "topic_status": "open",
+            "entities": [
+                {
+                    "type": "order",
+                    "id": "GV12345",
+                    "data": {"status": "Shipped", "product": "Sunfire Denim"}
+                },
+                {
+                    "type": "order",
+                    "id": "GV12346",
+                    "data": {"status": "New", "product": "Evolve Shacket"}
+                }
+            ],
+            "customer_identifiers": {
+                "phone": "9876543210"
+            }
+        }
+    }
+}
+

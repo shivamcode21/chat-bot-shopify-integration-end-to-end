@@ -1,0 +1,334 @@
+{
+  "test_scenarios": [
+    {
+      "id": "product_details_handler-accuracy-efficiency",
+      "description": "Verify accurate and efficient answer to a product detail question.",
+      "client_name": "techgadgetstore",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Answer product-related questions accurately and efficiently using available context and tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the battery life of the new X-Phone Pro?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide accurate battery life information for X-Phone Pro."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-clarity-guidance",
+      "description": "Verify clear, correct, and guiding answer to a complex product question.",
+      "client_name": "fashionforward",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Prioritize clarity, correctness, and customer guidance in responses."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm looking for a dress that's suitable for a summer wedding, breathable, and has pockets. What do you recommend?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide clear recommendations for a suitable dress, highlighting breathability and pockets, and guiding the customer."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-collect-product-identifier",
+      "description": "Verify agent prompts for product identifier when none is provided.",
+      "client_name": "electronicsmart",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Collect or derive product identifier (valid store URL, product name, or numeric selection)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about its features."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Prompt the user to specify which product they are interested in."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-collect-query-intent",
+      "description": "Verify agent correctly identifies the query intent.",
+      "client_name": "homegoodsdepot",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Collect or derive query intent/type (e.g., size, price, fabric, reviews, customization, size chart, restock)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How much does the 'Cozy Knit Sweater' cost?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identify the intent as 'price' and provide the cost of the 'Cozy Knit Sweater'."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-check-existing-product-data",
+      "description": "Verify agent does not make a new tool call when product data is already in context.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Check if product data already exists in the conversation (look for \u201c\ud83d\udce6 PRODUCT DATA\u201d or entity/topic context) before any tool call."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What colors is it available in?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the existing product data for 'Sunfire Denim' to answer the question about available colors without making a new tool call."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-use-existing-product-data",
+      "description": "Verify agent uses existing product data directly when present.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If product data is present in context, use it directly and do NOT fetch again."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me more about the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the provided product data for 'Sunfire Denim' to answer the question, not fetch again."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-top-selling-ignore-context",
+      "description": "Verify agent fetches top-selling products immediately, ignoring existing context.",
+      "client_name": "bookworm",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "For top selling/best/trending queries, fetch top-selling products immediately (ignore existing product context)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Show me the top selling books."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Fetch and display top-selling books, ignoring the 'Sunfire Denim' context."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-size-chart-measurements",
+      "description": "Verify agent uses size chart data for measurements.",
+      "client_name": "sportswear",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "For size chart/measurements, fetch size chart from context or tool (do NOT use basic product info for measurements)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the exact chest measurements for a size Large in the 'Performance Tee'?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Fetch and provide the chest measurements for a size Large 'Performance Tee' from the size chart."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-url-validation-fetch",
+      "description": "Verify agent validates domain and fetches product from a provided URL.",
+      "client_name": "onlineboutique",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If message contains a URL, validate domain, then fetch product."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about this product? https://www.example-boutique.com/products/elegant-silk-scarf"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Validate the domain 'example-boutique.com' and fetch product details for 'elegant-silk-scarf'."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-answer-with-context-or-fetch",
+      "description": "Verify agent uses existing product data if present, otherwise fetches.",
+      "client_name": "appliancestore",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "When answering with product in context, use existing product data if present; otherwise fetch."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the warranty period for the Sunfire Denim?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Use the existing product data for 'Sunfire Denim' to answer the warranty question."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-extract-product-line-parameter",
+      "description": "Verify extraction of device model for `product_line` parameter.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "When a customer asks about products for a specific device model (e.g., phone cases), MUST extract the device model and pass it as the `product_line` parameter to `search_products_by_name`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Do you have any cases for the Samsung Galaxy S23 Ultra?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract 'Samsung Galaxy S23 Ultra' as `product_line` and search for cases."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-extract-full-device-model",
+      "description": "Verify extraction of the FULL device model exactly as mentioned.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Extract the FULL device model exactly as the customer mentions it for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need a screen protector for the iPhone 17 Pro Max."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract 'iPhone 17 Pro Max' exactly as mentioned for the `product_line` parameter."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-normalize-device-model",
+      "description": "Verify normalization of device model to lowercase with proper spacing.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Normalize device model to lowercase with proper spacing for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Looking for a case for my Pixel7."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Normalize 'Pixel7' to 'pixel 7' for the `product_line` parameter."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-never-truncate-device-model",
+      "description": "Verify device model name is never truncated or shortened.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "NEVER truncate or shorten the device model name for `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need a rugged case for the Samsung Galaxy S23 Ultra Plus Extreme Edition."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extract the full device model 'Samsung Galaxy S23 Ultra Plus Extreme Edition' for the `product_line` parameter without truncation."
+        }
+      ]
+    },
+    {
+      "id": "product_details_handler-no-product-line-if-no-model",
+      "description": "Verify `product_line` is not passed if no device model is mentioned.",
+      "client_name": "phoneaccessories",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "product_details_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If no device model is mentioned, do NOT pass `product_line`."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the best leather cases available?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Search for 'leather cases' without passing a `product_line` parameter."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-final_answer_handler-1",
+      "description": "Verify that only the WhatsApp-ready message is returned, with no extra text or analysis.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Return ONLY the final WhatsApp-ready message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the final message."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-2",
+      "description": "Test language rule application for a Hinglish-preferring customer.",
+      "client_name": "hinglish_user",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Apply language rules based on customer's messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Mujhe yeh shirt chahiye, kitne ka hai?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in Hinglish."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-3",
+      "description": "Test character limit enforcement for long responses.",
+      "client_name": "casence",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Apply character limits (\u2264200 chars, max 250 for long responses, max 400 for size guides)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me everything about the Sunfire Denim."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Truncates or rephrases response to fit character limit."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-4",
+      "description": "Verify that new information is not added to the draft facts.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Keep draft facts intact, no new information."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the standard return policy, no added info."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-5",
+      "description": "Test the use of only English letters (A-Z) when language is ambiguous.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Use ONLY English letters (A-Z) when in doubt about language."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Order status?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with only A-Z English characters."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-6",
+      "description": "Generate an appropriate apologetic response for [EMPTY_RESPONSE] for a product inquiry.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Generate an appropriate apologetic response for [EMPTY_RESPONSE] based on customer's recent messages."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about the new collection."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides an apologetic response for empty response."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-7",
+      "description": "Verify that the agent does not fundamentally change the meaning of the draft reply.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT change the draft reply fundamentally. The meaning and intent must remain the same."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Is the shirt available in blue?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains original meaning, does not say it's out of stock if it's not."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-8",
+      "description": "Verify that the agent does not alter core message or facts.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never alter the core message or facts."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides correct status for GV12345, not GV12346."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-9",
+      "description": "Ensure no analysis, commentary, or prefixes are included in the output.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT include analysis, commentary, or prefixes in the output."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How do I track my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Returns only the tracking instructions."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-10",
+      "description": "Verify that generic closers are not used.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do NOT use generic closers ('If you have any questions...', 'Let me know if you need help', 'Feel free to ask', etc.)."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your payment policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not include generic closing phrases."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-11",
+      "description": "Test Hinglish usage when customer prefers it (90%+ certainty).",
+      "client_name": "hinglish_user",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Use Hinglish ONLY if 90%+ certain customer prefers it."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Mujhe yeh dress chahiye, size kya hai?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in Hinglish."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-12",
+      "description": "Test English response when an ENGLISH TRIGGER is met.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Respond in ENGLISH if any ENGLISH TRIGGERS are met."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to change my shipping address."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds in English."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-13",
+      "description": "Handle [EMPTY_RESPONSE] for an order inquiry.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "If draft reply is [EMPTY_RESPONSE], generate specific apologetic response based on customer inquiry type."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the status of order GV99999?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides an apologetic response for an unknown order."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-14",
+      "description": "Verify that the agent limits emojis to a maximum of two.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Add max 2 emojis."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can I get a discount?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Includes at most two emojis."
+        }
+      ]
+    },
+    {
+      "id": "contract-final_answer_handler-15",
+      "description": "Maintain a professional and conversational tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "final_answer_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintain a professional, conversational tone."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Uses a professional and conversational tone."
+        }
+      ]
+    }
+  ]
+}

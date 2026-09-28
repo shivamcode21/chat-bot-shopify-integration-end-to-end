@@ -1,0 +1,27 @@
+{
+  "default": [
+    "high waist tummy tuckers",
+    "shaping shorts",
+    "slimming body shaper",
+    "shapewear for post pregnancy",
+    "padded bras"
+  ],
+  "byClientName": {
+    "Underneat": [
+      "high waist tummy tuckers",
+      "shaping shorts",
+      "slimming body shaper",
+      "shapewear for post pregnancy",
+      "padded bras"
+    ]
+  },
+  "byDomainSubstring": {
+    "underneat.in": [
+      "high waist tummy tuckers",
+      "shaping shorts",
+      "slimming body shaper",
+      "shapewear for post pregnancy",
+      "padded bras"
+    ]
+  }
+}

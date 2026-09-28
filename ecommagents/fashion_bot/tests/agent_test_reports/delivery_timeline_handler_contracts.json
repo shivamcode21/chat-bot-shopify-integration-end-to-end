@@ -1,0 +1,422 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Always use tools to validate pincodes before providing delivery estimates.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify that validate_pincode_tool is called before get_delivery_estimate."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always use tools to validate URL domains before processing product URLs.",
+    "priority": "critical",
+    "test_hint": "Provide a product URL and verify that is_url_in_valid_domain_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always use tools to check product availability for size-dependent products before providing delivery timelines.",
+    "priority": "critical",
+    "test_hint": "Provide a size-dependent product and a size, then verify check_product_availability_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always use get_order_delivery_status_tool when an order ID is provided.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and verify get_order_delivery_status_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always use get_product_details_from_url_tool if a product URL is provided in the user's message.",
+    "priority": "critical",
+    "test_hint": "Provide a product URL and verify get_product_details_from_url_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a product is not in state and no URL is provided, use search_products_by_name_tool if a product name is mentioned.",
+    "priority": "high",
+    "test_hint": "Mention a product name without a URL and verify search_products_by_name_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a product is already loaded in state and no URL is provided in the message, use the product info from state.",
+    "priority": "high",
+    "test_hint": "Ask about a product that was previously discussed and verify get_current_product_from_state is used."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always complete the FULL tool chain as defined for each scenario.",
+    "priority": "critical",
+    "test_hint": "Initiate a scenario (e.g., product-specific delivery) and verify all tools in the defined chain are called sequentially."
+  },
+  {
+    "category": "must_do",
+    "rule": "After calling ANY tool, generate a complete customer-facing response.",
+    "priority": "critical",
+    "test_hint": "Call any tool and verify a response is generated, not an empty turn."
+  },
+  {
+    "category": "must_do",
+    "rule": "If get_delivery_estimate_tool_enhanced is called, show the delivery estimate to the customer.",
+    "priority": "critical",
+    "test_hint": "Trigger get_delivery_estimate_tool_enhanced and verify the estimate is in the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "If validate_pincode_tool is called, tell the customer the result AND call the next required tool.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify the pincode validation result is communicated and the next tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always use the tool data in the response.",
+    "priority": "critical",
+    "test_hint": "Ensure all information presented to the customer comes directly from tool outputs."
+  },
+  {
+    "category": "must_do",
+    "rule": "Ask at most 1 clarifying question at a time if required information is missing.",
+    "priority": "high",
+    "test_hint": "Intentionally omit required information and verify only one question is asked."
+  },
+  {
+    "category": "must_do",
+    "rule": "Offer one next best action after providing a response.",
+    "priority": "medium",
+    "test_hint": "Verify that each response includes a single, relevant next step suggestion."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use the warehouse pincode 110034 as pickup_pincode for estimates.",
+    "priority": "high",
+    "test_hint": "Initiate a delivery estimate query and verify '110034' is used as pickup_pincode."
+  },
+  {
+    "category": "must_do",
+    "rule": "If tool output conflicts with user claims, trust tools.",
+    "priority": "high",
+    "test_hint": "User claims a pincode is valid, but tool says invalid. Verify agent trusts the tool."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a tool fails, apologize briefly and offer an escalation path to support.",
+    "priority": "high",
+    "test_hint": "Simulate a tool failure and verify the apology and escalation offer."
+  },
+  {
+    "category": "must_do",
+    "rule": "If multiple product matches are found, show a numbered list with product links and ask the user to select a number.",
+    "priority": "high",
+    "test_hint": "Search for a product with multiple results and verify the numbered list format."
+  },
+  {
+    "category": "must_do",
+    "rule": "If no product matches are found, inform the customer and ask for a product link or different name.",
+    "priority": "high",
+    "test_hint": "Search for a non-existent product and verify the appropriate response."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a URL is provided, first use is_url_in_valid_domain_tool.",
+    "priority": "critical",
+    "test_hint": "Provide a URL and verify is_url_in_valid_domain_tool is called before other product-related tools."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a URL is invalid, use get_category_links_tool to fetch and display available category links.",
+    "priority": "high",
+    "test_hint": "Provide an invalid URL and verify get_category_links_tool is called and its output is displayed."
+  },
+  {
+    "category": "must_do",
+    "rule": "If size is mentioned for a product, call check_product_availability_tool before providing delivery timeline.",
+    "priority": "critical",
+    "test_hint": "Provide a product with a size and verify check_product_availability_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a size is out of stock, inform the customer and do NOT provide a delivery timeline.",
+    "priority": "critical",
+    "test_hint": "Provide a product with an out-of-stock size and verify no delivery timeline is given."
+  },
+  {
+    "category": "must_do",
+    "rule": "If a product URL is provided, it ALWAYS takes priority over product in state.",
+    "priority": "high",
+    "test_hint": "Provide a product URL that differs from a product already in state and verify the URL is used."
+  },
+  {
+    "category": "must_do",
+    "rule": "If customer provides a postal code, you MUST call validate_pincode_tool before giving estimates.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify validate_pincode_tool is called before get_delivery_estimate."
+  },
+  {
+    "category": "must_do",
+    "rule": "If customer provides a URL, you MUST call is_url_in_valid_domain_tool first.",
+    "priority": "critical",
+    "test_hint": "Provide a URL and verify is_url_in_valid_domain_tool is called first."
+  },
+  {
+    "category": "must_do",
+    "rule": "If customer mentions order ID, you MUST call get_order_delivery_status_tool.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and verify get_order_delivery_status_tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "After calling ANY tool, you MUST generate a complete customer-facing response.",
+    "priority": "critical",
+    "test_hint": "Call any tool and verify a response is generated, not an empty turn."
+  },
+  {
+    "category": "must_do",
+    "rule": "If you called get_delivery_estimate, you MUST show the delivery estimate to the customer.",
+    "priority": "critical",
+    "test_hint": "Trigger get_delivery_estimate and verify the estimate is in the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "If you called validate_pincode_tool, you MUST tell the customer the result AND call the next required tool.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify the pincode validation result is communicated and the next tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "ALWAYS USE THE TOOL DATA IN YOUR RESPONSE - DO NOT IGNORE IT.",
+    "priority": "critical",
+    "test_hint": "Ensure all information presented to the customer comes directly from tool outputs."
+  },
+  {
+    "category": "must_do",
+    "rule": "Format responses clearly with line breaks and emojis.",
+    "priority": "medium",
+    "test_hint": "Verify responses use proper formatting and relevant emojis."
+  },
+  {
+    "category": "must_do",
+    "rule": "For multiple products, use numbered lists.",
+    "priority": "medium",
+    "test_hint": "When presenting multiple products, verify they are in a numbered list."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use emojis appropriately (\ud83d\ude9a \ud83d\udce6 \ud83d\udccd \ud83d\udcc5 \u2705 \u274c).",
+    "priority": "low",
+    "test_hint": "Check for appropriate use of specified emojis in responses."
+  },
+  {
+    "category": "must_do",
+    "rule": "Keep responses concise.",
+    "priority": "low",
+    "test_hint": "Evaluate response length for conciseness."
+  },
+  {
+    "category": "must_do",
+    "rule": "Detect when customer changes location/product/size in conversation.",
+    "priority": "high",
+    "test_hint": "Change location, product, or size mid-conversation and verify the agent acknowledges and adapts."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never invent policy, order data, pricing, or delivery details.",
+    "priority": "critical",
+    "test_hint": "Ask for information not available through tools and verify the agent does not invent it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never provide delivery timeline for out-of-stock sizes.",
+    "priority": "critical",
+    "test_hint": "Request delivery for an out-of-stock size and verify no timeline is provided."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never hallucinate delivery charges or pricing information.",
+    "priority": "critical",
+    "test_hint": "Ask about delivery charges and verify the agent does not invent them."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never mention courier-specific methods (Porter, XpressBees) unless explicitly asked or returned by tool.",
+    "priority": "high",
+    "test_hint": "Ask about delivery without mentioning couriers and verify the agent doesn't volunteer courier names."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never make up or invent information not returned by tools.",
+    "priority": "critical",
+    "test_hint": "Ask for information and verify the agent only uses tool-provided data."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never respond to customer after just validate_pincode_tool.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify the agent does not respond until after get_delivery_estimate."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never call extra tools after completing a chain.",
+    "priority": "critical",
+    "test_hint": "Complete a tool chain and verify no additional, unnecessary tools are called."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never search for products unless the customer explicitly mentioned a product name or URL.",
+    "priority": "high",
+    "test_hint": "Ask a general question without mentioning a product and verify the agent does not initiate a product search."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never end your turn silently or with an empty response after tool calls.",
+    "priority": "critical",
+    "test_hint": "Call any tool and verify a response is generated, not an empty turn."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never provide delivery timeline if size is out of stock.",
+    "priority": "critical",
+    "test_hint": "Request delivery for an out-of-stock size and verify no timeline is provided."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never provide delivery timeline if product is out of stock.",
+    "priority": "critical",
+    "test_hint": "Request delivery for an out-of-stock product and verify no timeline is provided."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If customer provides a product URL, use get_product_details_from_url_tool.",
+    "priority": "critical",
+    "test_hint": "Provide a product URL and verify get_product_details_from_url_tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If NO URL in message, check get_current_product_from_state FIRST.",
+    "priority": "high",
+    "test_hint": "Ask about a product without a URL and verify get_current_product_from_state is checked."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If product not in state and no URL provided, use search_products_by_name_tool if product name is mentioned.",
+    "priority": "high",
+    "test_hint": "Mention a product name without a URL and verify search_products_by_name_tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If customer provides a postal code, call validate_pincode_tool.",
+    "priority": "critical",
+    "test_hint": "Provide a pincode and verify validate_pincode_tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If customer provides a URL, call is_url_in_valid_domain_tool first.",
+    "priority": "critical",
+    "test_hint": "Provide a URL and verify is_url_in_valid_domain_tool is called first."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If size is mentioned for a product, call check_product_availability_tool before providing delivery timeline.",
+    "priority": "critical",
+    "test_hint": "Provide a product with a size and verify check_product_availability_tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If customer mentions order ID, call get_order_delivery_status_tool.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and verify get_order_delivery_status_tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If size is OUT OF STOCK, inform customer and DO NOT provide delivery timeline.",
+    "priority": "critical",
+    "test_hint": "Provide a product with an out-of-stock size and verify no delivery timeline is given."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If tool output conflicts with user claims, trust tools.",
+    "priority": "high",
+    "test_hint": "User claims a pincode is valid, but tool says invalid. Verify agent trusts the tool."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If tool fails, apologize briefly and offer escalation path.",
+    "priority": "high",
+    "test_hint": "Simulate a tool failure and verify the apology and escalation offer."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If customer mentions specific courier methods, suggest callback for logistics team.",
+    "priority": "medium",
+    "test_hint": "Ask about specific couriers and verify the suggestion for a callback."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "If a tool fails, offer escalation to the support team.",
+    "priority": "high",
+    "test_hint": "Simulate a tool failure and verify the offer to connect with support."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect customer postal code/pincode (validated) for general delivery queries.",
+    "priority": "high",
+    "test_hint": "Initiate a general delivery query and verify pincode collection."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect customer postal code/pincode (validated) for product-specific delivery queries.",
+    "priority": "high",
+    "test_hint": "Initiate a product-specific delivery query and verify pincode collection."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect product information (from URL, search, or state) for product-specific delivery queries.",
+    "priority": "high",
+    "test_hint": "Initiate a product-specific delivery query and verify product information is collected."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect size if product is size-dependent for product-specific delivery queries.",
+    "priority": "high",
+    "test_hint": "Initiate a size-dependent product-specific delivery query and verify size collection."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect Order ID for order-specific delivery queries.",
+    "priority": "critical",
+    "test_hint": "Initiate an order-specific delivery query and verify Order ID collection."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Do NOT require postal code if order ID is provided for order-specific delivery queries.",
+    "priority": "high",
+    "test_hint": "Provide an order ID and verify the agent does not ask for a pincode."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract postal codes/pincodes from customer messages.",
+    "priority": "high",
+    "test_hint": "Include a pincode in a message and verify it's extracted."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract product URLs from customer messages.",
+    "priority": "high",
+    "test_hint": "Include a product URL in a message and verify it's extracted."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract order IDs (gv1234, #gv1234, GV-1234) from customer messages.",
+    "priority": "critical",
+    "test_hint": "Include various order ID formats in a message and verify they are extracted."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract product names (Rainbow Hoodie, Frost Shred Jeans, etc.) from customer messages.",
+    "priority": "high",
+    "test_hint": "Include a product name in a message and verify it's extracted."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Extract sizes (S, M, L, XL, 28, 30, 32, 34, 36, 38, 40, 42 etc.) from customer messages.",
+    "priority": "high",
+    "test_hint": "Include a size in a message and verify it's extracted."
+  }
+]

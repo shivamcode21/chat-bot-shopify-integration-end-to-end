@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WhatsApp API Versioning — Per-Client Config & Cache Flow</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#30363d;
+    --ink:#e6edf3; --muted:#9aa7b4; --accent:#4493f8; --green:#3fb950;
+    --amber:#d29922; --purple:#bc8cff; --red:#f85149; --mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:linear-gradient(180deg,#0b0f14,#0d1117);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:32px;line-height:1.5}
+  h1{font-size:22px;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:13px;margin-bottom:24px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1180px}
+  .full{grid-column:1 / -1}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 14px;font-weight:600}
+  .step{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+  .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#04101f;
+    font-weight:700;display:grid;place-items:center;font-size:13px}
+  .step .t{font-size:14px}
+  .step .t b{color:#fff}
+  code{font-family:var(--mono);font-size:12.5px;background:#0b1220;border:1px solid var(--line);
+    padding:1px 6px;border-radius:6px;color:#cdd9e5}
+  .pill{display:inline-block;font-family:var(--mono);font-size:11px;padding:2px 8px;border-radius:999px;
+    border:1px solid var(--line)}
+  .pill.mem{color:var(--purple);border-color:#3a2d52}
+  .pill.redis{color:var(--amber);border-color:#4a3a17}
+  .pill.db{color:var(--green);border-color:#1f4429}
+  table{border-collapse:collapse;width:100%;font-size:12.5px;margin-top:4px}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:#0b1220;color:var(--muted);font-weight:600;font-family:var(--mono);font-size:11.5px}
+  td.k{font-family:var(--mono);color:var(--accent);white-space:nowrap}
+  .json{font-family:var(--mono);font-size:12px;color:#cdd9e5;white-space:pre;display:block;
+    background:#0b1220;border:1px solid var(--line);border-radius:8px;padding:10px 12px;overflow:auto}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--green)}
+  .secret{color:var(--red)}
+  .flow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .node{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;min-width:120px}
+  .node small{display:block;color:var(--muted);font-family:var(--mono);font-size:10.5px;margin-top:3px}
+  .arrow{color:var(--muted);font-size:18px}
+  .arrow b{font-family:var(--mono);font-size:10px;color:var(--muted);display:block;text-align:center}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:10px}
+  .note{font-size:12px;color:var(--muted);margin-top:12px;border-left:3px solid var(--accent);padding-left:12px}
+  .miss{color:var(--muted);font-style:italic}
+</style>
+</head>
+<body>
+  <h1>WhatsApp API Versioning — per-client config &amp; multi-layer cache</h1>
+  <div class="sub">How a client is switched to the new Gupshup <b>enterprise GatewayAPI</b>, where the <b>Client ID</b> &amp; <b>Bearer token</b> live, and how every read is cached. All config lives in one table: <code>client_configs</code>.</div>
+
+  <div class="grid">
+
+    <!-- WRITE PATH -->
+    <div class="card">
+      <h2>① Write — enabling a client (config only)</h2>
+      <div class="step"><div class="num">1</div><div class="t">Ops/onboarding upserts <b>two rows</b> into <code>client_configs</code> for the tenant (one <code>UPSERT</code> per <code>config_key</code>, <code>ON CONFLICT (client_id, config_key)</code>).</div></div>
+      <div class="step"><div class="num">2</div><div class="t"><code>whatsapp_api_version = "enterprise"</code> flips the switch. Absent / anything else ⇒ <b>legacy</b> path, untouched.</div></div>
+      <div class="step"><div class="num">3</div><div class="t"><code>gupshup_enterprise_details</code> holds the <b class="tag">userid (Client ID)</b> + <b class="secret">Bearer token</b> (+ optional URL).</div></div>
+      <div class="step"><div class="num">4</div><div class="t">After write, bust the cache keys (or wait out TTL). No code deploy needed — it's data.</div></div>
+      <div class="note">Tenant-scoped &amp; isolated: every row keyed by <code>client_id</code>; the Bearer secret is never hardcoded and never logged.</div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+      <h2>② Storage — table <code>client_configs</code></h2>
+      <table>
+        <tr><th>client_id (uuid)</th><th>config_key (text)</th><th>config_value (jsonb)</th></tr>
+        <tr>
+          <td class="k">2585e68e-…-1bfc4ff</td>
+          <td class="k">whatsapp_api_version</td>
+          <td><code>"enterprise"</code></td>
+        </tr>
+        <tr>
+          <td class="k">2585e68e-…-1bfc4ff</td>
+          <td class="k">gupshup_enterprise_details</td>
+          <td><span class="json">{
+  "GUPSHUP_ENTERPRISE_USERID": "2000266260",   <span class="tag">// Client ID</span>
+  "GUPSHUP_ENTERPRISE_TOKEN":  "••••••••",     <span class="secret">// Bearer secret</span>
+  "GUPSHUP_ENTERPRISE_URL":
+     "https://mediaapi.smsgupshup.com/GatewayAPI/rest"
+}</span></td>
+        </tr>
+      </table>
+      <div class="legend">
+        <span>PK / unique: <code>(client_id, config_key)</code></span>
+        <span>columns: <code>client_id</code> · <code>config_key</code> · <code>config_value</code></span>
+      </div>
+    </div>
+
+    <!-- READ PATH / CACHE -->
+    <div class="card full">
+      <h2>③ Read — three-tier cache on every send (AGENTS.md §3)</h2>
+      <div class="flow">
+        <div class="node">send_message()<br><small>or asend_gupshup_template_generic()</small></div>
+        <span class="arrow">→</span>
+        <div class="node">aget_whatsapp_api_version<br><small>cfg:&lt;cid&gt;:whatsapp_api_version</small></div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-color:#1f4429">version == "enterprise"?<br><small>else ⇒ legacy v1 path</small></div>
+        <span class="arrow">→</span>
+        <div class="node">aget_enterprise_config<br><small>cfg:&lt;cid&gt;:gupshup_enterprise_details</small></div>
+        <span class="arrow">→</span>
+        <div class="node" style="border-color:#234">POST GatewayAPI<br><small>Bearer + userid + send_to</small></div>
+      </div>
+
+      <div class="flow" style="margin-top:18px">
+        <span style="color:var(--muted);font-size:12px">each <code>aget_config()</code> read resolves through:</span>
+        <div class="node"><span class="pill mem">TIER 1 · memory</span><small>InMemoryTTLCache ~10 min</small></div>
+        <span class="arrow"><b>miss</b>↓</span>
+        <div class="node"><span class="pill redis">TIER 2 · Redis</span><small>Upstash ~1 h · fail-open</small></div>
+        <span class="arrow"><b>miss</b>↓</span>
+        <div class="node"><span class="pill db">TIER 3 · Postgres</span><small>client_configs (truth)</small></div>
+        <span class="arrow"><b>backfill</b>↑</span>
+        <div class="node" style="border-style:dashed">writes back up<br><small>DB → Redis → memory</small></div>
+      </div>
+      <div class="note">Both the <b>version flag</b> and the <b>credentials</b> are read through the same tiered cache — so the Client ID &amp; Bearer token are cached in memory + Redis, not fetched from the DB on every message. Invalidate with <code>ainvalidate_tiered_cache_key("cfg:&lt;cid&gt;:gupshup_enterprise_details")</code> after a credential rotation.</div>
+    </div>
+
+    <!-- CODE MAP -->
+    <div class="card full">
+      <h2>④ Where each piece lives in code</h2>
+      <table>
+        <tr><th>Concern</th><th>Function</th><th>File</th></tr>
+        <tr><td>Version flag read (cached)</td><td class="k">aget_whatsapp_api_version()</td><td><code>utils/whatsapp_api_version.py</code></td></tr>
+        <tr><td>Credential load (cached)</td><td class="k">aget_enterprise_config()</td><td><code>utils/whatsapp_enterprise_client.py</code></td></tr>
+        <tr><td>Tiered cache engine</td><td class="k">aget_config() → aget_with_tiered_cache()</td><td><code>config_manager.py</code> · <code>utils/tiered_cache.py</code></td></tr>
+        <tr><td>Template send (new)</td><td class="k">asend_enterprise_template()</td><td><code>utils/whatsapp_enterprise_client.py</code></td></tr>
+        <tr><td>Free-text send (new)</td><td class="k">asend_enterprise_text_message()</td><td><code>utils/whatsapp_enterprise_client.py</code></td></tr>
+        <tr><td>Dispatch (legacy untouched)</td><td class="k">send_message() · asend_gupshup_template_generic()</td><td><code>gupshup_webhook.py</code> · <code>shipping/webhook/gupshup_template_sender.py</code></td></tr>
+      </table>
+    </div>
+
+  </div>
+</body>
+</html>

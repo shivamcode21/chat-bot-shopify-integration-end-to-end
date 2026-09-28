@@ -1,0 +1,350 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-order_status_handler-1",
+      "description": "Verify agent can handle multiple core functions: order status, tracking, delivery timeline, pricing, and billing, with empathy and speed.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Can check order status",
+          "Can provide tracking information",
+          "Can estimate delivery timelines",
+          "Can answer pricing questions",
+          "Can answer billing questions",
+          "Responds with empathy and speed"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hi, I'd like to know the status of my order GV12345, when will it arrive, and what was the total cost? Also, I have a question about a charge on my last bill."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should attempt phone validation, then provide status, tracking, delivery estimate, pricing, and address billing question."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-2",
+      "description": "Ensure agent always attempts phone-based validation before sharing any sensitive order details.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent must initiate phone validation",
+          "No order details shared before validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number for validation before providing order status."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-3",
+      "description": "Test agent's ability to detect and handle an escalation scenario (e.g., a delayed order).",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent detects and handles delays",
+          "Agent offers appropriate resolution for delays"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 was supposed to arrive yesterday and it's still not here. This is unacceptable!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should acknowledge the delay, apologize, and initiate escalation/investigation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-4",
+      "description": "Verify that the agent checks for escalation indicators before providing a standard response.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalation indicators are checked before responding",
+          "Escalation is handled if indicated"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where is my order GV12345? It's been stuck in transit for days and I need it urgently for a gift."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should recognize the urgency and potential escalation before providing a standard status update."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-5",
+      "description": "Simulate a technical tool failure and verify the exact error message is returned.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent returns the exact technical error message on tool failure"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about my order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should respond with the specific technical error message."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-6",
+      "description": "Ensure the agent completes the full tool chain for order status inquiry, including validation and retrieval.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent completes all necessary tool calls in sequence",
+          "Agent does not stop early in the tool chain"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to check the status of my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should initiate phone validation, then call order status tool, then potentially tracking tool."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-7",
+      "description": "Verify that if escalation is indicated by tools, it is handled before the final customer response.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalation handling precedes final response",
+          "Agent prioritizes escalation resolution"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 is showing as delivered but I never received it. This is a serious issue!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should acknowledge the issue, indicate escalation, and then provide next steps, not just a delivery confirmation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-8",
+      "description": "Ensure no order details are shared without successful phone validation.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Order details are only shared after successful validation",
+          "Agent enforces validation policy"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about my order? I don't want to give you my phone number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should refuse to share order details and reiterate the need for phone validation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-9",
+      "description": "Verify that escalation fields are checked and handled if required by the system.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent checks and acts on escalation flags",
+          "Escalation logic is correctly applied"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "My order GV12345 is severely delayed and I'm considering cancelling the whole order if it doesn't arrive by tomorrow. I need to speak to someone."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should recognize the cancellation threat and potential delay escalation, and offer to connect to support."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-10",
+      "description": "Ensure all information provided by the agent comes strictly from tools or provided context, with no hallucination.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent only uses tool/context data",
+          "Agent does not hallucinate information"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order? I don't have an order number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up orders, and not invent order details or statuses."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-11",
+      "description": "Test that agent does not share order details without successful phone validation.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent refuses to share order details without validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about my order."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number for validation before proceeding."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-12",
+      "description": "Verify agent does not invent or assume order, tracking, courier, or pricing data.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not invent data",
+          "Agent states when information is unavailable"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the status of my order? I don't have an order number."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up orders and not invent details."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-13",
+      "description": "Test that agent does not override business rules, escalation requirements, or validation logic.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent adheres to validation rules",
+          "Agent follows escalation procedures"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel my order GV12345 immediately, even though it's already shipped. Just do it."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should explain that cancellation is not possible for shipped orders and offer alternative solutions or escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-14",
+      "description": "Verify agent does not ask the customer directly for an order ID.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent uses phone number lookup instead of asking for order ID"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Where's my order?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should ask for phone number to look up the order, not ask for the order ID."
+        }
+      ]
+    },
+    {
+      "id": "contract-order_status_handler-15",
+      "description": "Simulate tool errors and check that they are not directly shown to the user.",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "order_status_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not expose raw tool errors",
+          "Agent provides a user-friendly error message"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you check the status of my order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Agent should respond with the predefined technical error message, not raw error details."
+        }
+      ]
+    }
+  ]
+}

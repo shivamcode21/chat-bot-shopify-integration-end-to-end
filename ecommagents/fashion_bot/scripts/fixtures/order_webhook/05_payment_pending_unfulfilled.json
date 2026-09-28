@@ -1,0 +1,156 @@
+{
+  "id": 7174866600239,
+  "admin_graphql_api_id": "gid://shopify/Order/7174866600239",
+  "app_id": 76708773889,
+  "confirmation_number": "6N5NNHKE8",
+  "confirmed": true,
+  "name": "#45209",
+  "order_number": 45209,
+  "created_at": "2026-06-23T18:46:18+05:30",
+  "updated_at": "2026-06-24T10:01:24+00:00",
+  "closed_at": null,
+  "processed_at": "2026-06-23T18:46:18+05:30",
+  "financial_status": "pending",
+  "fulfillment_status": null,
+  "currency": "INR",
+  "presentment_currency": "INR",
+  "email": "munish@stoln.in",
+  "phone": "+919811087654",
+  "contact_email": "munish@stoln.in",
+  "subtotal_price": "2659.05",
+  "total_price": "2659.05",
+  "total_discounts": "139.95",
+  "total_tax": "405.62",
+  "total_weight": 1025,
+  "total_outstanding": "0.00",
+  "taxes_included": true,
+  "test": false,
+  "tags": "Cards, GoKwik, PREPAID-DISCOUNT",
+  "payment_gateway_names": [
+    "Gokwik Cards"
+  ],
+  "note_attributes": [
+    {
+      "name": "gokwik_cid",
+      "value": "7553afea-694d-4350-8b83-d19449dc2e3c"
+    },
+    {
+      "name": "cart_token",
+      "value": "hWNDfkapA6pQkqAMSRobyShw?key=31b0cc94520aca259f112e9ad0a79699"
+    },
+    {
+      "name": "customer_ip",
+      "value": "2401:4900:1c66:385b:d4d3:5503:35a1:c3ac"
+    },
+    {
+      "name": "deliver_order_count",
+      "value": "23"
+    },
+    {
+      "name": "utm_source",
+      "value": "FB_Paid"
+    },
+    {
+      "name": "utm_campaign",
+      "value": "120248714293830121"
+    },
+    {
+      "name": "PREPAID-DISCOUNT",
+      "value": "139.95"
+    },
+    {
+      "name": "GoKwik_Payment_ID",
+      "value": "KWIKMLMH8U840549312MP"
+    },
+    {
+      "name": "Payment_Provider_Name",
+      "value": "easebuzz"
+    },
+    {
+      "name": "Payment_Provider_Payment_ID",
+      "value": "E260623110U21F"
+    }
+  ],
+  "discount_codes": [
+    {
+      "code": "PREPAID-DISCOUNT",
+      "amount": "139.95",
+      "type": "fixed_amount"
+    }
+  ],
+  "billing_address": {
+    "first_name": "Munish",
+    "last_name": "Sahgal",
+    "address1": "J 7 Saket Ground Floor",
+    "city": "SOUTH",
+    "zip": "110017",
+    "province": "Delhi",
+    "country": "India",
+    "country_code": "IN",
+    "province_code": "DL",
+    "phone": "9811087654"
+  },
+  "shipping_address": {
+    "first_name": "Munish",
+    "last_name": "Sahgal",
+    "address1": "J 7 Saket Ground Floor",
+    "city": "SOUTH",
+    "zip": "110017",
+    "province": "Delhi",
+    "country": "India",
+    "country_code": "IN",
+    "province_code": "DL",
+    "phone": "9811087654"
+  },
+  "customer": {
+    "id": 7363246260527,
+    "first_name": "Munish",
+    "last_name": "Sahgal",
+    "email": "munish@stoln.in",
+    "currency": "INR",
+    "state": "disabled",
+    "verified_email": true,
+    "created_at": "2023-08-13T17:09:55+05:30",
+    "updated_at": "2026-06-23T18:46:19+05:30"
+  },
+  "line_items": [
+    {
+      "id": 17145653952815,
+      "name": "Iconic Men Cream Textured Resort Fit Shirt - XL",
+      "title": "Iconic Men Cream Textured Resort Fit Shirt",
+      "variant_title": "XL",
+      "sku": "8909406080628",
+      "product_id": 14690375434543,
+      "variant_id": 56524013338927,
+      "quantity": 1,
+      "price": "2799.00",
+      "total_discount": "0.00",
+      "fulfillment_status": null,
+      "vendor": "Iconic",
+      "taxable": true,
+      "requires_shipping": true,
+      "grams": 1025
+    }
+  ],
+  "fulfillments": [],
+  "shipping_lines": [
+    {
+      "title": "Free Shipping",
+      "code": "Free Shipping",
+      "price": "0.00"
+    }
+  ],
+  "discount_applications": [
+    {
+      "type": "manual",
+      "title": "PREPAID-DISCOUNT",
+      "value": "139.95",
+      "value_type": "fixed_amount",
+      "target_type": "line_item"
+    }
+  ],
+  "payment_terms": null,
+  "refunds": [],
+  "returns": [],
+  "cancelled_at": null
+}

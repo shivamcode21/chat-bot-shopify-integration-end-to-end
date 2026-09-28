@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-02-17T11:55:33.032788",
+  "total": 8,
+  "passed": 6,
+  "pass_rate": 75.0,
+  "avg_base_score": 3.62,
+  "avg_context_score": 4.28,
+  "avg_combined_score": 3.95,
+  "tests": [
+    {
+      "id": "ctx-1-cancellation-cold-start",
+      "passed": false,
+      "combined_score": 2.55
+    },
+    {
+      "id": "ctx-2-cancellation-mid-flow-reason",
+      "passed": false,
+      "combined_score": 3.35
+    },
+    {
+      "id": "ctx-3-product-page-context-inquiry",
+      "passed": true,
+      "combined_score": 4.5
+    },
+    {
+      "id": "ctx-4-identified-user-no-repeat-phone",
+      "passed": true,
+      "combined_score": 4.4
+    },
+    {
+      "id": "ctx-5-cross-topic-product-to-cancel",
+      "passed": true,
+      "combined_score": 4.0
+    },
+    {
+      "id": "ctx-6-cancellation-size-issue-should-offer-fix",
+      "passed": true,
+      "combined_score": 4.2
+    },
+    {
+      "id": "ctx-7-address-update-no-ask-name",
+      "passed": true,
+      "combined_score": 4.4
+    },
+    {
+      "id": "ctx-8-multi-order-selection",
+      "passed": true,
+      "combined_score": 4.2
+    }
+  ]
+}

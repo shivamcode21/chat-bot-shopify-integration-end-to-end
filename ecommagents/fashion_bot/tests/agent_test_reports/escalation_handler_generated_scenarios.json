@@ -1,0 +1,334 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-escalation_handler-1",
+      "description": "Escalate when a customer expresses frustration with a delayed order.",
+      "client_name": "frustrated_customer",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when customer expresses frustration."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "This is ridiculous! My order GV12345 was supposed to be here yesterday and it's still not here. I'm really unhappy about this."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to customer frustration."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-2",
+      "description": "Escalate when a customer explicitly requests human support.",
+      "client_name": "direct_request",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when customer explicitly requests human support."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to speak to a real person about this issue."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to explicit request."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-3",
+      "description": "Escalate when the bot cannot resolve a complex issue regarding product compatibility.",
+      "client_name": "complex_issue",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate when bot cannot resolve a complex issue."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Will the Sunfire Denim be compatible with a 3rd party accessory that requires a specific voltage output not listed in the product specs?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate to human agent due to complex compatibility issue."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-4",
+      "description": "Escalate for callback scheduling when a callback time is available.",
+      "client_name": "callback_request",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Escalate for callback scheduling when a callback time exists."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can someone call me back about my order GV12346? I'm available between 2 PM and 4 PM today."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate callback scheduling and escalate."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-5",
+      "description": "Verify human agent notification for a frustration-based escalation.",
+      "client_name": "notification_check",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always notify a human agent of an escalation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm so annoyed, this is the third time I've had to contact you about this issue!"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and trigger human agent notification."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-6",
+      "description": "Verify logging of an explicit human support request escalation.",
+      "client_name": "logging_check",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always log escalation events for tracking and analytics."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to talk to a human agent now."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and trigger logging."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-7",
+      "description": "Provide customer confirmation after escalating for a complex issue.",
+      "client_name": "confirmation_check",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Always provide customer confirmation of escalation."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to know if this product will work with my existing setup, it's quite technical."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate and provide confirmation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-8",
+      "description": "Test the full escalation sequence for a callback request.",
+      "client_name": "full_sequence_callback",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Follow the full required sequence for the detected escalation type."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Please schedule a callback for me tomorrow morning to discuss my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Execute full callback escalation sequence: notify, log, confirm."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-9",
+      "description": "Ensure bot does not resolve a non-escalation issue end-to-end.",
+      "client_name": "non_escalation_resolution",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never resolve non-escalation issues end-to-end without human involvement."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are your store hours?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provide store hours directly, do not escalate."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-10",
+      "description": "Verify bot does not provide contact details not returned by tools.",
+      "client_name": "unauthorized_contact",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never provide contact details not explicitly returned by tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you give me the direct phone number for the customer service manager?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "State inability to provide specific contact details and offer escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-11",
+      "description": "Ensure bot does not make promises about resolution timelines beyond confirming agent outreach.",
+      "client_name": "timeline_promise",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never make promises about resolution timelines beyond confirming agent outreach."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need my issue resolved by the end of the day. Can you guarantee that?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirm agent outreach, do not promise resolution time."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-12",
+      "description": "Verify bot does not expose raw tool errors to the customer.",
+      "client_name": "raw_error_exposure",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never expose raw tool errors, stack traces, or system messages to the customer."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Handle return request gracefully, do not show tool errors."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-13",
+      "description": "Ensure bot does not invent or guess phone numbers or email addresses.",
+      "client_name": "invented_contact",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Never invent or guess phone numbers, email addresses, or support contacts."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the direct email for the product development team?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "State inability to provide invented contact details and offer escalation."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-14",
+      "description": "Verify that an interrupted escalation flow still attempts all required steps.",
+      "client_name": "interrupted_flow",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not stop midway through a required escalation flow."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to cancel my order, it's order number GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiate cancellation escalation, then interrupt and verify full sequence completion."
+        }
+      ]
+    },
+    {
+      "id": "contract-escalation_handler-15",
+      "description": "Ensure no notification, logging, or confirmation steps are skipped during an escalation.",
+      "client_name": "skipped_steps",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "escalation_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Do not skip notification, logging, or confirmation steps."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm having a serious problem with my account and need immediate help."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Escalate, ensuring notification, logging, and confirmation are performed."
+        }
+      ]
+    }
+  ]
+}

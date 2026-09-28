@@ -1,0 +1,48 @@
+{
+  "scenarios": {
+    "default_order": {
+      "id": 1234567890,
+      "name": "#1001",
+      "order_number": 1001,
+      "email": "customer@example.com",
+      "phone": "+911234567890",
+      "created_at": "2025-12-01T10:00:00Z",
+      "updated_at": "2025-12-05T14:00:00Z",
+      "financial_status": "paid",
+      "fulfillment_status": "fulfilled",
+      "total_price": "1999.00",
+      "subtotal_price": "1699.00",
+      "total_tax": "300.00",
+      "currency": "INR",
+      "line_items": [
+        {
+          "id": 9876543210,
+          "name": "Default Product",
+          "title": "Default Product",
+          "variant_title": "Standard / M",
+          "sku": "DEF-PRD-001",
+          "quantity": 1,
+          "price": "1699.00",
+          "total_discount": "0.00",
+          "fulfillment_status": "fulfilled",
+          "vendor": "Default Vendor"
+        }
+      ],
+      "shipping_address": {
+        "first_name": "John",
+        "last_name": "Doe",
+        "address1": "123 Main Street",
+        "address2": null,
+        "city": "Mumbai",
+        "province": "Maharashtra",
+        "country": "India",
+        "zip": "400001",
+        "phone": "+911234567890"
+      },
+      "cancelled_at": null,
+      "cancel_reason": null
+    }
+  },
+  "default_scenario": "default_order"
+}
+

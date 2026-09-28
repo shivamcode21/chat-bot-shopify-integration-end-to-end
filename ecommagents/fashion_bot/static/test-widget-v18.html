@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget v18 Local Test</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background:
+                radial-gradient(circle at top left, rgba(173, 126, 146, 0.2), transparent 28%),
+                linear-gradient(180deg, #f9f2ef 0%, #f1e5df 100%);
+            color: #2d2326;
+            min-height: 100vh;
+        }
+        .page {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 32px 20px 120px;
+        }
+        .hero, .panel {
+            background: rgba(255, 251, 249, 0.94);
+            border: 1px solid rgba(95, 68, 78, 0.12);
+            border-radius: 24px;
+            box-shadow: 0 16px 50px rgba(76, 54, 32, 0.08);
+        }
+        .hero {
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        .eyebrow {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: #3d2f35;
+            color: #fff8f8;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        h1 {
+            font-size: clamp(32px, 5vw, 54px);
+            line-height: 1;
+            margin: 16px 0 12px;
+        }
+        .hero p {
+            max-width: 780px;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #5f4c54;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        .panel {
+            padding: 24px;
+        }
+        .panel h2 {
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+        .meta-list {
+            display: grid;
+            gap: 12px;
+        }
+        .meta-item {
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: #fff7f4;
+            border: 1px solid rgba(95, 68, 78, 0.1);
+        }
+        .meta-item strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #8f7380;
+            margin-bottom: 6px;
+        }
+        .meta-item code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            color: #3b2e33;
+            word-break: break-all;
+        }
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .btn {
+            appearance: none;
+            border: none;
+            border-radius: 999px;
+            padding: 12px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(47, 33, 20, 0.12);
+        }
+        .btn-primary {
+            background: #3d2f35;
+            color: #fff8f8;
+        }
+        .btn-secondary {
+            background: #ead7dc;
+            color: #3d2f35;
+        }
+        .callout {
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 18px;
+            background: #fff1f3;
+            border: 1px solid rgba(156, 107, 115, 0.22);
+            color: #6c4e58;
+            line-height: 1.6;
+        }
+        .code-card {
+            background: #261d17;
+            color: #f7ede0;
+            border-radius: 22px;
+            padding: 22px;
+            overflow: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            min-height: 280px;
+            white-space: pre-wrap;
+        }
+        .samples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        .sample-chip {
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: #f3e7ea;
+            border: 1px solid rgba(95, 68, 78, 0.12);
+            font-size: 13px;
+            color: #5f4a52;
+        }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <section class="hero">
+            <span class="eyebrow">Local Only</span>
+            <h1>Widget v18 Local Test</h1>
+            <p>
+                This page loads <code>/static/chat-widget.v18.js</code> from localhost so you can test the outer-bundle
+                performance work, the iframe performance fixes, and the latest launcher/config behavior against your
+                local app before using it in production.
+            </p>
+        </section>
+
+        <section class="grid">
+            <div class="panel">
+                <h2>Runtime Config</h2>
+                <div class="meta-list">
+                    <div class="meta-item">
+                        <strong>Client Name</strong>
+                        <code id="client-name-value">Concept Groove</code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Client ID</strong>
+                        <code id="client-id-value">c3ffcb1b-afb9-4ca4-8746-a06698bec870</code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Launcher Hints Endpoint</strong>
+                        <code id="hints-endpoint-value"></code>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Launcher Theme Endpoint</strong>
+                        <code id="theme-endpoint-value"></code>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="open-chat-btn" type="button">Open Chat Widget</button>
+                    <button class="btn btn-secondary" id="refresh-config-btn" type="button">Refresh Config Preview</button>
+                </div>
+                <div class="callout">
+                    Use this page on localhost after restarting the app. The widget bundle will be served from your
+                    local server, so it talks to local endpoints automatically.
+                </div>
+                <div class="samples">
+                    <span class="sample-chip">Desktop + mobile drag launcher</span>
+                    <span class="sample-chip">Mobile: launcher sits higher by default</span>
+                    <span class="sample-chip">Config cache TTL: 30 minutes</span>
+                </div>
+            </div>
+
+            <div class="panel">
+                <h2>What To Verify</h2>
+                <div class="meta-list">
+                    <div class="meta-item">
+                        <strong>1</strong>
+                        The launcher shows the latest running text/theme from your local config.
+                    </div>
+                    <div class="meta-item">
+                        <strong>2</strong>
+                        On desktop and mobile, you can drag the closed launcher to a better spot.
+                    </div>
+                    <div class="meta-item">
+                        <strong>3</strong>
+                        On mobile width, the running text stays visible and the launcher sits higher so product CTAs stay visible.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Live Config Preview</h2>
+            <div class="code-card" id="config-output">Loading…</div>
+        </section>
+    </div>
+
+    <script>
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var clientName = params.get('clientName') || 'Concept Groove';
+            var clientId = params.get('clientId') || 'c3ffcb1b-afb9-4ca4-8746-a06698bec870';
+
+            document.getElementById('client-name-value').textContent = clientName;
+            document.getElementById('client-id-value').textContent = clientId;
+
+            var hintsUrl = '/widget/launcher-hints?client_id=' + encodeURIComponent(clientId) + '&client_name=' + encodeURIComponent(clientName);
+            var themeUrl = '/widget/launcher-theme?client_id=' + encodeURIComponent(clientId) + '&client_name=' + encodeURIComponent(clientName);
+
+            document.getElementById('hints-endpoint-value').textContent = window.location.origin + hintsUrl;
+            document.getElementById('theme-endpoint-value').textContent = window.location.origin + themeUrl;
+
+            function refreshPreview() {
+                Promise.all([
+                    fetch(hintsUrl, { credentials: 'same-origin' }).then(function(r) { return r.json(); }),
+                    fetch(themeUrl, { credentials: 'same-origin' }).then(function(r) { return r.json(); })
+                ]).then(function(results) {
+                    document.getElementById('config-output').textContent = JSON.stringify({
+                        launcher_hints: results[0],
+                        launcher_theme: results[1]
+                    }, null, 2);
+                }).catch(function(err) {
+                    document.getElementById('config-output').textContent = 'Failed to load config preview: ' + err.message;
+                });
+            }
+
+            document.getElementById('refresh-config-btn').addEventListener('click', refreshPreview);
+
+            window.fashionBotSettings = {
+                clientName: clientName,
+                clientId: clientId
+            };
+
+            refreshPreview();
+        })();
+    </script>
+
+    <script src="/static/chat-widget.v18.js"></script>
+    <script>
+        FashionBotWidget.init({
+            clientName: window.fashionBotSettings.clientName,
+            clientId: window.fashionBotSettings.clientId,
+            position: 'bottom-right',
+            theme: 'light'
+        });
+
+        document.getElementById('open-chat-btn').addEventListener('click', function() {
+            FashionBotWidget.open();
+        });
+    </script>
+</body>
+</html>

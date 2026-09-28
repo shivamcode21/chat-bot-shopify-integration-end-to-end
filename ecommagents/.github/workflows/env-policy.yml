@@ -1,0 +1,19 @@
+name: Environment Policy
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - updated_graph_env_loader
+
+jobs:
+  env-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run environment access policy check
+        run: ./scripts/check_env_access.sh
+

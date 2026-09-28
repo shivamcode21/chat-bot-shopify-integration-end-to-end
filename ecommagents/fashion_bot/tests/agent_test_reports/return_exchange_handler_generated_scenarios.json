@@ -1,0 +1,334 @@
+{
+  "test_scenarios": [
+    {
+      "id": "return_exchange_handler-must_do-1",
+      "description": "Verify agent follows the predefined first action instruction.",
+      "client_name": "return_request_initiation",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent initiates return/exchange request and performs the system-defined first action."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Initiates the return/exchange process by asking for order ID."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-2",
+      "description": "Verify agent attempts to extract Order ID when not in state.",
+      "client_name": "order_id_extraction_attempt",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent attempts to extract Order ID from customer message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to return something."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the order ID."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-3",
+      "description": "Verify agent extracts phone number first if Order ID is missing and phone is present.",
+      "client_name": "phone_extraction_before_order_fetch",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent extracts 10-digit phone number and fetches delivered orders."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return an item. My number is 9876543210."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Extracts phone number and then fetches orders."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-4",
+      "description": "Verify agent extracts and stores a 10-digit phone number first.",
+      "client_name": "phone_number_storage_first",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent extracts and stores the 10-digit phone number before any order fetching."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to initiate a return. My phone number is 1234567890."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Stores the phone number and then proceeds with order lookup."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-5",
+      "description": "Verify agent retrieves order details after identifying the order.",
+      "client_name": "order_details_retrieval",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent retrieves and uses order details after identifying the order."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Retrieves and confirms details for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-6",
+      "description": "Verify agent confirms the order is DELIVERED.",
+      "client_name": "delivered_order_confirmation",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent confirms the order is delivered before proceeding."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Confirms order GV12345 is delivered."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-7",
+      "description": "Verify agent uses exact delivery date for grace period check.",
+      "client_name": "exact_delivery_date_grace_period",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent uses the exact delivery date from order details for grace period eligibility."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Checks grace period using the exact delivery date of GV12345."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-8",
+      "description": "Verify agent always asks for the reason before extracting it.",
+      "client_name": "ask_reason_before_extract",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent explicitly asks for the reason for return/exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the reason for the return."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-9",
+      "description": "Verify agent asks for video proof for exchange after reason.",
+      "client_name": "exchange_video_proof_request",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent asks for video proof after collecting the reason for an exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345 because it's the wrong size."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Requests video proof of the issue."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-10",
+      "description": "Verify agent does not suggest exchange if customer explicitly wants it.",
+      "client_name": "no_exchange_suggestion_for_exchange",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent does not suggest exchange when the customer explicitly states they want an exchange."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Proceeds with exchange process without suggesting it."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-11",
+      "description": "Verify agent provides final exchange instructions immediately after reason and video proof.",
+      "client_name": "immediate_exchange_instructions",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent immediately provides final exchange instructions after receiving reason and video proof."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to exchange order GV12345. The product is damaged. Here is the video: [video_link]"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides final exchange instructions."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_do-12",
+      "description": "Verify agent provides the exact configured return/exchange message.",
+      "client_name": "exact_final_message",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent provides the exact configured return or exchange message."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345 because it's defective."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides the exact configured return message."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-1",
+      "description": "Verify agent rejects returns/exchanges for undelivered orders.",
+      "client_name": "reject_undelivered_order",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent rejects return/exchange for an undelivered order."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12346, it hasn't arrived yet."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Rejects the request as the order is not delivered."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-2",
+      "description": "Verify agent rejects requests outside the return/exchange grace period.",
+      "client_name": "reject_past_grace_period",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent rejects return/exchange for an order past its grace period."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345, it was delivered a month ago."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Rejects the request as it's past the grace period."
+        }
+      ]
+    },
+    {
+      "id": "return_exchange_handler-must_not_do-3",
+      "description": "Verify agent stops process without mandatory confirmation or reason.",
+      "client_name": "process_without_reason_denied",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "return_exchange_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Agent stops the process if a reason is not provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to return order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Asks for the reason, does not proceed without it."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "fixture_id": "product_page_context",
+    "description": "User is on a product page in web chat. Agent should answer about THIS product without asking for URL.",
+    "state": {
+        "messages": [],
+        "phone_number": null,
+        "client_id": "{{client_id}}",
+        "session_id": "web_test_session_001",
+        "page_context": {
+            "url": "https://groovee.in/products/sunfire-denim",
+            "pageType": "product",
+            "productHandle": "sunfire-denim",
+            "productTitle": "Sunfire Denim",
+            "productType": "Jeans"
+        },
+        "current_page_type": "product",
+        "current_product_handle": "sunfire-denim",
+        "current_product_title": "Sunfire Denim",
+        "current_product_type": "Jeans",
+        "current_page_url": "https://groovee.in/products/sunfire-denim",
+        "selected_order_id": null,
+        "known_orders": null,
+        "conversation_context": null
+    }
+}
+

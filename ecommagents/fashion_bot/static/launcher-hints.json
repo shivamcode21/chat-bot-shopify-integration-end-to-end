@@ -1,0 +1,25 @@
+{
+  "default": [
+    "Ask me anything",
+    "How can I help?",
+    "Chat with us"
+  ],
+  "byClientName": {
+    "Concept Groove": [
+      "Show me Goa outfits",
+      "Suggest oversized streetwear",
+      "Do you have white shirts?",
+      "What is your latest collection?",
+      "Track my order"
+    ]
+  },
+  "byDomainSubstring": {
+    "groovee.in": [
+      "Show me Goa outfits",
+      "Suggest oversized streetwear",
+      "Do you have white shirts?",
+      "What is your latest collection?",
+      "Track my order"
+    ]
+  }
+}

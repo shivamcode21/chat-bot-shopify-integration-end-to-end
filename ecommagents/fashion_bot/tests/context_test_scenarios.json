@@ -1,0 +1,366 @@
+{
+  "test_scenarios": [
+    {
+      "id": "ctx-1-cancellation-cold-start",
+      "description": "Full cancellation flow from scratch - user provides phone, confirms order, gives reason",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancel_or_update_order",
+      "context_assertions": {
+        "expected_agent": "cancel_or_update_order",
+        "should_ask_for": [
+          "phone_number"
+        ],
+        "expected_behaviors": [
+          "Should ask for phone number to look up orders",
+          "Should display orders and ask which one to cancel",
+          "Should ask for cancellation reason",
+          "Should NOT cancel directly - must escalate"
+        ]
+      },
+      "tool_expectations": {
+        "expected_tools": [
+          "get_recent_orders"
+        ],
+        "forbidden_tools": [
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool"
+        ],
+        "expected_tool_sequence": [
+          "get_recent_orders"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel my order"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should ask for phone number or order ID to locate the order"
+        },
+        {
+          "role": "customer",
+          "message": "9876543210"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should fetch orders and display them, ask which one to cancel"
+        }
+      ]
+    },
+    {
+      "id": "ctx-2-cancellation-mid-flow-reason",
+      "description": "User provides cancellation reason when agent is waiting for it - tests flow continuity",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "cancel_or_update_order",
+      "context_assertions": {
+        "expected_agent": "cancel_or_update_order",
+        "should_not_ask_for": [
+          "phone_number",
+          "order_id",
+          "which order"
+        ],
+        "should_use_context": [
+          "GV12345"
+        ],
+        "should_not_reroute_to": [
+          "product_details",
+          "size_inquiry"
+        ],
+        "expected_behaviors": [
+          "Should treat 'wrong size' as cancellation REASON not size change request",
+          "Should NOT cancel directly - must escalate per policy",
+          "Should inform customer that support will contact them",
+          "Should provide contact info"
+        ]
+      },
+      "tool_expectations": {
+        "expected_tools": [
+          "escalate_to_agent",
+          "add_order_note_shopify_tool"
+        ],
+        "forbidden_tools": [
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool",
+          "get_recent_orders"
+        ],
+        "min_tool_calls": 1
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "wrong size ordered"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should treat this as cancellation reason (not size change). Should escalate, NOT cancel directly. Should inform customer that support will reach out.",
+          "context_check": "Must NOT ask for cancellation reason again since waiting_for_cancellation_reason was True"
+        }
+      ]
+    },
+    {
+      "id": "ctx-3-product-page-context-inquiry",
+      "description": "User asks about product while on product page - should use page_context without asking for URL",
+      "client_name": "casence",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "product_details",
+      "context_assertions": {
+        "expected_agent": "product_details",
+        "should_not_ask_for": [
+          "url",
+          "link",
+          "product link",
+          "which product"
+        ],
+        "should_use_context": [
+          "Sunfire Denim",
+          "sunfire-denim"
+        ],
+        "expected_behaviors": [
+          "Should answer about Sunfire Denim from page_context",
+          "Should NOT ask user for a product URL or link",
+          "Should provide product details directly"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "get_recent_orders",
+          "cancel_order_tool"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "what is the price of this?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should answer about Sunfire Denim price using page_context. Should NOT ask 'which product?' or 'can you share the link?'",
+          "context_check": "Must use page_context to identify product as Sunfire Denim"
+        }
+      ]
+    },
+    {
+      "id": "ctx-4-identified-user-no-repeat-phone",
+      "description": "User already identified by phone - agent should NOT ask for phone again",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancel_or_update_order",
+      "context_assertions": {
+        "should_not_ask_for": [
+          "phone_number",
+          "phone number",
+          "your number",
+          "mobile"
+        ],
+        "should_use_context": [
+          "GV12345",
+          "GV12346"
+        ],
+        "expected_behaviors": [
+          "Should NOT re-fetch orders - they are already in state",
+          "Should NOT ask for phone number - already known",
+          "Should reference the known orders directly"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "get_recent_orders"
+        ],
+        "max_tool_calls": 5
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "cancel GV12346"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should identify GV12346 (Evolve Shacket) from known_orders. Should NOT ask for phone number. Should confirm this specific order for cancellation.",
+          "context_check": "Must NOT ask for phone number since it's already in state"
+        }
+      ]
+    },
+    {
+      "id": "ctx-5-cross-topic-product-to-cancel",
+      "description": "User switches from product inquiry to cancellation - tests topic switching",
+      "client_name": "casence",
+      "initial_state_fixture": "cross_topic_switch",
+      "target_agent": "cancel_or_update_order",
+      "context_assertions": {
+        "should_not_reroute_to": [
+          "product_details"
+        ],
+        "expected_agent": "cancel_or_update_order",
+        "expected_behaviors": [
+          "Should correctly detect cancellation intent despite being in product inquiry flow",
+          "Should switch to cancellation agent",
+          "Should ask for order details or use known phone"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "actually I want to cancel one of my orders"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should detect topic switch from product inquiry to cancellation. Should ask which order or show orders since phone is known.",
+          "context_check": "Must correctly switch from product_inquiry topic to order_modification"
+        }
+      ]
+    },
+    {
+      "id": "ctx-6-cancellation-size-issue-should-offer-fix",
+      "description": "User says wrong size as reason - agent should offer size change FIRST per prompt rules",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancel_or_update_order",
+      "initial_state_overrides": {
+        "phone_number": "9876543210",
+        "known_orders": [
+          {
+            "order_id": "GV12345",
+            "order_number": "GV12345",
+            "status": "New",
+            "product": "Sunfire Denim",
+            "size": "32",
+            "amount": 2999
+          }
+        ],
+        "selected_order_id": "GV12345"
+      },
+      "context_assertions": {
+        "expected_behaviors": [
+          "Should offer size change FIRST - never proceed with cancellation for size issues",
+          "Should ask for preferred size",
+          "Should NOT ask for cancellation reason for a fixable issue"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool",
+          "store_cancellation_reason"
+        ],
+        "min_tool_calls": 0
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I ordered wrong size, I want to cancel"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Per prompt: 'Size Issues: Never proceed with cancellation or ask for a reason. Immediately offer a size change and ask for the preferred size.' Should NOT ask for cancellation reason.",
+          "context_check": "Must offer size change FIRST, not proceed with cancellation"
+        }
+      ]
+    },
+    {
+      "id": "ctx-7-address-update-no-ask-name",
+      "description": "Address update should auto-fill name and phone - only ask for address fields",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "cancel_or_update_order",
+      "initial_state_overrides": {
+        "phone_number": "9876543210",
+        "known_orders": [
+          {
+            "order_id": "GV12345",
+            "order_number": "GV12345",
+            "status": "New",
+            "product": "Sunfire Denim",
+            "size": "32",
+            "amount": 2999,
+            "first_name": "Shivam",
+            "last_name": "Mehrotra"
+          }
+        ],
+        "selected_order_id": "GV12345"
+      },
+      "context_assertions": {
+        "should_not_ask_for": [
+          "first name",
+          "last name",
+          "name",
+          "phone number"
+        ],
+        "should_ask_for": [
+          "address",
+          "city",
+          "state",
+          "zip",
+          "pincode"
+        ],
+        "expected_behaviors": [
+          "Should auto-fill first_name, last_name from order details",
+          "Should auto-fill phone from verified state",
+          "Should ONLY ask for address line 1, address line 2, city, state, zip"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "get_recent_orders",
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to update my delivery address for order GV12345"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Per prompt: 'NEVER ask the customer for their first name, last name, or phone number during an address update'. Should only ask for address, city, state, zip.",
+          "context_check": "Must NOT ask for name or phone - auto-fill from order"
+        }
+      ]
+    },
+    {
+      "id": "ctx-8-multi-order-selection",
+      "description": "User has multiple orders - agent should ask which one, not just pick first",
+      "client_name": "casence",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "cancel_or_update_order",
+      "context_assertions": {
+        "should_not_ask_for": [
+          "phone_number"
+        ],
+        "expected_behaviors": [
+          "Should present both orders",
+          "Should ask user to confirm which order to cancel",
+          "Should NOT assume which order"
+        ]
+      },
+      "tool_expectations": {
+        "forbidden_tools": [
+          "get_recent_orders",
+          "cancel_order_tool",
+          "cancel_order_in_shiprocket_tool"
+        ],
+        "max_tool_calls": 5
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel my order"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Should show both orders (GV12345 and GV12346) and ask which one to cancel. Should NOT pick one automatically.",
+          "context_check": "Must show both orders and ask for selection"
+        }
+      ]
+    }
+  ]
+}

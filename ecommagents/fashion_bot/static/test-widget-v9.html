@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Widget v9 - Phone Collection Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            display: inline-block;
+            font-size: 24px;
+        }
+
+        .card.test-guide h2::before {
+            content: "📋";
+        }
+
+        .card.console h2::before {
+            content: "🖥️";
+        }
+
+        .card.checklist h2::before {
+            content: "✅";
+        }
+
+        .card.status h2::before {
+            content: "📊";
+        }
+
+        .card p, .card li {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .card ol, .card ul {
+            margin-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .warning {
+            color: #ffc107;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .test-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .test-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content p {
+            margin: 0;
+            color: #555;
+        }
+
+        .step-content strong {
+            color: #333;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .status-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .status-item.done {
+            border-left-color: #28a745;
+        }
+
+        .status-item.pending {
+            border-left-color: #ffc107;
+        }
+
+        .status-item h4 {
+            margin: 0 0 8px 0;
+            color: #333;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-item p {
+            margin: 0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .footer {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #666;
+        }
+
+        .footer strong {
+            color: #667eea;
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🚀 Chat Widget v9 - Phone Collection Test</h1>
+            <p>This page loads the chat widget v9.js with mandatory phone collection after 2 bot messages. Open the browser DevTools to monitor the widget behavior.</p>
+        </div>
+
+        <!-- Test Guide -->
+        <div class="content">
+            <div class="card test-guide">
+                <h2>Test Steps</h2>
+                
+                <div class="test-section">
+                    <h3>STEP 1: Widget Initialization</h3>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <p><strong>Look for:</strong> Button "Ask Bloom" in bottom-right corner</p>
+                            <p><strong>Expected:</strong> Purple button with avatar icon visible</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>STEP 2: Send First Message</h3>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <p><strong>Action:</strong> Click button → Type "Show me products" → Send</p>
+                            <p><strong>Expected:</strong> Chat opens, message sent, no phone nudge yet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>STEP 3: First Bot Reply</h3>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <p><strong>Check:</strong> Bot responds with products or message</p>
+                            <p><strong>Expected:</strong> Chat input still enabled, no phone nudge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>STEP 4: Send Second Message</h3>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <p><strong>Action:</strong> Type "What's the price?" → Send</p>
+                            <p><strong>Expected:</strong> Message sent</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card console">
+                <h2>Console Monitoring</h2>
+                
+                <p><strong>Open DevTools:</strong> Press <span class="highlight">F12</span> or <span class="highlight">Cmd+Option+I</span></p>
+                
+                <div class="test-section">
+                    <h3>Expected Console Logs:</h3>
+                    <div class="code-block">
+[FashionBot Widget v9] [INFO] Initializing widget
+[FashionBot Widget v9] [INFO] Setting up cart listener
+[FashionBot Widget v9] [INFO] Buttons injected
+[FashionBot Widget v9] [INFO] Widget styled
+[FashionBot Widget v9] [INFO] Button created
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>After 2 Bot Messages:</h3>
+                    <div class="code-block">
+[FashionBot Widget v9] [INFO] Phone collection nudge triggered
+[FashionBot Widget v9] [INFO] Showing phone nudge modal
+                    </div>
+                </div>
+
+                <div class="test-section">
+                    <h3>After Phone Submit:</h3>
+                    <div class="code-block">
+[FashionBot Widget v9] [INFO] Phone number submitted: 9876543210
+[FashionBot Widget v9] [INFO] Phone collected event
+                    </div>
+                </div>
+            </div>
+
+            <div class="card checklist">
+                <h2>Test Checklist</h2>
+                
+                <div class="test-section">
+                    <h3>Phase 1: Widget Load</h3>
+                    <ol>
+                        <li>[ ] Button visible bottom-right</li>
+                        <li>[ ] Button text says "Ask Bloom"</li>
+                        <li>[ ] Button has purple color (#6C5CE7)</li>
+                        <li>[ ] Button has avatar icon</li>
+                    </ol>
+                </div>
+
+                <div class="test-section">
+                    <h3>Phase 2: Chat Messages</h3>
+                    <ol>
+                        <li>[ ] Chat opens when clicking button</li>
+                        <li>[ ] First message sends successfully</li>
+                        <li>[ ] Bot responds with 1st message</li>
+                        <li>[ ] Second message sends successfully</li>
+                        <li>[ ] Bot responds with 2nd message</li>
+                    </ol>
+                </div>
+
+                <div class="test-section">
+                    <h3>Phase 3: Phone Nudge</h3>
+                    <ol>
+                        <li>[ ] Phone nudge appears AFTER 2nd bot message</li>
+                        <li>[ ] Chat input becomes disabled</li>
+                        <li>[ ] Nudge asks for phone number 📱</li>
+                        <li>[ ] Submit button visible</li>
+                    </ol>
+                </div>
+
+                <div class="test-section">
+                    <h3>Phase 4: Phone Validation</h3>
+                    <ol>
+                        <li>[ ] Try invalid phone (9 digits) → error shows</li>
+                        <li>[ ] Try valid phone (9876543210) → success</li>
+                        <li>[ ] Chat input re-enables</li>
+                        <li>[ ] Can send 3rd message</li>
+                    </ol>
+                </div>
+
+                <div class="test-section">
+                    <h3>Phase 5: Persistence</h3>
+                    <ol>
+                        <li>[ ] Refresh page (F5)</li>
+                        <li>[ ] No phone nudge appears</li>
+                        <li>[ ] Phone was persisted</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="card status">
+                <h2>Current Status</h2>
+                
+                <div class="status-grid">
+                    <div class="status-item done">
+                        <h4>✅ v9.js File</h4>
+                        <p>Phone collection module implemented with all validation logic</p>
+                    </div>
+                    <div class="status-item done">
+                        <h4>✅ Widget Core</h4>
+                        <p>Phone nudge triggering after 2 bot messages coded</p>
+                    </div>
+                    <div class="status-item pending">
+                        <h4>⏳ Iframe Frame</h4>
+                        <p>Needs bot message counter integration</p>
+                    </div>
+                    <div class="status-item pending">
+                        <h4>⏳ Backend API</h4>
+                        <p>POST /webchat/submit-phone endpoint pending</p>
+                    </div>
+                </div>
+
+                <div class="test-section" style="margin-top: 20px;">
+                    <h3>Testing Flow:</h3>
+                    <p>1. Click "Ask Bloom" button</p>
+                    <p>2. Chat with bot (2+ messages)</p>
+                    <p>3. Phone nudge should appear</p>
+                    <p>4. Enter phone number</p>
+                    <p>5. Check console for logs</p>
+                    <p>6. Refresh page - phone persists</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p><strong>Backend Server:</strong> localhost:8000</p>
+            <p><strong>Widget Version:</strong> v9 (Phone Collection)</p>
+            <p>Open DevTools (F12) → Console tab to monitor widget behavior</p>
+        </div>
+    </div>
+
+    <!-- Widget Configuration -->
+    <script>
+        window.FashionBotWidgetConfig = {
+            clientName: 'Concept Groove',
+            baseUrl: 'http://localhost:8000',
+            position: 'bottom-right',
+            theme: 'dark',
+            enablePhoneCollection: true
+        };
+    </script>
+
+    <!-- Load Widget v9 -->
+    <script src="http://localhost:8000/static/chat-widget.v9.js"></script>
+</body>
+</html>

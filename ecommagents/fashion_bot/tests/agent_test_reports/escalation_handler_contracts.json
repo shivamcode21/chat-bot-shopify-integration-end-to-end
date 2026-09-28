@@ -1,0 +1,218 @@
+[
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate when a customer expresses frustration or dissatisfaction.",
+    "priority": "critical",
+    "test_hint": "Simulate a customer expressing frustration with a product or service."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate when a customer explicitly requests human support.",
+    "priority": "critical",
+    "test_hint": "Simulate a customer explicitly asking to speak to a human agent."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate when the bot cannot resolve a complex issue independently.",
+    "priority": "critical",
+    "test_hint": "Present a complex issue that the bot is not designed to handle."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate for general escalation scenarios not otherwise categorized.",
+    "priority": "high",
+    "test_hint": "Trigger an unclassified escalation scenario."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate for callback scheduling requests when a callback time exists and has not yet been scheduled.",
+    "priority": "critical",
+    "test_hint": "Simulate a customer requesting a callback at a specific time."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always notify a human agent of an escalation.",
+    "priority": "critical",
+    "test_hint": "Verify that a human agent notification is sent for every escalation."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always log escalation events for tracking and analytics.",
+    "priority": "critical",
+    "test_hint": "Verify that all escalations are logged with the correct type and details."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always provide customer confirmation of escalation or callback scheduling.",
+    "priority": "critical",
+    "test_hint": "Ensure the customer receives a confirmation message for every escalation or callback."
+  },
+  {
+    "category": "must_do",
+    "rule": "Follow the full required sequence for the detected escalation type (notification, logging, confirmation).",
+    "priority": "critical",
+    "test_hint": "Test each escalation flow to ensure all steps are executed in order."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond to customers with empathetic and professional language.",
+    "priority": "high",
+    "test_hint": "Evaluate customer-facing messages for tone and professionalism."
+  },
+  {
+    "category": "must_do",
+    "rule": "Confirm to the customer that a human agent will reach out.",
+    "priority": "high",
+    "test_hint": "Verify that all escalation confirmations mention agent outreach."
+  },
+  {
+    "category": "must_do",
+    "rule": "Store bot's confirmation message in conversation history.",
+    "priority": "high",
+    "test_hint": "Check conversation history for stored bot confirmation messages."
+  },
+  {
+    "category": "must_do",
+    "rule": "Log the escalation with the correct type ('callback', 'frustration', 'general').",
+    "priority": "high",
+    "test_hint": "Verify the logged escalation type matches the trigger."
+  },
+  {
+    "category": "must_do",
+    "rule": "Mark the conversation for human-agent handling going forward when a frustration escalation occurs.",
+    "priority": "high",
+    "test_hint": "Check conversation state after a frustration escalation to confirm it's marked for human handling."
+  },
+  {
+    "category": "must_do",
+    "rule": "Summarize the last 5-10 customer messages and capture the last 3 verbatim for frustration escalations.",
+    "priority": "high",
+    "test_hint": "Verify the context provided to human agents for frustration escalations."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond to the customer with a friendly confirmation including the callback time for callback escalations.",
+    "priority": "high",
+    "test_hint": "Verify the callback confirmation message includes the scheduled time."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use a maximum of 1-2 emojis (\ud83d\ude4f \ud83d\ude0a) in customer-facing messages.",
+    "priority": "medium",
+    "test_hint": "Count emojis in customer responses."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never resolve non-escalation issues end-to-end without human involvement.",
+    "priority": "critical",
+    "test_hint": "Attempt to resolve a non-escalation issue fully without escalating."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never provide contact details not explicitly returned by tools.",
+    "priority": "critical",
+    "test_hint": "Attempt to provide contact information that is not from a tool."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never make promises about resolution timelines beyond confirming agent outreach.",
+    "priority": "critical",
+    "test_hint": "Attempt to give a specific resolution time to the customer."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never expose raw tool errors, stack traces, or system messages to the customer.",
+    "priority": "critical",
+    "test_hint": "Simulate a tool error and verify no technical details are shown to the customer."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never invent or guess phone numbers, email addresses, or support contacts.",
+    "priority": "critical",
+    "test_hint": "Attempt to provide contact details without tool support."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never reference internal tool names or system mechanics to the customer.",
+    "priority": "high",
+    "test_hint": "Check customer-facing messages for any mention of internal tool names."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not stop midway through a required escalation flow.",
+    "priority": "critical",
+    "test_hint": "Interrupt an escalation flow and verify all required steps are still attempted."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not skip notification, logging, or confirmation steps.",
+    "priority": "critical",
+    "test_hint": "Test each escalation flow to ensure no notification, logging, or confirmation step is missed."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If any tool call fails for technical reasons, respond with 'I won\u2019t be able to answer your query due to a technical error.'",
+    "priority": "critical",
+    "test_hint": "Simulate a technical failure in a tool call and verify the specific error message is used."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If a required tool does not return data (e.g., order or contact details unavailable), still proceed with escalation confirmation and guide the customer that a human agent will follow up to resolve the issue.",
+    "priority": "high",
+    "test_hint": "Simulate a tool failing to return data and verify the escalation still proceeds with customer confirmation."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If a callback time exists and the callback has not yet been scheduled, trigger the Callback Scheduling Flow.",
+    "priority": "critical",
+    "test_hint": "Provide a callback time and verify the callback flow is initiated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If frustration, dissatisfaction, inability to resolve, or an explicit request for a human agent is detected, trigger the Frustration Escalation Flow.",
+    "priority": "critical",
+    "test_hint": "Simulate a frustration scenario and verify the frustration escalation flow is initiated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If any escalation scenario not covered by callback or frustration flows occurs, trigger the General Escalation Flow.",
+    "priority": "high",
+    "test_hint": "Trigger a general escalation scenario and verify the general flow is initiated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Stop processing after providing customer confirmation for any escalation type.",
+    "priority": "critical",
+    "test_hint": "Verify that no further actions are taken after the customer confirmation message is sent."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect customer phone number from available tools/state.",
+    "priority": "high",
+    "test_hint": "Verify the customer's phone number is available in the context for escalations."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect conversation state and history.",
+    "priority": "high",
+    "test_hint": "Ensure the full conversation context is available for escalation analysis."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Collect callback time if provided by the customer.",
+    "priority": "high",
+    "test_hint": "Verify callback time is captured when a customer provides it."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Identify escalation indicators (frustration signals, explicit agent request, unresolved issue).",
+    "priority": "critical",
+    "test_hint": "Test the agent's ability to detect various escalation triggers."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Include contact details only if explicitly returned by a contact-details tool.",
+    "priority": "high",
+    "test_hint": "Verify that contact details are only presented if they come from a designated tool."
+  }
+]

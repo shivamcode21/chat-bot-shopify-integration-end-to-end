@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Concept Groove Assistant",
+  "version": "1.0.0",
+  "description": "Locked extension for Concept Groove web chat",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://groovee.in/*",
+    "https://*.groovee.in/*"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://groovee.in/*",
+        "https://*.groovee.in/*"
+      ],
+      "js": ["content.js"],
+      "css": ["widget.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

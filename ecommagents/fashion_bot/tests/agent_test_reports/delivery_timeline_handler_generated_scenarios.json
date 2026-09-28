@@ -1,0 +1,339 @@
+{
+  "test_scenarios": [
+    {
+      "id": "delivery_timeline_handler-validate_pincode_tool_call",
+      "description": "Verify validate_pincode_tool is called before get_delivery_estimate when a pincode is provided.",
+      "client_name": "pincode_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "validate_pincode_tool is called",
+          "get_delivery_estimate is called after pincode validation"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for my area? My pincode is 110001."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls validate_pincode_tool and then get_delivery_estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-is_url_in_valid_domain_tool_call",
+      "description": "Verify is_url_in_valid_domain_tool is called before processing product URLs.",
+      "client_name": "url_domain_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery time for this product? https://www.example-ecommerce.com/products/widget-x"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-check_product_availability_tool_call",
+      "description": "Verify check_product_availability_tool is called for size-dependent products before providing delivery timelines.",
+      "client_name": "size_dependent_availability_test",
+      "initial_state_fixture": "product_page_context",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "check_product_availability_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I'm interested in the Sunfire Denim, size Medium. When can I expect delivery?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls check_product_availability_tool for size Medium."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-get_order_delivery_status_tool_call",
+      "description": "Verify get_order_delivery_status_tool is called when an order ID is provided.",
+      "client_name": "order_status_test",
+      "initial_state_fixture": "identified_user_with_orders",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "get_order_delivery_status_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery status for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_order_delivery_status_tool for order GV12345."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-get_product_details_from_url_tool_call",
+      "description": "Verify get_product_details_from_url_tool is called if a product URL is provided.",
+      "client_name": "product_url_details_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "get_product_details_from_url_tool is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about the delivery for this item: https://www.example-ecommerce.com/products/super-gadget"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_product_details_from_url_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-full_tool_chain_product_delivery",
+      "description": "Verify the complete tool chain for product-specific delivery is executed sequentially.",
+      "client_name": "full_chain_product_delivery_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called",
+          "get_product_details_from_url_tool is called",
+          "validate_pincode_tool is called",
+          "get_delivery_estimate_tool_enhanced is called"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for https://www.example-ecommerce.com/products/awesome-thing in pincode 560001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Executes the full tool chain: URL validation, product details, pincode validation, and delivery estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-response_after_tool_call",
+      "description": "Verify a complete customer-facing response is generated after any tool call.",
+      "client_name": "response_generation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "A response is generated after tool execution."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery time for my order GV12346?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Generates a response after calling get_order_delivery_status_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-show_delivery_estimate_enhanced",
+      "description": "Verify the delivery estimate is shown to the customer when get_delivery_estimate_tool_enhanced is called.",
+      "client_name": "show_estimate_enhanced_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Delivery estimate is displayed to the customer."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How long will it take to deliver to 400001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls get_delivery_estimate_tool_enhanced and displays the estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-pincode_validation_result_and_next_tool",
+      "description": "Verify the pincode validation result is communicated and the next required tool is called.",
+      "client_name": "pincode_result_next_tool_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Pincode validation result is communicated.",
+          "Next required tool (get_delivery_estimate) is called."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for my pincode 110001?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Communicates pincode validation result and calls get_delivery_estimate."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-use_tool_data_in_response",
+      "description": "Ensure all information presented to the customer comes directly from tool outputs.",
+      "client_name": "tool_data_usage_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Customer-facing information is derived from tool outputs."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery status for order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Presents delivery status information obtained from get_order_delivery_status_tool."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-url_validation_first",
+      "description": "Verify is_url_in_valid_domain_tool is called first if a URL is provided.",
+      "client_name": "url_first_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called before other product-related tools."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Can you tell me about the delivery for this product? https://www.example-ecommerce.com/products/cool-item"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool first."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-size_mention_availability_check",
+      "description": "Verify check_product_availability_tool is called before providing delivery timeline if size is mentioned.",
+      "client_name": "size_mention_availability_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "check_product_availability_tool is called when size is mentioned."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to know the delivery time for the 'Comfy T-Shirt' in size Large."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls check_product_availability_tool for size Large."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-out_of_stock_no_timeline",
+      "description": "Verify no delivery timeline is provided if a size is out of stock.",
+      "client_name": "out_of_stock_no_timeline_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "No delivery timeline is provided for out-of-stock sizes."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for the 'Stylish Jacket' in size Extra Small?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Informs the customer that the size is out of stock and does not provide a delivery timeline."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-pincode_provided_validate_tool_call",
+      "description": "Verify validate_pincode_tool is called before giving estimates when a postal code is provided.",
+      "client_name": "pincode_provided_validation_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "validate_pincode_tool is called when a postal code is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I need to know the delivery time for my postal code 700001."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls validate_pincode_tool for postal code 700001."
+        }
+      ]
+    },
+    {
+      "id": "delivery_timeline_handler-url_provided_validate_domain_first",
+      "description": "Verify is_url_in_valid_domain_tool is called first if a URL is provided.",
+      "client_name": "url_provided_domain_first_test",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "delivery_timeline_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "is_url_in_valid_domain_tool is called first when a URL is provided."
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What's the delivery estimate for this link? https://www.another-shop.com/items/gadget-pro"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls is_url_in_valid_domain_tool first."
+        }
+      ]
+    }
+  ]
+}

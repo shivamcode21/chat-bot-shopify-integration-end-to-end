@@ -1,0 +1,90 @@
+{
+  "scenarios": {
+    "in_transit": {
+      "order_data": {
+        "order_id": "GRV1001",
+        "channel_order_id": "12345",
+        "awb_code": "SRKT123456789",
+        "courier": "Bluedart",
+        "courier_name": "Bluedart",
+        "status": "In Transit",
+        "pickup_date": "2025-12-02",
+        "edd": "2025-12-06",
+        "billing_customer_name": "Rahul Sharma",
+        "billing_phone": "9876543210",
+        "billing_address": "123 Test Street",
+        "billing_city": "Mumbai",
+        "billing_state": "Maharashtra",
+        "billing_pincode": "400001",
+        "billing_country": "India",
+        "shipments": {
+          "awb_code": "SRKT123456789",
+          "courier": "Bluedart",
+          "status": "In Transit",
+          "delivered_on": null
+        }
+      },
+      "logistics_order_id": 567890,
+      "status": "In Transit"
+    },
+    "delivered": {
+      "order_data": {
+        "order_id": "GRV1000",
+        "channel_order_id": "12344",
+        "awb_code": "SRKT987654321",
+        "courier": "Bluedart",
+        "courier_name": "Bluedart",
+        "status": "Delivered",
+        "pickup_date": "2025-11-28",
+        "delivered_on": "2025-12-01",
+        "edd": "2025-12-01",
+        "billing_customer_name": "Priya Patel",
+        "billing_phone": "9876543211",
+        "billing_address": "456 Main Road",
+        "billing_city": "Bangalore",
+        "billing_state": "Karnataka",
+        "billing_pincode": "560001",
+        "billing_country": "India",
+        "shipments": {
+          "awb_code": "SRKT987654321",
+          "courier": "Bluedart",
+          "status": "Delivered",
+          "delivered_on": "2025-12-01"
+        }
+      },
+      "logistics_order_id": 567891,
+      "status": "Delivered",
+      "delivered_on": "2025-12-01"
+    },
+    "pending": {
+      "order_data": {
+        "order_id": "GRV1002",
+        "channel_order_id": "12346",
+        "awb_code": null,
+        "courier": null,
+        "status": "Pending",
+        "pickup_date": null,
+        "edd": null,
+        "billing_customer_name": "Amit Kumar",
+        "billing_phone": "9876543212",
+        "billing_address": "789 New Colony",
+        "billing_city": "Delhi",
+        "billing_state": "Delhi",
+        "billing_pincode": "110001",
+        "billing_country": "India",
+        "shipments": null
+      },
+      "logistics_order_id": 567892,
+      "status": "Pending"
+    }
+  },
+  "default_scenario": "in_transit",
+  "mapping": {
+    "GRV1001": "in_transit",
+    "GRV1000": "delivered",
+    "GRV1002": "pending",
+    "1001": "in_transit",
+    "1000": "delivered",
+    "1002": "pending"
+  }
+}

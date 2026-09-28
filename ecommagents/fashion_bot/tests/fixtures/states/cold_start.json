@@ -1,0 +1,17 @@
+{
+    "fixture_id": "cold_start",
+    "description": "Fresh conversation with no prior context. Tests agent from scratch.",
+    "state": {
+        "messages": [],
+        "phone_number": null,
+        "client_id": "{{client_id}}",
+        "selected_order_id": null,
+        "known_orders": null,
+        "order_status_by_id": {},
+        "page_context": null,
+        "conversation_context": null,
+        "is_frustrated": false,
+        "needs_escalation": false
+    }
+}
+

@@ -1,0 +1,310 @@
+# Grafana alert rules for the Dramatiq webhook pipeline.
+#
+# Canonical source of truth (Grafana "file provisioning" format, apiVersion 1).
+# Routed to the existing Slack contact point "webhook-processing-errors"
+# (#webhook-processing-errors) via per-rule notification_settings.
+#
+# Datasource UID: grafanacloud-prom  (Grafana Cloud Prometheus)
+# Metric names are the live OTLP→Prometheus series (unit suffix included),
+# verified in prod.
+#
+# Apply:
+#   * Self-hosted Grafana → drop this file in provisioning/alerting/ and restart.
+#   * Grafana Cloud       → run the companion apply_dramatiq_alerts.py
+#                           (uses the Alerting provisioning API + a token).
+# See README.md in this directory.
+
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: dramatiq-webhook
+    folder: Dramatiq Webhook Pipeline
+    interval: 1m
+    rules:
+      # 1) Backlog not draining — primary "workers can't keep up" / worker-down signal.
+      - uid: dramatiq-queue-backlog
+        title: Dramatiq queue backlog not draining
+        condition: C
+        for: 10m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: warning
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "Webhook queue backlog > 500 pending for 10m"
+          description: "sum(dramatiq_queue_depth_messages) has stayed above 500 for 10m — workers aren't draining fast enough (or a lane's worker is down). Check the queue-background-worker service and consider more --threads or a second instance. Dashboard: Dramatiq Webhook Pipeline."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: sum(dramatiq_queue_depth_messages)
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [500] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname]
+
+      # 2) Task failures — jobs raising / dead-lettering.
+      - uid: dramatiq-task-failures
+        title: Dramatiq task failures
+        condition: C
+        for: 5m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: critical
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "Dramatiq tasks are failing"
+          description: "dramatiq_task_failure_tasks_total is increasing — webhook jobs are erroring and will dead-letter after retries. Check worker logs (service queue-background-worker) for the failing actor/trace_id."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: sum(rate(dramatiq_task_failure_tasks_total[5m]))
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [0] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname]
+
+      # 3) Broker trouble — enqueue failing / inline fallback (the §7.1 safety net engaging).
+      - uid: dramatiq-enqueue-failing
+        title: Webhook enqueue failing (broker trouble)
+        condition: C
+        for: 5m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: critical
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "Web tier can't reach the broker — falling back to inline"
+          description: "webhook_enqueue_failed_jobs_total is increasing: the web service can't enqueue to the Render Key Value broker and is processing webhooks inline (bounded). Risk of DB-pool pressure if it persists during a storm. Check render-redis and DRAMATIQ_BROKER_URL."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: sum(rate(webhook_enqueue_failed_jobs_total[5m]))
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [0] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname]
+
+      # 6) App-service memory high — early warning before an OOM restart.
+      #    Motivated by the 7-Jun webhook-handlers OOM: the weekly product delta
+      #    sync grew an instance from ~30% to ~95% of its 512 MiB limit over ~75m
+      #    and was killed. 80% for 10m fires well before the cap. Covers the two
+      #    services that run heavy ingestion; per service_name so the notification
+      #    names the culprit.
+      - uid: app-service-memory-high
+        title: App service memory high (approaching OOM)
+        condition: C
+        for: 10m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: warning
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "{{ $labels.service_name }} memory > 80% of limit"
+          description: "An instance of {{ $labels.service_name }} has used >80% of its render_service_memory_limit_bytes for 10m. Render OOM-kills at the cap (see the 7-Jun webhook-handlers restart). Check for a heavy job (e.g. product delta sync), reduce PRODUCT_DELTA_SYNC_BATCH_SIZE, move work to queue-background-worker, or raise the instance memory/plan."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: max by (service_name) (render_service_memory_usage_bytes{service_name=~"ecommagents-webhook-handlers|queue-background-worker"} / on(service_instance_id) render_service_memory_limit_bytes)
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [0.8] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname, service_name]
+
+      # 4) Broker memory high — with noeviction, approaching the cap means enqueues start failing.
+      - uid: dramatiq-broker-memory
+        title: Dramatiq broker (render-redis) memory high
+        condition: C
+        for: 10m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: warning
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "render-redis memory > 70% of limit"
+          description: "The broker (render-redis) is using >70% of its memory limit. With maxmemory-policy=noeviction, hitting the cap makes enqueues fail (→ inline fallback). Upgrade the Render Key Value plan or investigate a stuck consumer."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: max(render_service_memory_usage_bytes{service_name="render-redis"} / render_service_memory_limit_bytes{service_name="render-redis"})
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [0.7] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname]
+
+      # 5) Jobs arriving but none processed — worker stalled/dead while web keeps enqueuing.
+      - uid: dramatiq-worker-stalled
+        title: Dramatiq worker not consuming (enqueue up, success flat)
+        condition: C
+        for: 10m
+        noDataState: OK
+        execErrState: Error
+        labels:
+          severity: critical
+          service: ecommagents-webhook-pipeline
+        annotations:
+          summary: "Webhooks are being enqueued but not processed"
+          description: "Enqueue rate > 0 while success rate ≈ 0 for 10m — the queue-background-worker is likely down or stuck. Backlog will grow. Check the worker service status and logs."
+        data:
+          - refId: A
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: grafanacloud-prom
+            model:
+              editorMode: code
+              expr: (sum(rate(webhook_enqueue_queued_jobs_total[10m])) > 0) and (sum(rate(dramatiq_task_success_tasks_total[10m])) < 0.001)
+              instant: true
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: A
+              reducer: last
+              type: reduce
+              refId: B
+          - refId: C
+            relativeTimeRange: { from: 600, to: 0 }
+            datasourceUid: __expr__
+            model:
+              datasource: { type: __expr__, uid: __expr__ }
+              expression: B
+              type: threshold
+              conditions:
+                - evaluator: { type: gt, params: [0] }
+              refId: C
+        notification_settings:
+          receiver: webhook-processing-errors
+          group_by: [alertname]

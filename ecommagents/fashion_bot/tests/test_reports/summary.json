@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-12-18T17:28:23.013542",
+  "total_tests": 15,
+  "passed_tests": 5,
+  "pass_rate": 33.33333333333333,
+  "total_turns": 81,
+  "avg_turns_per_conversation": 5.4,
+  "test_scenarios": [
+    "escalation--randomquestion-asking-place-bulk-order-1",
+    "sales_product_discovery--delivery_timeline_query--cod_fast_order",
+    "escalation--randomquestion-asking-where-are-you-based-out-of1",
+    "escalation--mix_routing--1",
+    "sales--delivery_enquiry--product_found-1",
+    "sales--delivery_enquiry--ordering_combination",
+    "sales--delivery_enquiry--product_not_found-2",
+    "sales--delivery_enquiry--delivery_method",
+    "sales--return_exchange--policy_basic",
+    "sales--return_exchange--refund_insistence",
+    "sales--return_exchange--fraud_concern",
+    "sales--inquiry--product_quality",
+    "sales--inquiry--product_quality",
+    "sales--inquiry--size_confusion",
+    "sales--inquiry--size_with_exchange_policy"
+  ]
+}

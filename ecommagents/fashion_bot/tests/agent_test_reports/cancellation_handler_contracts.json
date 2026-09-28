@@ -1,0 +1,392 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Always attempt to resolve fixable issues (updates, corrections, delivery help) before proceeding with cancellation.",
+    "priority": "critical",
+    "test_hint": "Initiate a cancellation request for an order with a fixable issue and verify the agent offers a solution first."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always display fetched order details clearly and ask the customer to confirm the specific order before any modification or cancellation.",
+    "priority": "critical",
+    "test_hint": "Fetch orders for a phone number and verify the agent asks for confirmation of the correct order."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always collect cancellation reason in open text (mandatory) when entering the cancellation flow.",
+    "priority": "critical",
+    "test_hint": "Initiate cancellation and verify the agent prompts for a mandatory reason."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, raise an escalation internally.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify an escalation is triggered."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, inform the customer that their request has been received.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify the agent confirms receipt of the request."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, inform them that a customer support representative will contact them shortly.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify the agent informs about a follow-up from support."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, provide the official customer support phone number and email.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify the agent provides contact details."
+  },
+  {
+    "category": "must_do",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, tell them they may also directly contact support with the option of the customer directly connecting with the customer support by showing the following message 'You may also contact us directly at +91 8882174388, Monday to Saturday, 11:30 AM to 6:30 PM.'",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify the agent provides the direct contact message."
+  },
+  {
+    "category": "must_do",
+    "rule": "When a 10-digit phone number is detected, immediately call the tool that extracts phone numbers from messages using the exact message text.",
+    "priority": "critical",
+    "test_hint": "Send a message containing a 10-digit phone number and verify the extraction tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "After successful phone number extraction, call the tool that fetches recent orders by phone and display the orders.",
+    "priority": "critical",
+    "test_hint": "Send a message with a phone number, verify extraction, and then verify the order fetching tool is called."
+  },
+  {
+    "category": "must_do",
+    "rule": "Always display fetched order details clearly.",
+    "priority": "high",
+    "test_hint": "Fetch orders and verify the details are presented in a readable format."
+  },
+  {
+    "category": "must_do",
+    "rule": "Never ask for a cancellation reason unless entering the cancellation flow.",
+    "priority": "high",
+    "test_hint": "Initiate a size update request and verify the agent does not ask for a cancellation reason."
+  },
+  {
+    "category": "must_do",
+    "rule": "For size issues, immediately offer a size change and ask for the preferred size.",
+    "priority": "high",
+    "test_hint": "Report a size issue and verify the agent offers a size change."
+  },
+  {
+    "category": "must_do",
+    "rule": "For address issues, offer address correction and collect ONLY address line 1, address line 2 (optional), city, state, and zip code.",
+    "priority": "high",
+    "test_hint": "Report an address issue and verify the agent requests only the specified address fields."
+  },
+  {
+    "category": "must_do",
+    "rule": "For phone or email issues, offer immediate correction and update the order.",
+    "priority": "high",
+    "test_hint": "Report a phone number issue and verify the agent offers to update it."
+  },
+  {
+    "category": "must_do",
+    "rule": "For contact or minor product/variant errors, ask only for missing details and update directly.",
+    "priority": "high",
+    "test_hint": "Report a minor contact detail error and verify the agent asks for only the missing information."
+  },
+  {
+    "category": "must_do",
+    "rule": "When executing a product change, if the tool returns a successful product change with a differential_amount == 0 and the shopify order status is New or the shiprocket order status is New, call the product change tool with the order ID and the product URL.",
+    "priority": "high",
+    "test_hint": "Request a product change with no price difference and verify the product change tool is used."
+  },
+  {
+    "category": "must_do",
+    "rule": "When executing a product change, confirm the successful product change with old and new order IDs to the customer.",
+    "priority": "high",
+    "test_hint": "Complete a product change and verify the confirmation message includes both order IDs."
+  },
+  {
+    "category": "must_do",
+    "rule": "When executing a product change, frame the message positively: 'Your product has been changed successfully!'",
+    "priority": "medium",
+    "test_hint": "Complete a product change and verify the positive framing of the success message."
+  },
+  {
+    "category": "must_do",
+    "rule": "Check order status when handling delivery concerns.",
+    "priority": "medium",
+    "test_hint": "Raise a delivery concern and verify the agent checks the order status."
+  },
+  {
+    "category": "must_do",
+    "rule": "Ask whether the customer prefers resolution or cancellation when handling delivery concerns.",
+    "priority": "medium",
+    "test_hint": "Raise a delivery concern and verify the agent asks about resolution preference."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never cancel orders that are not eligible per policy.",
+    "priority": "critical",
+    "test_hint": "Attempt to cancel an ineligible order and verify the agent refuses."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never bypass confirmation, validation, or mandatory reason collection.",
+    "priority": "critical",
+    "test_hint": "Attempt to bypass order confirmation or reason collection and verify the agent enforces these steps."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never expose internal systems, raw tool errors, or internal categorizations to customers.",
+    "priority": "critical",
+    "test_hint": "Trigger a tool error and verify no internal details are shown to the customer."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "If the customer persists in cancelling, you MUST NOT cancel the order in Shopify or Shiprocket.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify no direct cancellation occurs in backend systems."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never fetch orders if the phone number in state is 'Not provided.' Always extract first.",
+    "priority": "critical",
+    "test_hint": "Send a message without a phone number and verify the agent attempts extraction before fetching orders."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not display the same order list twice.",
+    "priority": "high",
+    "test_hint": "Fetch orders multiple times and verify the list is not repeated."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not ask for information already provided.",
+    "priority": "high",
+    "test_hint": "Provide order details and then ask for them again and verify the agent uses the provided information."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never proceed with cancellation or ask for a reason for size issues.",
+    "priority": "high",
+    "test_hint": "Report a size issue and verify the agent does not offer cancellation or ask for a reason."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "\ud83d\udd34 NEVER ask the customer for their first name, last name, or phone number during an address update.",
+    "priority": "high",
+    "test_hint": "Report an address issue and verify the agent does not request name or phone number."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never ask 'cancel or update?' for fixable issues\u2014always offer the fix first.",
+    "priority": "high",
+    "test_hint": "Report a fixable issue and verify the agent offers the solution before asking about cancellation."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, do NOT update the order i.e. cancel the existing order or create a new order.",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify the agent does not proceed with automatic cancellation/creation."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never cancel an order manually for a product change request\u2014always use the product change tool.",
+    "priority": "high",
+    "test_hint": "Request a product change and verify the product change tool is used, not manual cancellation."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer message is or contains a 10-digit phone number, immediately call the tool that extracts phone numbers from messages using the exact message text.",
+    "priority": "critical",
+    "test_hint": "Send a message with a 10-digit phone number and verify the extraction tool is called."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If phone is already in state, fetch recent orders directly.",
+    "priority": "high",
+    "test_hint": "Have a phone number in state and verify the agent fetches orders without re-extraction."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If any tool returns an access-denied response, stop immediately, show the user-facing message from the tool, reveal no order details, and perform no actions.",
+    "priority": "critical",
+    "test_hint": "Simulate an access-denied response from a tool and verify the agent stops and shows the error message."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer explicitly refuses the size change, then proceed to the cancellation workflow.",
+    "priority": "high",
+    "test_hint": "Offer a size change, have the customer refuse, and verify the agent proceeds to cancellation."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer explicitly refuses address correction, then go to the cancellation workflow.",
+    "priority": "high",
+    "test_hint": "Offer address correction, have the customer refuse, and verify the agent proceeds to cancellation."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the customer explicitly refuses correction after the update attempt for phone or email issues, then cancel the order.",
+    "priority": "high",
+    "test_hint": "Offer phone/email correction, have the customer refuse, and verify the agent proceeds to cancellation."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "WHEN TO ASK FOR A PRODUCT LINK/URL: The customer says they want a 'different product' or 'change the product' without specifying exactly what they want.",
+    "priority": "high",
+    "test_hint": "Request a product change vaguely and verify the agent asks for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "WHEN TO ASK FOR A PRODUCT LINK/URL: The customer's request is vague \u2014 no clear color, size, or variant is mentioned.",
+    "priority": "high",
+    "test_hint": "Request a product change vaguely and verify the agent asks for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "WHEN TO ASK FOR A PRODUCT LINK/URL: A product search was attempted but returned no matching results for the requested color or size.",
+    "priority": "high",
+    "test_hint": "Request a product change, simulate a failed search, and verify the agent asks for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "WHEN NOT TO ASK FOR A PRODUCT LINK/URL: The customer clearly specifies a color or size change (e.g., 'I want black color', 'change to blue', 'I want size L instead').",
+    "priority": "high",
+    "test_hint": "Request a specific color/size change and verify the agent does not ask for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "WHEN NOT TO ASK FOR A PRODUCT LINK/URL: The current product details are already known from the order or conversation context (product name, model, product line).",
+    "priority": "high",
+    "test_hint": "Request a product change with known context and verify the agent does not ask for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If search returns a single match for a product change, use its URL directly with the product change tool.",
+    "priority": "high",
+    "test_hint": "Request a product change, simulate a single search match, and verify the tool is used directly."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If search returns multiple matches for a product change, show them to the customer and ask which one they want. Once confirmed, use its URL.",
+    "priority": "high",
+    "test_hint": "Request a product change, simulate multiple search matches, and verify the agent presents options and uses the confirmed URL."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If search returns no matches for a product change, then ask the customer for the product link/URL as a fallback.",
+    "priority": "high",
+    "test_hint": "Request a product change, simulate no search matches, and verify the agent asks for a product link."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If the current customer message contains only an order ID, treat it as confirmation, not a product link.",
+    "priority": "medium",
+    "test_hint": "Send only an order ID and verify it's treated as confirmation, not a product URL."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, raise an escalation.",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify an escalation is triggered."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, add notes in the existing order about the change which customer is asking for.",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify notes are added to the order."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, frame the message saying that your request has been received and soon customer support will reach out to you.",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify the agent informs about a follow-up."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, show also 'You may also contact us directly at +91 8882174388, Monday to Saturday, 11:30 AM to 6:30 PM.'",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify the agent provides the direct contact message."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Escalate when frustration or special handling is required.",
+    "priority": "high",
+    "test_hint": "Simulate customer frustration and verify the agent escalates."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "RED_FLAG tagging and human escalation.",
+    "priority": "high",
+    "test_hint": "Trigger a RED_FLAG scenario and verify human escalation."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "If the customer persists in cancelling and the order is not eligible for cancellation, raise an escalation internally.",
+    "priority": "critical",
+    "test_hint": "Request cancellation for an ineligible order and verify an escalation is triggered."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "When the tool returns a successful product change with a differential_amount is not equal to 0 or != 0, raise an escalation.",
+    "priority": "high",
+    "test_hint": "Request a product change with a price difference and verify an escalation is triggered."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Customer phone number (10-digit) is required for order identification.",
+    "priority": "critical",
+    "test_hint": "Attempt to fetch orders without a phone number and verify the agent prompts for it."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Order ID or order confirmation from listed orders is required for order identification.",
+    "priority": "critical",
+    "test_hint": "Fetch orders and verify the agent asks for confirmation of a specific order."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Customer confirmation of the specific order is required before modification or cancellation.",
+    "priority": "critical",
+    "test_hint": "Attempt to modify or cancel an order without explicit customer confirmation and verify the agent enforces it."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Update details (new size, corrected address, phone, or email) are required for order updates.",
+    "priority": "high",
+    "test_hint": "Initiate an update and verify the agent collects the necessary update details."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Cancellation reason (mandatory for cancellation) must be collected.",
+    "priority": "critical",
+    "test_hint": "Initiate cancellation and verify the agent prompts for a mandatory reason."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Product URL is required for product or color change requests \u2014 only when product cannot be identified from conversation context.",
+    "priority": "high",
+    "test_hint": "Request a product change where context is missing and verify the agent asks for a product URL."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Return or exchange reason for delivered orders must be collected.",
+    "priority": "medium",
+    "test_hint": "Initiate a return/exchange flow and verify the agent collects the reason."
+  },
+  {
+    "category": "data_handling",
+    "rule": "All order tools automatically validate phone ownership.",
+    "priority": "critical",
+    "test_hint": "Use an order tool and verify phone ownership validation is implicitly performed."
+  },
+  {
+    "category": "data_handling",
+    "rule": "When updating address, auto-fill first_name and last_name from the order details, and phone from the customer's verified phone number in state.",
+    "priority": "high",
+    "test_hint": "Initiate an address update and verify first_name, last_name, and phone are auto-filled."
+  }
+]

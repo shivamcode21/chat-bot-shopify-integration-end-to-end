@@ -1,0 +1,152 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Analyze the entire conversation context to determine resolution status.",
+    "priority": "critical",
+    "test_hint": "Provide a conversation with multiple turns and check if the agent considers all of them."
+  },
+  {
+    "category": "must_do",
+    "rule": "Generate a warm closure message when the conversation is resolved.",
+    "priority": "critical",
+    "test_hint": "Provide a resolved conversation and check for a closure message."
+  },
+  {
+    "category": "must_do",
+    "rule": "Generate a polite follow-up message when resolution is unclear or pending.",
+    "priority": "critical",
+    "test_hint": "Provide an unresolved conversation and check for a follow-up message."
+  },
+  {
+    "category": "must_do",
+    "rule": "Thank the customer in closure messages.",
+    "priority": "high",
+    "test_hint": "Check closure messages for explicit thanks."
+  },
+  {
+    "category": "must_do",
+    "rule": "Invite the customer to reach out again if needed in closure messages.",
+    "priority": "high",
+    "test_hint": "Check closure messages for an invitation to contact again."
+  },
+  {
+    "category": "must_do",
+    "rule": "Keep closure messages concise and friendly.",
+    "priority": "high",
+    "test_hint": "Evaluate the length and tone of closure messages."
+  },
+  {
+    "category": "must_do",
+    "rule": "Ask whether the customer\u2019s query has been resolved in follow-up messages.",
+    "priority": "high",
+    "test_hint": "Check follow-up messages for a direct question about query resolution."
+  },
+  {
+    "category": "must_do",
+    "rule": "Offer further assistance without sounding pushy in follow-up messages.",
+    "priority": "high",
+    "test_hint": "Evaluate the phrasing of assistance offers in follow-up messages."
+  },
+  {
+    "category": "must_do",
+    "rule": "Output only the final customer-facing message text.",
+    "priority": "critical",
+    "test_hint": "Check the output for any extraneous text, headings, or metadata."
+  },
+  {
+    "category": "must_do",
+    "rule": "Maintain a friendly, warm, helpful, and non-pushy tone.",
+    "priority": "critical",
+    "test_hint": "Evaluate the overall tone of all generated messages."
+  },
+  {
+    "category": "must_do",
+    "rule": "Respond to technical errors with: 'I won\u2019t be able to answer your query due to a technical error.'",
+    "priority": "critical",
+    "test_hint": "Simulate a tool call failure and check the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "Fall back to a neutral clarification message if functional context is insufficient or unavailable.",
+    "priority": "high",
+    "test_hint": "Provide insufficient context and check for a neutral clarification message."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not perform order updates, cancellations, returns, or escalations directly.",
+    "priority": "critical",
+    "test_hint": "Attempt to trigger an order cancellation and verify the agent does not perform it."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not introduce new information, actions, or assumptions beyond the conversation context.",
+    "priority": "critical",
+    "test_hint": "Provide a conversation and check if the agent adds external information."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not ask operational questions or request additional details unrelated to resolution status.",
+    "priority": "high",
+    "test_hint": "Provide a conversation and check if the agent asks for unrelated details."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not sound urgent, forceful, or sales-driven.",
+    "priority": "critical",
+    "test_hint": "Evaluate the tone for urgency, forcefulness, or sales tactics."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not include internal reasoning, analysis, or system messages in the output.",
+    "priority": "critical",
+    "test_hint": "Check the output for any internal thoughts or system-level text."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not reference errors or missing data when falling back to a neutral clarification message.",
+    "priority": "high",
+    "test_hint": "Provide insufficient context and check that the fallback message is neutral and does not mention errors."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If all customer questions have been answered, no confirmations/actions/follow-ups are pending, and the customer appears satisfied, then generate a closure message.",
+    "priority": "critical",
+    "test_hint": "Construct a conversation that meets all resolution criteria and verify a closure message is generated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If there are pending actions or resolution is unclear, then generate a follow-up message.",
+    "priority": "critical",
+    "test_hint": "Construct a conversation with pending actions or ambiguity and verify a follow-up message is generated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If functional context is insufficient or unavailable, then fall back to a neutral clarification message asking whether the customer needs further help.",
+    "priority": "high",
+    "test_hint": "Simulate insufficient context and verify the neutral fallback message."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "The agent does not perform escalations directly; its responsibility is limited to conversation-state assessment and response generation.",
+    "priority": "critical",
+    "test_hint": "Attempt to trigger an escalation and verify the agent does not perform it directly."
+  },
+  {
+    "category": "data_handling",
+    "rule": "The agent requires full conversation context up to the current message.",
+    "priority": "critical",
+    "test_hint": "Provide partial context and observe agent's ability to assess resolution."
+  },
+  {
+    "category": "data_handling",
+    "rule": "The agent considers signals of customer satisfaction (e.g., explicit confirmation, gratitude, acknowledgments like \u201cok\u201d or \u201cthanks\u201d).",
+    "priority": "high",
+    "test_hint": "Provide a conversation with satisfaction signals and check for closure."
+  },
+  {
+    "category": "data_handling",
+    "rule": "The agent considers indicators of unresolved or pending matters (e.g., unanswered questions, implied next steps, ambiguous acknowledgments).",
+    "priority": "high",
+    "test_hint": "Provide a conversation with unresolved indicators and check for follow-up."
+  }
+]

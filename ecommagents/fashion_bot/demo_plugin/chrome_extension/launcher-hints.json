@@ -1,0 +1,18 @@
+{
+  "_comment": "Rotating lines: edit default only unless you add byClientId / byDomainSubstring. Reload extension after saves.",
+  "default": [
+    "Show trending products",
+    "Latest collections?",
+    "Do you have COD support?",
+    "Show best deals",
+    "Track my order"
+  ],
+  "byClientId": {},
+  "byDomainSubstring": {
+    "serekoshop.com": [
+      "Show SPF 50 sunscreens",
+      "Want to buy Lip Balm",
+      "What collections do you have?"
+    ]
+  }
+}

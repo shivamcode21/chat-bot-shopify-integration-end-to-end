@@ -1,0 +1,1278 @@
+# Fashion Bot Multi-Turn Conversation Test Report
+
+Generated: 2025-12-18 17:28:23
+
+## Executive Summary
+
+- **Total Tests**: 15
+- **Passed**: 5
+- **Failed**: 10
+- **Pass Rate**: 33.3%
+- **Status**: ❌ FAIL
+
+## Conversation Statistics
+
+- **Total Turns**: 81
+- **Average Turns per Conversation**: 5.4
+
+## Performance Metrics
+
+### LLM Judge Scores (Average)
+
+- **Logical Correctness**: 4.00/5.0
+- **Conciseness**: 4.13/5.0
+- **Helpfulness**: 3.93/5.0
+- **Tone**: 4.93/5.0
+- **Completeness**: 3.80/5.0
+- **Context Awareness**: 3.80/5.0
+- **Conversation Flow**: 3.80/5.0
+- **Memory Retention**: 3.73/5.0
+- **Overall Score**: 3.99/5.0
+
+### String Matching Results
+
+- **Average Keyword Score**: 0.51
+- **Keyword Score Threshold**: 0.65
+
+## Test Categories Performance
+
+### Conversation Types
+
+
+## Detailed Results
+
+### escalation--randomquestion-asking-place-bulk-order-1: Customer is asking placing bulk order ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 1
+- Overall Keyword Score: 0.00
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: i want to place bulk order
+- Bot: It looks like you're interested in placing a bulk order! 😊 To get started, could you please provide me with the product name or a link to the product you want to order? This way, I can help you find the right items.
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: team
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot correctly identifies the user's interest in placing a bulk order and asks for the product name or link, which is a logical next step. However, it could have mentioned involving a team or special process for bulk orders.
+- **Conciseness**: 4/5 - The response is relatively concise, but it could be slightly more direct by omitting the emoji and focusing solely on the necessary information.
+- **Helpfulness**: 4/5 - The bot provides a clear next step by asking for the product name or link, which is helpful. However, it could have mentioned contacting a team for bulk orders.
+- **Tone**: 5/5 - The tone is friendly and professional, which is appropriate for customer service interactions.
+- **Completeness**: 3/5 - The response addresses the user's request but lacks information about any special procedures or teams involved in handling bulk orders.
+- **Context Awareness**: 4/5 - The bot understands the context of a bulk order but misses the opportunity to mention any special handling or team involvement.
+- **Conversation Flow**: 4/5 - The conversation flows naturally from the user's request to the bot's response, but it could be improved by including more information about the bulk order process.
+- **Memory Retention**: 3/5 - Since this is the first turn, memory retention is not applicable. However, the bot should be prepared to remember the product details once provided.
+- **Overall Score**: 3.9/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 0.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales_product_discovery--delivery_timeline_query--cod_fast_order: Customer wants COD, fast delivery, and order assistance ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 7
+- Overall Keyword Score: 0.61
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: I found the product you're interested in! Here are the details for **8TH: THE HOUSE OF TRANSFORMATION**:
+
+- **Price**: ₹2999
+- **Available Sizes**: 28, 30, 32, 34, 36, 38, 40
+- **Description**: Some pieces aren’t just worn—they’re felt. *8TH: The House of Transformation* is built for those who embrace change, power, and reinvention. Designed with bold textures and intricate details, this denim piece is perfect for expressing your style.
+
+You can check it out here: https://groovee.in/products/8th-the-house-of-transformation.
+
+Could you please let me know what size you would like to order? 😊
+- Keyword Score: 0.25
+- Found Keywords: order
+- Missing Keywords: phone, name, address
+
+**Turn 2:**
+
+- Customer: when will you deliver the product
+- Bot: To provide you with an accurate delivery estimate for the **8TH: THE HOUSE OF TRANSFORMATION**, I need your postal code/pincode. Could you please share it with me? 📍😊
+- Keyword Score: 0.50
+- Found Keywords: pincode
+- Missing Keywords: size
+
+**Turn 3:**
+
+- Customer: 560076
+- Bot: Your order for **8TH: THE HOUSE OF TRANSFORMATION** will be delivered by **Blue Dart Air**. The estimated delivery date is **December 22, 2025**. 📅🚚
+- Keyword Score: 0.50
+- Found Keywords: delivery
+- Missing Keywords: size
+
+**Turn 4:**
+
+- Customer: 32
+- Bot: I've set your size to **32** and marked your address as **partial** with the postal code **560076**. 😊
+
+Now, could you please provide your phone number so I can proceed with the order? 📞
+- Keyword Score: 1.00
+- Found Keywords: size, order
+- Missing Keywords: None
+
+**Turn 5:**
+
+- Customer: I want COD only but i would need it fast
+- Bot: I've noted that you want to proceed with **Cash on Delivery (COD)**. 😊
+
+Now, I still need your phone number to finalize the order. Could you please provide it? 📞
+- Keyword Score: 1.00
+- Found Keywords: COD, Delivery
+- Missing Keywords: None
+
+**Turn 6:**
+
+- Customer: Thanks
+- Bot: You're welcome! 😊 If you're ready to share your phone number, I can finalize your order for **8TH: THE HOUSE OF TRANSFORMATION**. Let me know how else I can assist you!
+- Keyword Score: 1.00
+- Found Keywords: None
+- Missing Keywords: None
+
+**Turn 7:**
+
+- Customer: is size 48 available
+- Bot: No, size 48 is not available for **8TH: THE HOUSE OF TRANSFORMATION**. The available sizes are: 28, 30, 32, 34, 36, 38, and 40. If you need help with anything else, just let me know! 😊
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: out of stock, Delivery
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot provides accurate information about the product, delivery, and available sizes. However, the delivery date seems unrealistic (December 22, 2025), which could be a mistake.
+- **Conciseness**: 4/5 - The bot's responses are generally concise, but there are some instances of unnecessary repetition, such as repeatedly asking for the phone number.
+- **Helpfulness**: 4/5 - The bot provides actionable information, such as delivery estimates and available sizes, but could improve by addressing the unrealistic delivery date.
+- **Tone**: 5/5 - The bot maintains a friendly and professional tone throughout the conversation, using emojis to enhance the interaction.
+- **Completeness**: 4/5 - The bot addresses most aspects of the user's questions, but it does not address the unrealistic delivery date or confirm the order completion process.
+- **Context Awareness**: 4/5 - The bot is mostly aware of the context, but it fails to address the unrealistic delivery date and does not confirm the order completion after receiving the size and COD preference.
+- **Conversation Flow**: 4/5 - The conversation generally flows well, but the repeated request for the phone number without progressing the order process disrupts the flow slightly.
+- **Memory Retention**: 4/5 - The bot remembers the user's size and COD preference, but it does not fully utilize this information to confirm the order completion.
+- **Overall Score**: 4.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### escalation--randomquestion-asking-where-are-you-based-out-of1: Customer is asking random question about where are you based out of ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 1
+- Overall Keyword Score: 0.00
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: where are you based out of 
+- Bot: I can help you with queries related to product information, orders, delivery timelines, returns, and exchanges. Is there anything related to these that I can assist you with?
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Delhi, manufacturing
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 2/5 - The bot's response does not address the customer's question about the location of the business. Instead, it provides information about the types of queries it can handle, which is not relevant to the question asked.
+- **Conciseness**: 4/5 - The response is concise and to the point, but it does not address the customer's question directly.
+- **Helpfulness**: 2/5 - The response is not helpful in answering the customer's specific question about the location of the business. It does not provide actionable information or next steps related to the customer's inquiry.
+- **Tone**: 4/5 - The tone is professional and polite, but it lacks the engagement needed to address the customer's specific question.
+- **Completeness**: 2/5 - The response does not address the customer's question about the location of the business, missing the expected keywords like 'Delhi' or 'manufacturing'.
+- **Context Awareness**: 2/5 - The bot fails to recognize the context of the customer's question about the business location and instead provides a generic response about its capabilities.
+- **Conversation Flow**: 2/5 - The conversation does not flow naturally as the bot's response does not build on the customer's question, leading to a disjointed interaction.
+- **Memory Retention**: 1/5 - Memory retention is not applicable in this single-turn conversation, but the bot does not reference or build on the customer's question.
+- **Overall Score**: 2.4/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 0.00
+- **Frustration Handling**: 0.20
+
+---
+
+### escalation--mix_routing--1: Customer is switching between human escalation and inquiry ✅ PASS
+
+**Conversation Summary:**
+
+- Total Turns: 4
+- Overall Keyword Score: 0.92
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I want to talk to human
+- Bot: This seems important. I'll transfer you to a team member who will reach out to you shortly. Thank you for your patience! 🙏
+
+For immediate assistance, you can also contact our support team at:
+📧 Email: admin@groovee.in
+📱 Phone: +91 8607845846, +91 9518217803, +91 8076038573
+- Keyword Score: 1.00
+- Found Keywords: team
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: i want to connect to human
+- Bot: I've escalated your request to a human agent who will reach out to you shortly. Thank you for your patience! 🙏
+
+For immediate assistance, you can also contact our support team at:
+📧 Email: admin@groovee.in
+📱 Phone: +91 8607845846, +91 9518217803, +91 8076038573
+- Keyword Score: 0.67
+- Found Keywords: team, Thank you
+- Missing Keywords: pateince
+
+**Turn 3:**
+
+- Customer: no talk to huamn
+- Bot: I've escalated your request to a human agent who will reach out to you shortly. Thank you for your patience! 🙏
+
+For immediate assistance, you can also contact our support team at:
+📧 Email: admin@groovee.in
+📱 Phone: +91 8607845846, +91 9518217803, +91 8076038573
+- Keyword Score: 1.00
+- Found Keywords: team
+- Missing Keywords: None
+
+**Turn 4:**
+
+- Customer: i want to know about my order status
+- Bot: I couldn't find any orders for your account. To assist you better, please share your order ID or phone number associated with your orders.
+- Keyword Score: 1.00
+- Found Keywords: order, phone number
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot correctly identifies the user's request to speak to a human and provides contact information. However, it repeats the same response without acknowledging the repeated requests.
+- **Conciseness**: 5/5 - The responses are brief and to the point, providing necessary information without unnecessary verbosity.
+- **Helpfulness**: 4/5 - The bot provides actionable information by offering contact details and asking for order details, but it could improve by confirming the escalation to a human agent.
+- **Tone**: 5/5 - The tone is consistently professional and polite, maintaining a helpful demeanor throughout the conversation.
+- **Completeness**: 4/5 - The bot addresses the user's request to speak to a human and provides order assistance, but it could better acknowledge the repeated requests.
+- **Context Awareness**: 3/5 - The bot does not adapt its responses based on the repeated requests, indicating a lack of context awareness.
+- **Conversation Flow**: 3/5 - The conversation flow is somewhat repetitive, as the bot does not adapt its responses to the user's repeated requests.
+- **Memory Retention**: 3/5 - The bot does not demonstrate memory retention, as it repeats the same response without acknowledging the user's repeated requests.
+- **Overall Score**: 3.9/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--delivery_enquiry--product_found-1: Customer wants to place order and asks about delivery time for available product ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 3
+- Overall Keyword Score: 0.63
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to place an order.
+- Bot: I see you're interested in placing an order! 😊 Could you please provide me with either the product link or the name of the item you'd like to order?
+- Keyword Score: 0.40
+- Found Keywords: order, name
+- Missing Keywords: phone number, address, create
+
+**Turn 2:**
+
+- Customer: When will I get the order if i place it today
+- Bot: To provide you with an accurate delivery estimate, I need your postal code/pincode. Could you please share that with me? 📍
+- Keyword Score: 1.00
+- Found Keywords: pincode
+- Missing Keywords: None
+
+**Turn 3:**
+
+- Customer: 493118
+- Bot: Thank you for providing your postal code! 📍
+
+Now, could you please share the product link or the name of the item you'd like to order? This will help me give you an accurate delivery estimate. 😊
+- Keyword Score: 0.50
+- Found Keywords: order
+- Missing Keywords: delivery date
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot correctly asks for the postal code to provide a delivery estimate, which is logical. However, it does not directly answer the customer's initial question about delivery time in Turn 2.
+- **Conciseness**: 4/5 - The bot's responses are generally concise, but the repeated request for the product link or name in Turn 3 could have been avoided if it was addressed earlier.
+- **Helpfulness**: 4/5 - The bot provides clear next steps by asking for the postal code and product details, but it could have been more helpful by explaining why these details are needed upfront.
+- **Tone**: 5/5 - The bot maintains a friendly and professional tone throughout the conversation, using emojis to enhance the interaction.
+- **Completeness**: 3/5 - The bot does not fully address the customer's question about delivery time in Turn 2, as it does not provide any estimate or timeframe.
+- **Context Awareness**: 4/5 - The bot is aware of the need for a postal code to provide a delivery estimate, but it does not fully address the customer's initial question about delivery time.
+- **Conversation Flow**: 4/5 - The conversation generally flows well, but the repeated request for product details in Turn 3 disrupts the flow slightly.
+- **Memory Retention**: 5/5 - The bot successfully remembers the postal code provided by the customer and acknowledges it in Turn 3.
+- **Overall Score**: 4.1/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--delivery_enquiry--ordering_combination: Customer provides product link upfront and asks about delivery ✅ PASS
+
+**Conversation Summary:**
+
+- Total Turns: 5
+- Overall Keyword Score: 0.78
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: Hey there! 👋 I’m here to help you with your order, product info, or anything else you need.
+- Bot: Hi there! 👋 It looks like you're ready to assist! How can I help you with your order or product info today?
+- Keyword Score: 1.00
+- Found Keywords: help
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: kab aayega product
+- Bot: To assist you with the delivery timeline for your product, I'll need your postal code/pincode. Could you please provide it? 📍😊
+- Keyword Score: 1.00
+- Found Keywords: p, i, n, c, o, d, e
+- Missing Keywords: None
+
+**Turn 3:**
+
+- Customer: 560076
+- Bot: Thank you for providing your postal code! 📍
+
+Now, could you please share the product name or product link that you're inquiring about? This will help me give you an accurate delivery estimate. 😊
+- Keyword Score: 0.33
+- Found Keywords: product
+- Missing Keywords: pincode, general
+
+**Turn 4:**
+
+- Customer: general
+- Bot: Here are the available categories you can explore: 🛍️
+
+• Hoodies: https://groovee.in/collections/designer-hoodies  
+• T-Shirts: https://groovee.in/collections/oversized-tshirts  
+• Fresh Drops: https://groovee.in/collections/fresh-drop  
+• Denim Jeans: https://groovee.in/collections/denim-jeans  
+
+Feel free to explore these categories or let me know if you have something specific in mind! 😊
+- Keyword Score: 1.00
+- Found Keywords: d, e, l, i, v, e, r, y
+- Missing Keywords: None
+
+**Turn 5:**
+
+- Customer: Please create the order
+- Bot: It seems like you want to create an order, but I still need some information to proceed. Could you please provide the product name or a link to the product you'd like to order? Additionally, I'll need your size and phone number to complete the order. 😊
+- Keyword Score: 0.57
+- Found Keywords: name, size, product, phone number
+- Missing Keywords: delivery address, address, place order
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 3/5 - The bot correctly asks for the postal code and product details to provide delivery information. However, it misunderstands 'general' as a product inquiry instead of a request for delivery information.
+- **Conciseness**: 4/5 - The bot's responses are generally concise, but the response in Turn 4 could have been more direct in addressing the customer's implied request for delivery information.
+- **Helpfulness**: 3/5 - The bot provides useful links and asks for necessary information to proceed with the order, but it fails to address the customer's initial inquiry about delivery time.
+- **Tone**: 5/5 - The bot maintains a friendly and professional tone throughout the conversation, using emojis to enhance the interaction.
+- **Completeness**: 3/5 - The bot does not fully address the customer's request for delivery information, focusing instead on product selection and order creation.
+- **Context Awareness**: 3/5 - The bot does not fully grasp the context of the customer's request for delivery information and instead shifts to product selection.
+- **Conversation Flow**: 3/5 - The conversation flow is somewhat disrupted by the bot's misinterpretation of 'general,' leading to a shift away from the customer's initial inquiry.
+- **Memory Retention**: 4/5 - The bot remembers the postal code provided by the customer but does not effectively use it to address the delivery inquiry.
+- **Overall Score**: 3.5/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--delivery_enquiry--product_not_found-2: Customer asks about delivery for product that is not available in requested size ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 5
+- Overall Keyword Score: 0.54
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: It seems that the URL you provided is not from an allowed domain. 😕
+
+Would you like to search for the product by name instead? If so, please confirm or provide another link!
+- Keyword Score: 0.20
+- Found Keywords: product
+- Missing Keywords: size, phone number, address, order
+
+**Turn 2:**
+
+- Customer: kab aayega order
+- Bot: Kab aayega order delivery ke liye, kya aap apna postal code ya pincode de sakte hain? Yeh information delivery timeline estimate karne mein madad karegi. 📍
+- Keyword Score: 0.50
+- Found Keywords: order
+- Missing Keywords: size
+
+**Turn 3:**
+
+- Customer: when will the order come
+- Bot: Kab aayega order delivery ke liye, kya aap apna postal code ya pincode de sakte hain? Yeh information delivery timeline estimate karne mein madad karegi. 📍
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: size
+
+**Turn 4:**
+
+- Customer: 32
+- Bot: It seems that the postal code "32" is not in a valid format. Please provide a valid postal code or pincode (3-10 characters, alphanumeric) so I can assist you with the delivery timeline. 📍
+- Keyword Score: 1.00
+- Found Keywords: d, e, l, i, v, e, r, y
+- Missing Keywords: None
+
+**Turn 5:**
+
+- Customer: Thanks, not interested
+- Bot: I understand! If you have any questions in the future about products, orders, or deliveries, feel free to ask. I'm here to help! 😊
+- Keyword Score: 1.00
+- Found Keywords: None
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot correctly identifies the issue with the URL and asks for a postal code to estimate delivery time. However, it repeats the same response in Turn 3 without acknowledging the language change.
+- **Conciseness**: 4/5 - The responses are generally concise, but the bot could have been more direct in Turn 3 by acknowledging the language switch.
+- **Helpfulness**: 4/5 - The bot provides clear next steps, such as asking for a postal code to estimate delivery time, but it could have been more helpful by addressing the language change in Turn 3.
+- **Tone**: 5/5 - The bot maintains a professional and friendly tone throughout the conversation.
+- **Completeness**: 4/5 - The bot addresses the user's questions but misses the opportunity to acknowledge the language change in Turn 3.
+- **Context Awareness**: 3/5 - The bot fails to recognize the language change in Turn 3, which affects its context awareness.
+- **Conversation Flow**: 3/5 - The conversation flow is slightly disrupted by the bot's failure to acknowledge the language change in Turn 3.
+- **Memory Retention**: 4/5 - The bot retains the context of needing a postal code for delivery estimation but does not adapt to the language change.
+- **Overall Score**: 3.9/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.40
+
+---
+
+### sales--delivery_enquiry--delivery_method: Customer asks about delivery method and charges ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 6
+- Overall Keyword Score: 0.61
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: I found the product **8TH: THE HOUSE OF TRANSFORMATION** for you! Here are the details:
+
+- **Price:** ₹2999
+- **Available Sizes:** 28, 30, 32, 34, 36, 38, 40
+- **Description:** Some pieces aren’t just worn—they’re felt. *8TH: The House of Transformation* is built for those who embrace change, power, and reinvention. Designed with bold textures and intricate details.
+
+You can check it out https://groovee.in/products/8th-the-house-of-transformation.
+
+Next, could you please provide me with your desired size for the jeans? 😊
+- Keyword Score: 0.40
+- Found Keywords: product, size
+- Missing Keywords: phone number, address, order
+
+**Turn 2:**
+
+- Customer: when will you deliver the product
+- Bot: To provide you with an accurate delivery estimate for the product **8TH: THE HOUSE OF TRANSFORMATION**, I need your postal code/pincode. 📍
+
+Could you please share that with me? Thank you! 😊
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: size, order
+
+**Turn 3:**
+
+- Customer: 560076
+- Bot: It seems that the product **8TH: THE HOUSE OF TRANSFORMATION** is currently out of stock in all available sizes (28, 30, 32, 34, 36, 38, 40). 😢
+
+Unfortunately, I won't be able to provide a delivery timeline without an available size.
+
+Would you like to explore other products or sizes? Let me know how I can assist you further! 😊
+- Keyword Score: 0.75
+- Found Keywords: product, size, delivery
+- Missing Keywords: address
+
+**Turn 4:**
+
+- Customer: Through which courier you will send the product
+- Bot: We use Shiprocket as our delivery partner, and you will receive notifications from them once your product is shipped 📦. Depending on your pincode, we may also use logistics partners like Blue Dart or DTDC for delivery.
+
+If you have any more questions, feel free to ask! 😊
+- Keyword Score: 1.00
+- Found Keywords: ShipRocket, delivery
+- Missing Keywords: None
+
+**Turn 5:**
+
+- Customer: Is the delivery free?
+- Bot: Yes, delivery is free across India! 📦 We aim to make your shopping experience as enjoyable as possible. If you have any more questions, feel free to ask! 😊
+- Keyword Score: 0.50
+- Found Keywords: free
+- Missing Keywords: Shipping
+
+**Turn 6:**
+
+- Customer: So i will not pay for any delivery
+- Bot: Yes, that's correct! 🎉 Delivery is completely free across India, so you won't have to pay anything for shipping. If there's anything else you'd like to know or if you're ready to explore products, just let me know! 😊
+- Keyword Score: 1.00
+- Found Keywords: shipping, free
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot provides mostly accurate information, but there is a logical inconsistency in Turn 3 where it mentions the product is out of stock after asking for the pincode, which should have been checked earlier.
+- **Conciseness**: 4/5 - The responses are generally concise, but there are instances where the bot could be more direct, such as in Turn 4 where it lists multiple delivery partners.
+- **Helpfulness**: 4/5 - The bot provides helpful information and next steps, but the out-of-stock notification could have been communicated earlier to avoid unnecessary steps.
+- **Tone**: 5/5 - The bot maintains a friendly and professional tone throughout the conversation, using emojis to enhance the user experience.
+- **Completeness**: 4/5 - The bot addresses most aspects of the user's questions, but it could have checked stock availability before asking for the pincode.
+- **Context Awareness**: 4/5 - The bot is mostly context-aware, but it fails to check stock availability before asking for delivery details, which affects the flow.
+- **Conversation Flow**: 4/5 - The conversation generally flows well, but the out-of-stock notification disrupts the natural progression of the conversation.
+- **Memory Retention**: 4/5 - The bot retains information about the product and delivery details, but it does not remember the stock status from the beginning.
+- **Overall Score**: 4.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 0.00
+- **Frustration Handling**: 0.00
+
+---
+
+### sales--return_exchange--policy_basic: Customer asks about return and exchange policy ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 5
+- Overall Keyword Score: 0.30
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, there
+- Bot: Hi there! 👋 How can I help you today?
+- Keyword Score: 1.00
+- Found Keywords: help
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: Is return available
+- Bot: Yes, you can return products! Customers are allowed to return items within 7 days of delivery, and the money will be refunded to the original source of payment. If you need further assistance with the return process, feel free to ask! 🔄✨
+- Keyword Score: 0.25
+- Found Keywords: Return
+- Missing Keywords: Groovee, wallet, 3 days
+
+**Turn 3:**
+
+- Customer: Ok, what if i dont like the product can i return it
+- Bot: Yes, you can return the product if you don't like it! Customers can return items within 7 days of delivery, and the money will be refunded to the original source of payment. If you need help with the return process, just let me know! 🔄✨
+- Keyword Score: 0.25
+- Found Keywords: return
+- Missing Keywords: Groovee, wallet, 3 days
+
+**Turn 4:**
+
+- Customer: Good, will i get the money in my account
+- Bot: It seems I need a phone number to look up your recent orders. Could you please provide the phone number associated with your account? This will help me check your order details for the return process.
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Bank account, wallet
+
+**Turn 5:**
+
+- Customer: Will you refund the entire money
+- Bot: I need the phone number associated with your account to check your recent orders. Could you please provide that? This will help me assist you better with your return request.
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: refund, Rs 200, wallet, Groovee
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot provides correct information about the return policy and refund process. However, it does not address the specific question about whether the refund will be to the bank account in Turn 4.
+- **Conciseness**: 4/5 - The responses are generally concise, but the bot repeats similar information in Turn 3 that was already provided in Turn 2.
+- **Helpfulness**: 3/5 - The bot provides helpful information about the return policy but does not clearly address the user's question about the refund process in Turn 4 and Turn 5.
+- **Tone**: 5/5 - The bot maintains a professional and friendly tone throughout the conversation.
+- **Completeness**: 3/5 - The bot does not fully address the user's question about the refund being credited to the bank account in Turn 4 and whether the entire amount will be refunded in Turn 5.
+- **Context Awareness**: 3/5 - The bot does not fully utilize the context from previous turns, especially when the user asks about the refund process in Turn 4 and Turn 5.
+- **Conversation Flow**: 3/5 - The conversation flow is somewhat disrupted by the bot's repeated request for a phone number, which is not directly relevant to the user's questions about the refund process.
+- **Memory Retention**: 3/5 - The bot does not effectively retain or utilize information from previous turns, particularly regarding the user's questions about the refund process.
+- **Overall Score**: 3.5/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--return_exchange--refund_insistence: Customer insists on account refund instead of wallet ✅ PASS
+
+**Conversation Summary:**
+
+- Total Turns: 5
+- Overall Keyword Score: 0.71
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, there
+- Bot: Hi there! 👋 How can I help you today?
+- Keyword Score: 1.00
+- Found Keywords: help
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: what is exchange policy
+- Bot: Our exchange policy allows customers to initiate an exchange within 7 days of delivery, and it's completely free of cost! 🎉 However, we do charge Rs 300 for any additional exchanges for the same product. Please note that we will send the exchange product only after the original item has been picked up from your address. If you have any more questions, feel free to ask! 🔄
+- Keyword Score: 0.50
+- Found Keywords: 7 days
+- Missing Keywords: free exchange
+
+**Turn 3:**
+
+- Customer: how does exchange works
+- Bot: Our exchange process works as follows: you can initiate an exchange within 7 days of delivery, and it's free of cost! 🎉 However, we will only dispatch the exchanged product once the original item has been picked up from your address. If you need to exchange the same product again, there will be a charge of Rs 300. If you have any more questions or need assistance, feel free to ask! 🔄
+- Keyword Score: 0.67
+- Found Keywords: 7 days, delivery
+- Missing Keywords: Free exchange
+
+**Turn 4:**
+
+- Customer: how much time it takes to exchange
+- Bot: The time it takes to complete an exchange can vary based on a few factors:
+
+1. Pickup of the Original Item: We will arrange for the pickup of the original item, which typically takes 3-5 business days to schedule.
+
+2. Dispatch of the New Item: Once the original item has been picked up, we will dispatch the exchanged product. Delivery of the exchanged product usually takes an additional 3-7 business days, depending on your location.
+
+Overall, the entire process can take around 7-12 business days. If you have more specific questions, feel free to ask! 📦🚚
+- Keyword Score: 0.40
+- Found Keywords: exchange, delivery
+- Missing Keywords: 7 days, 1 day, after
+
+**Turn 5:**
+
+- Customer: Thank you
+- Bot: You're welcome! 😊 If you have any more questions or need further assistance, feel free to ask!
+- Keyword Score: 1.00
+- Found Keywords: None
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 5/5 - The bot accurately addresses the user's questions and provides correct information about the exchange policy and process.
+- **Conciseness**: 4/5 - The responses are mostly concise, but there is some repetition in Turn 3 that could be streamlined.
+- **Helpfulness**: 5/5 - The bot provides clear and actionable information, including steps for the exchange process and expected timelines.
+- **Tone**: 5/5 - The bot maintains a professional and friendly tone throughout the conversation, using emojis to enhance engagement.
+- **Completeness**: 5/5 - The bot addresses all aspects of the user's questions, providing detailed information about the exchange policy and process.
+- **Context Awareness**: 5/5 - The bot's responses are appropriate for the context and build on the user's previous questions.
+- **Conversation Flow**: 5/5 - The conversation flows naturally, with each response logically following the user's queries.
+- **Memory Retention**: 4/5 - The bot retains information from previous messages, but there is some repetition in Turn 3 that suggests a lack of optimization.
+- **Overall Score**: 4.8/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 0.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--return_exchange--fraud_concern: Customer expresses concern about fraud and requests team call ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 8
+- Overall Keyword Score: 0.41
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to know about for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: Here are the details for the product **8TH: THE HOUSE OF TRANSFORMATION**:
+
+- **Price**: ₹2,999
+- **Available Sizes**: 28, 30, 32, 34, 36, 38, 40
+- **Fabric**: 100% Cotton Denim
+- **Fit**: Baggy & Wide Leg
+- **Care Instructions**: Machine wash cold, inside out & hang dry or tumble dry low.
+
+For more details, you can check the product here: https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738. If you have more questions, feel free to ask! 😊
+- Keyword Score: 1.00
+- Found Keywords: Product, price, Fabric
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: and what about this one https://groovee.in/collections/designer-hoodies/products/the-dreamscape-dropout-hoodie?variant=50123015881026
+- Bot: Here are the details for the **The Dreamscape Dropout Hoodie**:
+
+- **Price**: ₹2,199
+- **Available Size**: S (also available in M, L, XL but currently out of stock)
+- **Fabric**: 350GSM heavy cotton
+- **Fit**: Oversized
+- **Care Instructions**: Do not iron on print, hand wash, use cold water for washing, turn inside out while washing.
+- **Delivery Time**: 4-5 Days
+
+For more details, you can check the product here: https://groovee.in/collections/designer-hoodies/products/the-dreamscape-dropout-hoodie?variant=50123015881026. Let me know if you have any more questions! 😊
+- Keyword Score: 1.00
+- Found Keywords: Size, price, fabric
+- Missing Keywords: None
+
+**Turn 3:**
+
+- Customer: is the quality good
+- Bot: You can check the ratings and review comments for **The Dreamscape Dropout Hoodie** here: https://groovee.in/collections/designer-hoodies/products/the-dreamscape-dropout-hoodie?variant=50123015881026.
+
+Also, feel free to check out customer reviews and styling inspiration on our Instagram: https://www.instagram.com/cncptgroove?igsh=bDlsZzhvdm9pZ3R3 📸✨
+- Keyword Score: 0.14
+- Found Keywords: Groovee
+- Missing Keywords: streetwear, manufacturing unit, Delhi, quality, contact, support
+
+**Turn 4:**
+
+- Customer: where in Delhi
+- Bot: We deliver to all pincodes in Delhi, as well as throughout India! 📦 Shipping is free across the country, and our delivery partners include Shiprocket, Blue Dart, and DTDC. You'll receive updates from Shiprocket once your order has shipped. If you have any specific address questions, feel free to ask! 😊
+- Keyword Score: 0.33
+- Found Keywords: Delhi
+- Missing Keywords: manufacturing unit, Warehouse
+
+**Turn 5:**
+
+- Customer: how can i trust you guys
+- Bot: Trust is essential when shopping online, and I'm here to assure you that Groovee is a genuine and trendsetting streetwear brand. Here are a few key points that highlight why you can trust us:
+
+🏢 **Manufacturing**: We have our own manufacturing unit located in Delhi, ensuring quality control and authenticity in our products.
+
+✨ **Mission & Values**: Our mission is to enable bold, unapologetic self-expression through edgy, fashion-forward apparel, aimed at GenZ and millennials. We focus on delivering unique and stylish streetwear at accessible prices.
+
+📦 **Customer Support**: We are committed to customer satisfaction. If you have any questions or concerns, you can reach out to us via:
+- **Email**: admin@groovee.in
+- **Phone**: +91 86078 45846 or +91 95182 17803
+
+We're here to help and ensure you have a great shopping experience! If you have any further questions or need assistance, feel free to ask. 😊
+- Keyword Score: 0.33
+- Found Keywords: Reach
+- Missing Keywords: Team, Patience
+
+**Turn 6:**
+
+- Customer: what if i dont get the product what i see in the website
+- Bot: If you receive a product that doesn't match what you saw on our website, you can return it within 7 days of delivery for a full refund to your original payment method. If you'd prefer an exchange, you can initiate that within the same timeframe, and it's free of charge! Just remember, we'll only send out the exchanged product once the original one is picked up from your address. If you have any other questions, feel free to ask! 🔄✨
+- Keyword Score: 0.50
+- Found Keywords: Return
+- Missing Keywords: 3 days
+
+**Turn 7:**
+
+- Customer: but you just said return is available within 3 days of delivery
+- Bot: I currently cannot access your order information because I need a phone number to find your recent delivered orders. Could you please provide the phone number associated with your order? This will help me assist you better with your return or exchange request. Thank you! 😊
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Important, team, reach
+
+**Turn 8:**
+
+- Customer: thank you
+- Bot: You're welcome! 😊 If you have any more questions or need further assistance, feel free to ask!
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Nice day, help
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot provides accurate information for most of the user's queries. However, there is a discrepancy in the return policy mentioned in Turn 6 and Turn 7, which affects logical correctness.
+- **Conciseness**: 4/5 - The responses are generally concise and to the point, though some responses could be slightly more succinct, especially when providing additional links or information.
+- **Helpfulness**: 4/5 - The bot provides actionable information and clear next steps for most queries, such as product details, delivery information, and return policy. However, the inconsistency in the return policy could confuse the user.
+- **Tone**: 5/5 - The bot maintains a professional, friendly, and helpful tone throughout the conversation, using emojis to enhance the tone.
+- **Completeness**: 4/5 - The bot addresses most aspects of the user's questions, but the inconsistency in the return policy affects the completeness of the information provided.
+- **Context Awareness**: 4/5 - The bot generally responds appropriately to the context and maintains the conversation flow, but the inconsistency in the return policy shows a lack of full context awareness.
+- **Conversation Flow**: 4/5 - The conversation flows naturally, with the bot building on previous exchanges. However, the inconsistency in the return policy disrupts the flow slightly.
+- **Memory Retention**: 3/5 - The bot does not retain memory of the return policy mentioned earlier, leading to a contradiction in the information provided.
+- **Overall Score**: 4.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--inquiry--product_quality: Customer asks about product availability and quality ✅ PASS
+
+**Conversation Summary:**
+
+- Total Turns: 6
+- Overall Keyword Score: 0.72
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: hey, can you help me
+- Bot: Hi there! 👋 I'm here to help! What do you need assistance with? I can help with product info, order status, delivery, returns, and more!
+- Keyword Score: 1.00
+- Found Keywords: help
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: Is size 32 available in this product
+- Bot: I need to know which product you're referring to. Could you please provide the product name or a link? Thank you!
+- Keyword Score: 0.67
+- Found Keywords: product, link
+- Missing Keywords: size
+
+**Turn 3:**
+
+- Customer: eagle jeans
+- Bot: The Eagle Reign jeans are currently available in sizes: 30, 34, 36, 38, and 40. Unfortunately, size 32 is not available right now.
+
+You can check out the product details here: https://groovee.in/products/eagle-reign. If you have any other questions, feel free to ask!
+- Keyword Score: 0.67
+- Found Keywords: Eagle, size
+- Missing Keywords: order
+
+**Turn 4:**
+
+- Customer: Whats the quality, will it be same as it looks in the picture
+- Bot: You can check the ratings and review comments for this product here: https://groovee.in/products/eagle-reign.
+
+Also, feel free to check out customer reviews and styling inspiration on our Instagram: https://www.instagram.com/cncptgroove?igsh=bDlsZzhvdm9pZ3R3 📸✨
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Quality, Jeans, Denim
+
+**Turn 5:**
+
+- Customer: Whats the material?
+- Bot: The Eagle Reign jeans are made from 100% Cotton Denim. If you have any other questions, feel free to ask! 😊
+- Keyword Score: 1.00
+- Found Keywords: Denim
+- Missing Keywords: None
+
+**Turn 6:**
+
+- Customer: what does 100% cotton denim means
+- Bot: 100% cotton denim means that the fabric is entirely made from cotton fibers, providing a soft and breathable feel. It offers comfort, durability, and a classic look, making it perfect for jeans. This type of denim tends to be more breathable compared to blends with synthetic materials. If you have any more questions, just let me know! 😊
+- Keyword Score: 1.00
+- Found Keywords: Denim, fabric, denim, look
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 5/5 - The bot accurately addresses the user's questions and provides correct information about product availability, material, and quality.
+- **Conciseness**: 4/5 - The responses are generally concise, though some could be slightly more direct, such as the response in Turn 4.
+- **Helpfulness**: 5/5 - The bot provides actionable information, such as links to product details and reviews, and explains the material composition clearly.
+- **Tone**: 5/5 - The bot maintains a professional and friendly tone throughout the conversation, using emojis to enhance engagement.
+- **Completeness**: 5/5 - The bot addresses all aspects of the user's questions, providing comprehensive answers and additional resources.
+- **Context Awareness**: 5/5 - The bot appropriately responds to the context of each question, asking for clarification when needed and providing relevant information.
+- **Conversation Flow**: 5/5 - The conversation flows naturally, with each response building on the previous exchanges and maintaining coherence.
+- **Memory Retention**: 5/5 - The bot effectively remembers and references information from previous messages, such as the product name and material.
+- **Overall Score**: 4.9/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--inquiry--product_quality: Customer asks about product availability and quality ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 12
+- Overall Keyword Score: 0.44
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: hey, can you help me
+- Bot: Hi there! 👋 I'm here to help! What do you need assistance with today?
+- Keyword Score: 1.00
+- Found Keywords: help
+- Missing Keywords: None
+
+**Turn 2:**
+
+- Customer: Is size XL available in this product
+- Bot: I need to check which product you're referring to. Could you please provide me with the product name or a link?
+- Keyword Score: 0.67
+- Found Keywords: product, link
+- Missing Keywords: size
+
+**Turn 3:**
+
+- Customer: that shirt man
+- Bot: I found a few shirts. Here are the options:
+
+1. BUTTERFLY WINGS OF WONDER T - Shirt: https://groovee.in/products/butterfly-wings-of-wonder-t-shirt
+2. The Bull Oversized T shirt: https://groovee.in/products/the-bull-oversized-t-shirt-grey-black-french-terry-cotton-240-gsm-puff-print
+3. The Bull Oversized T shirt (Black, Red): https://groovee.in/products/the-bull-oversized-t-shirt-black-red
+
+Please let me know which one you're interested in, and I'll check the size availability for you!
+- Keyword Score: 0.50
+- Found Keywords: options, product
+- Missing Keywords: Several, exact
+
+**Turn 4:**
+
+- Customer: no that white color shcaket
+- Bot: Yes, the **Evolve: The Cosmic Shacket** is available in size XL!
+
+- **Price**: ₹1,699
+- **Available Sizes**: XL, S, L, M
+
+You can check it out here: https://groovee.in/products/evolve-the-cosmic-shacket. Let me know if you need more information! 😊
+- Keyword Score: 0.25
+- Found Keywords: product
+- Missing Keywords: Name, link, exact
+
+**Turn 5:**
+
+- Customer: evolve shacket
+- Bot: Yes, the **Evolve: The Cosmic Shacket** is available in size XL!
+
+- **Price**: ₹1,699
+- **Available Sizes**: XL, S, L, M
+
+You can check it out here: https://groovee.in/products/evolve-the-cosmic-shacket. Let me know if you need more information! 😊
+- Keyword Score: 0.67
+- Found Keywords: Evolve, sizes
+- Missing Keywords: order
+
+**Turn 6:**
+
+- Customer: Whats the quality, will it be same as it looks in the picture
+- Bot: You can check the ratings and review comments for the **Evolve: The Cosmic Shacket** here: https://groovee.in/products/evolve-the-cosmic-shacket.
+
+Also, feel free to check out customer reviews and styling inspiration on our Instagram: https://www.instagram.com/cncptgroove 📸✨
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Quality, Shacked, Fabric
+
+**Turn 7:**
+
+- Customer: Whats the material?
+- Bot: The **Evolve: The Cosmic Shacket** is made from high-quality fabric, ensuring comfort and durability.
+
+For more details, you can check the product here: https://groovee.in/products/evolve-the-cosmic-shacket. Let me know if you need anything else! 😊
+- Keyword Score: 0.67
+- Found Keywords: quality, fabric
+- Missing Keywords: banana crepe
+
+**Turn 8:**
+
+- Customer: what does 100% cotton denim means
+- Bot: 100% cotton denim means that the fabric is made entirely from cotton fibers, providing a breathable, soft, and comfortable feel. This type of denim is typically durable and has good moisture absorption properties, making it suitable for everyday wear. If you have any more questions, feel free to ask! 😊
+- Keyword Score: 0.75
+- Found Keywords: fabric, durable, soft
+- Missing Keywords: Banana crepe
+
+**Turn 9:**
+
+- Customer: what's the print like
+- Bot: The **Evolve: The Cosmic Shacket** features a unique and vibrant print that embodies a cosmic theme, aiming to evoke feelings of magic and joy.
+
+For a closer look, you can view the product here: https://groovee.in/products/evolve-the-cosmic-shacket. Let me know if you need more information! 😊
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Shacked, design, specific, prints
+
+**Turn 10:**
+
+- Customer: the print will not go away right after wash
+- Bot: The print on the **Evolve: The Cosmic Shacket** is designed to be durable and should not fade after washing when cared for properly. It's recommended to follow the care instructions provided to maintain the print's vibrancy.
+
+If you need specific care instructions, let me know! 😊
+- Keyword Score: 0.25
+- Found Keywords: designed
+- Missing Keywords: Last, hand wash, harsh chemicals
+
+**Turn 11:**
+
+- Customer: can i wash in washing machine
+- Bot: Yes, you can wash the **Evolve: The Cosmic Shacket** in a washing machine. Just make sure to follow the care instructions for best results and to maintain the fabric and print quality.
+
+If you have any other questions or need details on care instructions, feel free to ask! 😊
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Isn't, recommended, dry cleaning, hand wash
+
+**Turn 12:**
+
+- Customer: and iron
+- Bot: You can iron the **Evolve: The Cosmic Shacket**. However, it's best to use a low heat setting to avoid damaging the fabric and print. Always check the care instructions for any specific recommendations. 
+
+If you have more questions, just let me know! 😊
+- Keyword Score: 0.50
+- Found Keywords: Avoid, print
+- Missing Keywords: directly, low-heat
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot generally provides accurate and relevant information, but there are minor inconsistencies, such as not addressing the specific fabric type 'banana crepe' mentioned in the expected keywords.
+- **Conciseness**: 4/5 - The responses are mostly concise and to the point, though some responses could be slightly more succinct, especially when repeating information.
+- **Helpfulness**: 4/5 - The bot provides actionable information and clear next steps, such as links to products and care instructions, but could improve by offering more detailed care instructions proactively.
+- **Tone**: 5/5 - The bot maintains a professional, friendly, and helpful tone throughout the conversation, using emojis to enhance engagement.
+- **Completeness**: 4/5 - The bot addresses most aspects of the user's questions, but occasionally misses specific details, such as the exact fabric type and more detailed care instructions.
+- **Context Awareness**: 4/5 - The bot generally understands the context and maintains the flow of the conversation, but there are minor lapses, such as not recognizing the specific product immediately.
+- **Conversation Flow**: 4/5 - The conversation flows naturally for the most part, with the bot building on previous exchanges, though there are slight disruptions when the bot repeats information unnecessarily.
+- **Memory Retention**: 4/5 - The bot retains information about the product and user queries well, but occasionally repeats information unnecessarily, indicating a lack of perfect memory retention.
+- **Overall Score**: 4.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 0.00
+- **Frustration Handling**: 0.20
+
+---
+
+### sales--inquiry--size_confusion: Customer confused about size and gets sizing help ✅ PASS
+
+**Conversation Summary:**
+
+- Total Turns: 4
+- Overall Keyword Score: 0.67
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: Hi, I would like to know about https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: Great choice! The product is called **8TH: THE HOUSE OF TRANSFORMATION**.
+
+- **Price:** ₹2,999
+- **Available Sizes:** 28, 30, 32, 34, 36, 38, 40
+- **Fabric:** 100% Cotton Denim
+- **Fit:** Baggy & Wide Leg
+- **Care Instructions:** Machine wash cold, inside out; hang dry or tumble dry low.
+
+For more details and to check reviews, you can visit the product page: https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738 😊
+- Keyword Score: 0.67
+- Found Keywords: product, price
+- Missing Keywords: specific
+
+**Turn 2:**
+
+- Customer: I am not sure what size will fit in
+- Bot: I understand sizing can be tricky! 😊 To help you choose the right size, could you provide your usual size or measurements? The available sizes for this product are 28, 30, 32, 34, 36, 38, and 40. I'm here to assist you with any other questions you might have!
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: size guide, jeans
+
+**Turn 3:**
+
+- Customer: i normally wear 32 size what should i order here
+- Bot: If you normally wear a size 32, you should order size 32 for the **8TH: THE HOUSE OF TRANSFORMATION**. It should fit you well since that's one of the available sizes! If you have any more questions or need help with anything else, just let me know! 😊
+- Keyword Score: 1.00
+- Found Keywords: Order, size, 32
+- Missing Keywords: None
+
+**Turn 4:**
+
+- Customer: what if it does not fit
+- Bot: I understand your concern! 😊 If the item doesn't fit, we offer easy returns and exchanges. Just reach out to us within the return window, and we'll help you find the right size. If you have any other questions, feel free to ask!
+- Keyword Score: 1.00
+- Found Keywords: Free, Exchange
+- Missing Keywords: None
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 5/5 - The bot accurately addresses the user's questions and provides correct information about the product, sizing, and return policy.
+- **Conciseness**: 5/5 - The responses are brief and to the point, providing necessary information without unnecessary verbosity.
+- **Helpfulness**: 5/5 - The bot provides actionable information, such as confirming the size to order and explaining the return policy, which helps the customer make informed decisions.
+- **Tone**: 5/5 - The tone is consistently professional, friendly, and helpful throughout the conversation.
+- **Completeness**: 5/5 - The bot addresses all aspects of the user's questions, including product details, sizing advice, and return policy.
+- **Context Awareness**: 5/5 - The bot's responses are appropriate for the context and build on the information provided in previous turns.
+- **Conversation Flow**: 5/5 - The conversation flows naturally, with each response logically following the previous one and maintaining a coherent dialogue.
+- **Memory Retention**: 5/5 - The bot remembers and references information from previous messages, such as the user's usual size and the product details.
+- **Overall Score**: 5.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.40
+
+---
+
+### sales--inquiry--size_with_exchange_policy: Customer asks about size fit and gets exchange policy assurance ❌ FAIL
+
+**Conversation Summary:**
+
+- Total Turns: 9
+- Overall Keyword Score: 0.31
+
+**Conversation Flow:**
+
+
+**Turn 1:**
+
+- Customer: HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738
+- Bot: I've found the product you're interested in! Here are the details for **8TH: THE HOUSE OF TRANSFORMATION**:
+
+- **Price**: ₹2999
+- **Available Sizes**: 28, 30, 32, 34, 36, 38, 40
+- **Description**: Some pieces aren’t just worn—they’re felt. 8TH: The House of Transformation is built for those who embrace change, power, and reinvention. Designed with bold textures and intricate details.
+
+Before I proceed, could you please let me know which size you'd like to order? 😊
+- Keyword Score: 0.40
+- Found Keywords: product, size
+- Missing Keywords: name, address, delivery
+
+**Turn 2:**
+
+- Customer: wait before that i have some questions
+- Bot: I understand! 😊 Feel free to ask your questions, and I'll do my best to help you. What do you need to know?
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: assist, sizing, material, delivery
+
+**Turn 3:**
+
+- Customer: ohh sorry i was looking at this one https://groovee.in/collections/fresh-drop/products/evolve-the-cosmic-shacket?variant=50489780109634
+- Bot: I've found the details for **Evolve: The Cosmic Shacket**:
+
+- **Price**: ₹1,699
+- **Available Sizes**: S, M, L, XL
+- **Description**: Meet the Cosmic Shacket: Your Connection to Cosmic Flow. Feel the magic, power, joy, and beautiful flow of life with this oversized shacket.
+
+Would you like to know the sizing chart or have any specific questions before placing your order? 😊
+- Keyword Score: 0.75
+- Found Keywords: Shacket, size, price
+- Missing Keywords: fabric
+
+**Turn 4:**
+
+- Customer: size
+- Bot: I see you're looking for sizing information! 😊 The **Evolve: The Cosmic Shacket** is available in the following sizes:
+
+*Size S:* CHEST: 36"" | LENGTH: 26""
+*Size M:* CHEST: 38"" | LENGTH: 27""
+*Size L:* CHEST: 40"" | LENGTH: 28""
+*Size XL:* CHEST: 42"" | LENGTH: 29""
+
+If you need more information or have any specific questions about the fit, just let me know!
+- Keyword Score: 0.33
+- Found Keywords: sizes
+- Missing Keywords: Regular fit, Oversized look
+
+**Turn 5:**
+
+- Customer: i am not sure..i wear generally XL
+- Bot: Got it! Since you generally wear size XL, I recommend going with the XL for the **Evolve: The Cosmic Shacket**. It should fit you comfortably! 😊
+
+Would you like to proceed with ordering the XL size, or do you have any other questions?
+- Keyword Score: 0.50
+- Found Keywords: XL
+- Missing Keywords: Oversized look
+
+**Turn 6:**
+
+- Customer: send size chart please
+- Bot: Agent stopped due to max iterations.
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Chest, length, sleeve
+
+**Turn 7:**
+
+- Customer: my chest size is 36
+- Bot: Thanks for sharing your chest size! Since your chest size is 36 inches, you would likely fit into a **Size S** for the **Evolve: The Cosmic Shacket**, as it has a chest measurement of 36 inches.
+
+Would you like to go ahead and order the Size S, or do you have any other questions? 😊
+- Keyword Score: 0.60
+- Found Keywords: Chest size, 36, S
+- Missing Keywords: regular fit, oversized look
+
+**Turn 8:**
+
+- Customer: what if it does not fit or does not look good
+- Bot: If the **Evolve: The Cosmic Shacket** does not fit or doesn't meet your expectations, we have a return policy that allows you to return the item. You can initiate a return within the specified return period after receiving your order.
+
+Would you like to know more about our return policy, or do you have any other questions? 😊
+- Keyword Score: 0.20
+- Found Keywords: Return
+- Missing Keywords: 3 days, 7 days, regular fit, exchange
+
+**Turn 9:**
+
+- Customer: great thanks i will order later
+- Bot: No problem at all! 😊 Feel free to reach out if you have any questions when you're ready to order. Have a great day!
+- Keyword Score: 0.00
+- Found Keywords: None
+- Missing Keywords: Thanks, groovee.in
+
+**LLM Judge Scores:**
+
+- **Logical Correctness**: 4/5 - The bot generally provides accurate information, but it fails to send the size chart when requested in Turn 6, which affects the logical flow.
+- **Conciseness**: 4/5 - The bot's responses are mostly concise, but there are instances where it could be more direct, such as when confirming the size recommendation.
+- **Helpfulness**: 4/5 - The bot provides helpful information, such as size recommendations and return policy details, but it misses sending the size chart when requested.
+- **Tone**: 5/5 - The bot maintains a friendly and professional tone throughout the conversation, using emojis to create a welcoming atmosphere.
+- **Completeness**: 4/5 - The bot addresses most of the user's questions, but it fails to provide the size chart when explicitly requested, which affects completeness.
+- **Context Awareness**: 4/5 - The bot is generally aware of the context, but it does not handle the request for the size chart properly, which shows a slight lack of context awareness.
+- **Conversation Flow**: 4/5 - The conversation flows naturally for the most part, but the abrupt end in Turn 6 due to the bot's failure to provide the size chart disrupts the flow.
+- **Memory Retention**: 4/5 - The bot remembers the user's chest size and uses it to make a size recommendation, but it does not recall the request for the size chart.
+- **Overall Score**: 4.0/5
+
+**Custom Evaluations:**
+- **Product Info Completeness**: 0.00
+- **Order Status Appropriateness**: 1.00
+- **Frustration Handling**: 0.40
+
+---

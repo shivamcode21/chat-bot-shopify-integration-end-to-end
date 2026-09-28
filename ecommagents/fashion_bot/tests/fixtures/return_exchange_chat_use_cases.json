@@ -1,0 +1,169 @@
+{
+  "config": {
+    "return_exchange_rules": {
+      "primary_return_partner": "return_prime",
+      "identity": {
+        "require_customer_identity": true
+      },
+      "common": {
+        "require_delivered": true,
+        "blocked_product_categories": ["innerwear", "final sale"],
+        "tag_intact_required": true,
+        "loyalty_exemption": {
+          "enabled": true,
+          "customer_tags": ["vip", "loyalty-gold"]
+        }
+      },
+      "return": {
+        "window_days": 7,
+        "proof_required_reasons": ["damaged", "wrong item", "defective"],
+        "refund": {
+          "visibility_mode": "none",
+          "default_destination": "wallet",
+          "wallet_sla_days": 1,
+          "source_sla_business_days": 7,
+          "return_fee_flat": 200
+        }
+      },
+      "exchange": {
+        "window_days": 10,
+        "require_exchange_stock": true,
+        "exchange_creation_policy": "on_pickup"
+      }
+    }
+  },
+  "use_cases": [
+    {
+      "id": "identity_email_success",
+      "chat": ["I want to return #1001", "my email is priya@example.com"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "identity_verified"
+    },
+    {
+      "id": "identity_email_fail_phone_success",
+      "chat": ["Return order #1001", "email is wrong@example.com", "phone is 9876543210"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "identity_verified"
+    },
+    {
+      "id": "identity_missing",
+      "chat": ["What is my return status for #1001"],
+      "expected_tool": "get_return_status_by_order_number",
+      "expected_result": "needs_identity"
+    },
+    {
+      "id": "not_delivered",
+      "chat": ["Can I return this in-transit order #1002?"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "order_not_delivered"
+    },
+    {
+      "id": "outside_window",
+      "chat": ["I want to return order #1003 after 15 days"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "outside_window"
+    },
+    {
+      "id": "blocked_category",
+      "chat": ["I want to return innerwear from #1004"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "blocked_product_category"
+    },
+    {
+      "id": "wallet_fee_policy",
+      "chat": ["Will I get full bank refund for #1001?"],
+      "expected_tool": "get_refund_status_by_order_number",
+      "expected_result": "wallet_fee_policy"
+    },
+    {
+      "id": "proof_required",
+      "chat": ["Product is damaged, return #1001"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "proof_required"
+    },
+    {
+      "id": "tag_intact_required",
+      "chat": ["I removed the tag, can I return #1001?"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "tag_intact_confirmation_required"
+    },
+    {
+      "id": "loyalty_exemption",
+      "chat": ["I am a VIP, return #1003 though it is late"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "loyalty_exempt"
+    },
+    {
+      "id": "exchange_on_pickup",
+      "chat": ["When will my exchange order be created for #1005?"],
+      "expected_tool": "ensure_exchange_order_created",
+      "expected_result": "on_pickup_policy"
+    },
+    {
+      "id": "return_pickup_tracking",
+      "chat": ["Has my return pickup happened for #1001?"],
+      "expected_tool": "get_return_pickup_status",
+      "expected_result": "reverse_awb_tracking"
+    },
+    {
+      "id": "multi_courier_return_tracking",
+      "chat": ["Return pickup AWB is with Delhivery, where is it?"],
+      "expected_tool": "get_return_pickup_status",
+      "expected_result": "logistics_router"
+    },
+    {
+      "id": "exchange_forward_tracking",
+      "chat": ["Where is my exchange delivery?"],
+      "expected_tool": "get_return_status_by_order_number",
+      "expected_result": "exchange_forward_leg"
+    },
+    {
+      "id": "refund_within_sla",
+      "chat": ["Where is my refund for #1001?"],
+      "expected_tool": "get_refund_status_by_order_number",
+      "expected_result": "unknown_with_sla"
+    },
+    {
+      "id": "refund_sla_breached",
+      "chat": ["It has been 12 days, refund not received for #1006"],
+      "expected_tool": "get_refund_status_by_order_number",
+      "expected_result": "sla_breached_escalation"
+    },
+    {
+      "id": "refund_partner_reported",
+      "chat": ["Refund status for Return Prime request RP123"],
+      "expected_tool": "get_refund_status_by_order_number",
+      "expected_result": "partner_reported"
+    },
+    {
+      "id": "multiple_requests",
+      "chat": ["Which returns exist for #1007?"],
+      "expected_tool": "list_return_requests_by_order_number",
+      "expected_result": "multiple_requests"
+    },
+    {
+      "id": "partial_item_return",
+      "chat": ["Return only the blue shirt from #1008"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "selected_line_item"
+    },
+    {
+      "id": "no_request_found",
+      "chat": ["Return status for #1009"],
+      "expected_tool": "get_return_status_by_order_number",
+      "expected_result": "no_request_found"
+    },
+    {
+      "id": "shopify_native_config",
+      "chat": ["Start Shopify return for #1010"],
+      "expected_tool": "get_return_or_exchange_portal_link",
+      "expected_result": "shopify_native_partner"
+    },
+    {
+      "id": "frustration_escalation",
+      "chat": ["I am angry, nobody refunded me"],
+      "expected_tool": "get_refund_status_by_order_number",
+      "expected_result": "escalation_if_breached"
+    }
+  ]
+}

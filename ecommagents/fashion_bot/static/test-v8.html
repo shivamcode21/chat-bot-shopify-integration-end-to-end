@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Bot - v8 Widget Preview</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        /* Fake store header */
+        .store-header {
+            background: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .store-logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .store-nav {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .store-nav li { cursor: pointer; }
+        .store-nav li:hover { color: #6C5CE7; }
+
+        /* Fake product grid */
+        .store-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .store-content h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: #1a1a2e;
+        }
+
+        .store-content p.subtitle {
+            color: #888;
+            margin-bottom: 32px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .product-tile {
+            background: #fff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .product-tile-img {
+            height: 280px;
+            background: linear-gradient(135deg, #e8e8f0, #d0d0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+        }
+
+        .product-tile-body {
+            padding: 16px;
+        }
+
+        .product-tile-body h3 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 6px;
+        }
+
+        .product-tile-body .price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #6C5CE7;
+        }
+
+        /* Version info banner */
+        .version-banner {
+            background: linear-gradient(135deg, #6C5CE7 0%, #a29bfe 100%);
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .version-banner code {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+        }
+
+        .env-tip {
+            max-width: 1200px;
+            margin: 24px auto;
+            padding: 16px 20px;
+            background: #fff;
+            border-left: 4px solid #6C5CE7;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #555;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .env-tip strong { color: #1a1a2e; }
+
+        .env-tip code {
+            background: #f0f0f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: #6C5CE7;
+        }
+    </style>
+</head>
+<body>
+    <div class="version-banner">
+        Testing <code>chat-widget.v8.js</code> — premium purple theme with demo plugin UX
+    </div>
+
+    <div class="store-header">
+        <div class="store-logo">Bloom Store</div>
+        <ul class="store-nav">
+            <li>Home</li>
+            <li>Men</li>
+            <li>Women</li>
+            <li>New Arrivals</li>
+            <li>Sale</li>
+        </ul>
+    </div>
+
+    <div class="store-content">
+        <h1>Trending Products</h1>
+        <p class="subtitle">Explore our latest collection</p>
+
+        <div class="product-grid">
+            <div class="product-tile">
+                <div class="product-tile-img">👕</div>
+                <div class="product-tile-body">
+                    <h3>Classic Cotton Tee</h3>
+                    <div class="price">&#8377;1,299</div>
+                </div>
+            </div>
+            <div class="product-tile">
+                <div class="product-tile-img">👖</div>
+                <div class="product-tile-body">
+                    <h3>Slim Fit Denim Jeans</h3>
+                    <div class="price">&#8377;2,499</div>
+                </div>
+            </div>
+            <div class="product-tile">
+                <div class="product-tile-img">👟</div>
+                <div class="product-tile-body">
+                    <h3>Urban Sneakers</h3>
+                    <div class="price">&#8377;3,999</div>
+                </div>
+            </div>
+            <div class="product-tile">
+                <div class="product-tile-img">🧥</div>
+                <div class="product-tile-body">
+                    <h3>Bomber Jacket</h3>
+                    <div class="price">&#8377;4,599</div>
+                </div>
+            </div>
+            <div class="product-tile">
+                <div class="product-tile-img">👜</div>
+                <div class="product-tile-body">
+                    <h3>Leather Tote Bag</h3>
+                    <div class="price">&#8377;5,499</div>
+                </div>
+            </div>
+            <div class="product-tile">
+                <div class="product-tile-img">🧢</div>
+                <div class="product-tile-body">
+                    <h3>Baseball Cap</h3>
+                    <div class="price">&#8377;799</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="env-tip">
+            <strong>To go live:</strong> Set <code>WIDGET_VERSION=v8</code> in your environment variables and redeploy.
+            The loader (<code>chat-widget.js</code>) will automatically pick up v8 via <code>/widget/config.json</code>.
+        </div>
+    </div>
+
+    <!-- Load v8 directly (bypasses loader for local testing) -->
+    <script>
+        window.FashionBotWidgetConfig = {
+            clientName: 'Concept Groove'
+        };
+    </script>
+    <script src="/static/chat-widget.v8.js"></script>
+</body>
+</html>

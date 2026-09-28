@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Shopify shop domains</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #fff; --ink: #161d26; --ink-2: #55606d; --ink-3: #7d8794;
+    --line: #dfe3e8; --accent: #1f4b8f; --ok: #1d6b41; --ok-bg: #e4f2e9;
+    --warn: #8a5a06; --warn-bg: #fbf0da; --bad: #99263a; --bad-bg: #fae3e6;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 32px 20px 80px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .sub { color: var(--ink-2); margin: 0 0 24px; max-width: 76ch; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
+  .bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; padding: 14px 16px; margin-bottom: 18px; }
+  .bar label { font-size: 13px; color: var(--ink-2); }
+  input[type=password], input[type=text] {
+    font: inherit; padding: 7px 10px; border: 1px solid var(--line); border-radius: 5px; background: #fff; color: var(--ink);
+  }
+  input[type=text].domain { font-family: var(--mono); font-size: 13px; width: 100%; min-width: 200px; }
+  button {
+    font: inherit; font-size: 14px; padding: 7px 14px; border: 1px solid var(--accent);
+    background: var(--accent); color: #fff; border-radius: 5px; cursor: pointer;
+  }
+  button.ghost { background: #fff; color: var(--accent); }
+  button[disabled] { opacity: .5; cursor: not-allowed; }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  #banner { display: none; padding: 13px 16px; border-radius: 7px; margin-bottom: 18px; font-size: 14.5px; border: 1px solid; }
+  #banner.ok  { display: block; background: var(--ok-bg);  border-color: #b9dcc7; color: var(--ok); }
+  #banner.err { display: block; background: var(--bad-bg); border-color: #edc2c9; color: var(--bad); }
+
+  .counts { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+  .count { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 5px 13px; font-size: 13px; color: var(--ink-2); }
+  .count b { color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 11px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid #eef1f4; font-size: 14px; }
+  th { font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); background: #f2f4f7; border-bottom: 1px solid var(--line); }
+  tr:last-child td { border-bottom: 0; }
+  td.name { font-weight: 600; white-space: nowrap; }
+  .mono { font-family: var(--mono); font-size: 13px; overflow-wrap: anywhere; }
+  .none { color: var(--ink-3); font-style: italic; }
+  .detail { color: var(--ink-2); font-size: 12.5px; margin-top: 4px; max-width: 46ch; }
+
+  .tag { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  .tag.synced { background: var(--ok-bg); color: var(--ok); }
+  .tag.unconfigured { background: #eceff2; color: var(--ink-3); }
+  .tag.clients_column_empty, .tag.mismatch, .tag.malformed { background: var(--bad-bg); color: var(--bad); }
+  .tag.no_oauth_install { background: var(--warn-bg); color: var(--warn); }
+
+  .edit { display: flex; gap: 7px; align-items: flex-start; }
+  .empty { padding: 40px; text-align: center; color: var(--ink-3); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Shopify shop domains</h1>
+  <p class="sub">
+    A shop domain is stored in two places: the <b>client record</b>, which decides
+    who an incoming Shopify webhook belongs to, and the <b>installed store</b>,
+    which holds the access token used to read the catalog. If they disagree, order
+    and stock updates are received and thrown away with no visible error. Saving
+    here writes both at once.
+  </p>
+
+  <div class="card bar">
+    <label for="token">Admin token</label>
+    <input type="password" id="token" autocomplete="current-password" placeholder="ADMIN_API_TOKEN" style="min-width:280px">
+    <button id="load">Load</button>
+    <button id="refresh" class="ghost" hidden>Refresh</button>
+  </div>
+
+  <div id="banner" role="status" aria-live="polite"></div>
+  <div class="counts" id="counts"></div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:13%">Client</th>
+          <th style="width:28%">Status</th>
+          <th style="width:18%">Client record</th>
+          <th style="width:18%">Installed store</th>
+          <th style="width:23%">Set both to</th>
+        </tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="5" class="empty">Enter the admin token and choose Load.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+(function () {
+  var API = "/admin/shopify/shop-domains";
+  var tokenEl = document.getElementById("token");
+  var rowsEl = document.getElementById("rows");
+  var bannerEl = document.getElementById("banner");
+  var countsEl = document.getElementById("counts");
+  var refreshEl = document.getElementById("refresh");
+
+  var LABELS = {
+    synced: "In sync",
+    clients_column_empty: "Not matched",
+    mismatch: "They disagree",
+    malformed: "Invalid",
+    no_oauth_install: "Not installed",
+    unconfigured: "Not set up"
+  };
+
+  // Kept in sessionStorage only, so it is gone when the tab closes.
+  tokenEl.value = sessionStorage.getItem("adminToken") || "";
+
+  function say(text, isError) {
+    bannerEl.textContent = text;
+    bannerEl.className = isError ? "err" : "ok";
+    bannerEl.scrollIntoView({ block: "nearest" });
+  }
+
+  function headers() {
+    return { "Authorization": "Bearer " + tokenEl.value.trim(), "Content-Type": "application/json" };
+  }
+
+  function text(value) {
+    var td = document.createElement("span");
+    if (value) { td.className = "mono"; td.textContent = value; }
+    else { td.className = "none"; td.textContent = "not set"; }
+    return td;
+  }
+
+  function render(data) {
+    countsEl.textContent = "";
+    Object.keys(data.summary || {}).sort().forEach(function (key) {
+      var el = document.createElement("span");
+      el.className = "count";
+      el.innerHTML = "<b>" + data.summary[key] + "</b> " + (LABELS[key] || key);
+      countsEl.appendChild(el);
+    });
+
+    rowsEl.textContent = "";
+    if (!data.clients || !data.clients.length) {
+      var tr = document.createElement("tr");
+      tr.innerHTML = '<td colspan="5" class="empty">No clients returned.</td>';
+      rowsEl.appendChild(tr);
+      return;
+    }
+
+    data.clients.forEach(function (c) {
+      var tr = document.createElement("tr");
+
+      var name = document.createElement("td");
+      name.className = "name";
+      name.textContent = c.client_name || "(unnamed)";
+      tr.appendChild(name);
+
+      var status = document.createElement("td");
+      var tag = document.createElement("span");
+      tag.className = "tag " + c.status;
+      tag.textContent = LABELS[c.status] || c.status;
+      status.appendChild(tag);
+      var detail = document.createElement("div");
+      detail.className = "detail";
+      detail.textContent = c.detail || "";
+      status.appendChild(detail);
+      tr.appendChild(status);
+
+      var clients = document.createElement("td");
+      clients.appendChild(text(c.clients_shopify_domain_name));
+      tr.appendChild(clients);
+
+      var stores = document.createElement("td");
+      if (c.shopify_stores_domains && c.shopify_stores_domains.length) {
+        c.shopify_stores_domains.forEach(function (d) {
+          var line = document.createElement("div");
+          line.className = "mono";
+          line.textContent = d;
+          stores.appendChild(line);
+        });
+      } else {
+        stores.appendChild(text(null));
+      }
+      tr.appendChild(stores);
+
+      var action = document.createElement("td");
+      var box = document.createElement("div");
+      box.className = "edit";
+      var input = document.createElement("input");
+      input.type = "text";
+      input.className = "domain";
+      input.placeholder = "your-store.myshopify.com";
+      input.value = c.clients_shopify_domain_name || (c.shopify_stores_domains || [])[0] || "";
+      var save = document.createElement("button");
+      save.textContent = "Save";
+      save.addEventListener("click", function () { submit(c, input, save); });
+      input.addEventListener("keydown", function (e) { if (e.key === "Enter") submit(c, input, save); });
+      box.appendChild(input);
+      box.appendChild(save);
+      action.appendChild(box);
+      tr.appendChild(action);
+
+      rowsEl.appendChild(tr);
+    });
+  }
+
+  // keepBanner is set by the refresh that follows a save, so the confirmation
+  // of what was just written survives instead of being wiped by the reload.
+  function load(keepBanner) {
+    if (!tokenEl.value.trim()) { say("Enter the admin token first.", true); return; }
+    sessionStorage.setItem("adminToken", tokenEl.value.trim());
+    return fetch(API, { headers: headers() })
+      .then(function (r) {
+        if (r.status === 403) throw new Error("That admin token was not accepted.");
+        if (!r.ok) throw new Error("Could not load the list (HTTP " + r.status + ").");
+        return r.json();
+      })
+      .then(function (data) {
+        refreshEl.hidden = false;
+        render(data);
+        if (keepBanner) return;
+        if (data.needs_attention) {
+          say(data.needs_attention + " client(s) need attention — their two records do not agree.", true);
+        } else {
+          bannerEl.className = "";
+          bannerEl.textContent = "";
+        }
+      })
+      .catch(function (err) { say(err.message, true); });
+  }
+
+  function submit(client, input, button) {
+    var domain = input.value.trim();
+    if (!domain) { say("Enter a shop domain before saving.", true); return; }
+    button.disabled = true;
+    button.textContent = "Saving…";
+    fetch(API + "/" + encodeURIComponent(client.client_id), {
+      method: "PUT",
+      headers: headers(),
+      body: JSON.stringify({ shop_domain: domain })
+    })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (!res.ok) throw new Error(res.body.detail || "Could not save.");
+        // The API states plainly which records it wrote — show that verbatim,
+        // and keep it on screen while the table refreshes underneath.
+        say(res.body.message, false);
+        return load(true);
+      })
+      .catch(function (err) { say(err.message, true); })
+      .finally(function () { button.disabled = false; button.textContent = "Save"; });
+  }
+
+  document.getElementById("load").addEventListener("click", function () { load(false); });
+  refreshEl.addEventListener("click", function () { load(false); });
+  tokenEl.addEventListener("keydown", function (e) { if (e.key === "Enter") load(false); });
+})();
+</script>
+</body>
+</html>

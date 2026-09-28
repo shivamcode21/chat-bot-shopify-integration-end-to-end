@@ -1,0 +1,416 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Output JSON only.",
+    "priority": "critical",
+    "test_hint": "Send a message and verify the output is strictly JSON."
+  },
+  {
+    "category": "must_do",
+    "rule": "Route message to ONE agent.",
+    "priority": "critical",
+    "test_hint": "Send a message and verify only one agent is selected in the output."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If [Detected Intent: X] in history and user provides related info, CONTINUE same intent.",
+    "priority": "high",
+    "test_hint": "Initiate an intent, then send a follow-up message related to that intent and check if the same intent is maintained."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Only detect a new intent if it is completely unrelated to the current topic.",
+    "priority": "high",
+    "test_hint": "Send a message that is clearly unrelated to the current topic and verify a new intent is detected."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If user sends 'yes/ok/confirm' and there's an active topic, route to the active topic's agent.",
+    "priority": "critical",
+    "test_hint": "Initiate an intent, then respond with 'yes' and verify the agent for the initiated intent is selected."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When 'Bot (Template):' messages appear before user's message, analyze the template message TYPE and user's response TOGETHER to determine intent.",
+    "priority": "critical",
+    "test_hint": "Send a template message, then send a user response and verify the intent is derived from both."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If user sends simple confirmation ('yes/ok/confirm/haan') AND there's a Bot (Template) message asking for confirmation, MATCH the template's ask to the correct agent.",
+    "priority": "critical",
+    "test_hint": "Send a template asking for confirmation, then respond with 'yes' and verify the correct agent is matched, not defaulting to order_status."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'price/sizes/fabric/colors/reviews/fit/alterations' to 'product_details'.",
+    "priority": "high",
+    "test_hint": "Ask about product details like price or size and verify 'product_details' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route product search queries ('show me X', 'I want X', 'looking for X', 'X product/denim/dress/shirt') to 'product_details'.",
+    "priority": "high",
+    "test_hint": "Use a product search query and verify 'product_details' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route browsing products by name/type/category to 'product_details'.",
+    "priority": "high",
+    "test_hint": "Ask to browse products by category and verify 'product_details' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route pre-purchase ETA/pincode to 'delivery_timeline'.",
+    "priority": "high",
+    "test_hint": "Ask about delivery time before purchase and verify 'delivery_timeline' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route status/tracking/ETA+orderID, cancel threats, delivery attempt confirmations, template 'reply YES to receive'+yes/confirm, template 'couldn't reach you'+yes/confirm, template 'shipped/tracking'+status question to 'order_status'.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and ask for status or tracking, or respond to a delivery attempt confirmation, and verify 'order_status' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route post-placement cancel/update+orderID+explicit REQUEST to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and explicitly request to cancel or update and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route cancel response to COD template to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "Respond to a COD template with 'cancel' and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route template COD confirmation+no/cancel to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "Respond to a COD confirmation template with 'no' or 'cancel' and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route policy questions NO orderID ('can I return?','what if?') to 'return_exchange_policy'.",
+    "priority": "high",
+    "test_hint": "Ask a general return policy question without an order ID and verify 'return_exchange_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route coverage/serviceability to 'delivery_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about delivery coverage or serviceability and verify 'delivery_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route payment modes to 'payment_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about accepted payment methods and verify 'payment_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route return/exchange ACTION+orderID to 'after_delivery_return_exchange'.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and request a return or exchange and verify 'after_delivery_return_exchange' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route template 'has been delivered'+return/exchange mention to 'after_delivery_return_exchange'.",
+    "priority": "high",
+    "test_hint": "Respond to a 'delivered' template with a mention of return or exchange and verify 'after_delivery_return_exchange' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route collect feedback to 'customer_feedback'.",
+    "priority": "medium",
+    "test_hint": "Provide feedback to the bot and verify 'customer_feedback' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route template 'has been delivered'+any feedback to 'customer_feedback'.",
+    "priority": "medium",
+    "test_hint": "Respond to a 'delivered' template with general feedback and verify 'customer_feedback' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route human request/anger/tech issues/conditional cancels to 'escalation'.",
+    "priority": "critical",
+    "test_hint": "Express anger or request to speak to a human and verify 'escalation' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route ambiguous acks ('ok/thanks/bye') with LOW clarity and no active flow to 'continuity_agent'.",
+    "priority": "medium",
+    "test_hint": "Send a simple acknowledgement like 'ok' when there's no active conversation and verify 'continuity_agent' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Set 'is_frustrated=true' only for clear anger/explicit human demand.",
+    "priority": "high",
+    "test_hint": "Express clear anger and verify 'fr':true in the output."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "When message contains '[Video message]' or '[Image message]', ALWAYS route to 'escalation'.",
+    "priority": "critical",
+    "test_hint": "Send a message containing '[Video message]' or '[Image message]' and verify 'escalation' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If a media message has a caption with context, use it to enrich the 'escalation'.",
+    "priority": "high",
+    "test_hint": "Send a media message with a descriptive caption and verify the escalation intent is triggered."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If media message caption shows explicit anger, set 'is_frustrated=true'.",
+    "priority": "high",
+    "test_hint": "Send a media message with a caption expressing anger and verify 'fr':true in the output."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If media message caption does NOT show explicit anger, set 'is_frustrated=false'.",
+    "priority": "high",
+    "test_hint": "Send a media message with a neutral caption and verify 'fr' is not present or is false."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route Delivery ETA+orderID to 'order_status'.",
+    "priority": "critical",
+    "test_hint": "Ask for delivery ETA with an order ID and verify 'order_status' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route ETA without order ID to 'delivery_timeline'.",
+    "priority": "critical",
+    "test_hint": "Ask for delivery ETA without an order ID and verify 'delivery_timeline' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'deliver to X?' to 'delivery_policy'.",
+    "priority": "high",
+    "test_hint": "Ask if delivery is possible to a specific location and verify 'delivery_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'how long?' to 'delivery_timeline'.",
+    "priority": "high",
+    "test_hint": "Ask about delivery duration and verify 'delivery_timeline' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route Price question to 'product_details'.",
+    "priority": "high",
+    "test_hint": "Ask for the price of a product and verify 'product_details' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route Paid amount question to 'order_status'.",
+    "priority": "high",
+    "test_hint": "Ask about the amount paid for an order and verify 'order_status' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route Policy 'can I return?' to 'return_exchange_policy'.",
+    "priority": "critical",
+    "test_hint": "Ask 'can I return?' without an order ID and verify 'return_exchange_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route Action 'return GV123' to 'after_delivery_return_exchange'.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and request to return and verify 'after_delivery_return_exchange' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'I will cancel' threat to 'order_status'.",
+    "priority": "critical",
+    "test_hint": "Threaten to cancel an order and verify 'order_status' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'please cancel' request to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "Explicitly request to cancel an order and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'cancel' after COD template to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "Respond to a COD template with 'cancel' and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'cancel' during place_order flow to 'cancel_or_update_order'.",
+    "priority": "critical",
+    "test_hint": "During an order placement flow, send 'cancel' and verify 'cancel_or_update_order' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'is COD accepted?' to 'payment_policy'.",
+    "priority": "high",
+    "test_hint": "Ask if COD is accepted and verify 'payment_policy' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route 'I'll pay COD' to 'place_order' (implied, as it's a sales flow).",
+    "priority": "high",
+    "test_hint": "Indicate intent to pay via COD and verify it leads to a sales/order placement flow."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Route '[Video message]' or '[Image message]' to 'escalation'.",
+    "priority": "critical",
+    "test_hint": "Send a message containing '[Video message]' or '[Image message]' and verify 'escalation' intent."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If user sends simple confirmation (yes/ok/confirm/haan) AND there's a Bot (Template) message asking for confirmation, DO NOT default to order_status just because it seems order-related.",
+    "priority": "critical",
+    "test_hint": "Send a template asking for confirmation on a non-order related topic, then respond with 'yes' and verify it's not routed to order_status."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route '\u2717orders,timelines,policies' to 'product_details'.",
+    "priority": "high",
+    "test_hint": "Ask about orders, timelines, or policies and verify 'product_details' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route '\u2717serviceability' to 'delivery_timeline'.",
+    "priority": "high",
+    "test_hint": "Ask about serviceability and verify 'delivery_timeline' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'tracking' to 'delivery_timeline'.",
+    "priority": "high",
+    "test_hint": "Ask about tracking and verify 'delivery_timeline' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route '\u2717pre-purchase' to 'order_status'.",
+    "priority": "high",
+    "test_hint": "Ask a pre-purchase question and verify 'order_status' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'policies' to 'order_status'.",
+    "priority": "high",
+    "test_hint": "Ask about policies and verify 'order_status' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route '\u2717threats' to 'order_status' when it's a cancel response.",
+    "priority": "critical",
+    "test_hint": "Respond to a cancellation prompt with a threat and verify it's not routed to order_status."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'returns' to 'cancel_or_update_order'.",
+    "priority": "high",
+    "test_hint": "Ask about returns and verify 'cancel_or_update_order' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'action+orderID' to 'return_exchange_policy'.",
+    "priority": "critical",
+    "test_hint": "Provide an order ID and request a return and verify 'return_exchange_policy' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'timelines' to 'delivery_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about delivery timelines and verify 'delivery_policy' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'tracking' to 'delivery_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about tracking and verify 'delivery_policy' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'COD pincode' to 'payment_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about COD pincode and verify 'payment_policy' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'status' to 'payment_policy'.",
+    "priority": "high",
+    "test_hint": "Ask about order status and verify 'payment_policy' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'policy questions' to 'after_delivery_return_exchange'.",
+    "priority": "high",
+    "test_hint": "Ask a general return policy question and verify 'after_delivery_return_exchange' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'operational' feedback to 'customer_feedback'.",
+    "priority": "medium",
+    "test_hint": "Provide operational feedback and verify 'customer_feedback' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'self-serve' requests to 'escalation'.",
+    "priority": "high",
+    "test_hint": "Ask a self-serve question and verify 'escalation' is NOT selected."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do not route 'clear question/active flow' to 'continuity_agent'.",
+    "priority": "medium",
+    "test_hint": "Ask a clear question and verify 'continuity_agent' is NOT selected."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Route media messages (video/image) to 'escalation'.",
+    "priority": "critical",
+    "test_hint": "Send a video or image message and verify it's routed to escalation."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Route human request/anger/tech issues/conditional cancels to 'escalation'.",
+    "priority": "critical",
+    "test_hint": "Express anger or request a human agent and verify escalation."
+  },
+  {
+    "category": "data_handling",
+    "rule": "When detecting intent, consider the template message TYPE and user's response TOGETHER.",
+    "priority": "critical",
+    "test_hint": "Send a template message, then a user response and verify the intent is derived from both."
+  },
+  {
+    "category": "data_handling",
+    "rule": "If media message has a caption, use it to enrich the 'escalation' intent.",
+    "priority": "high",
+    "test_hint": "Send a media message with a caption and verify the escalation intent is triggered with caption context."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Include 'fr':true in output if 'is_frustrated' is true.",
+    "priority": "high",
+    "test_hint": "Trigger frustration and verify 'fr':true in the JSON output."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Include 'uk':true in output if intent is unknown.",
+    "priority": "medium",
+    "test_hint": "Send a message that cannot be classified and verify 'uk':true in the JSON output."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Include 'tc':true in output if topic change is from recommendations.",
+    "priority": "low",
+    "test_hint": "Simulate a topic change from recommendations and verify 'tc':true in the JSON output."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Output minimal JSON, only including non-default values.",
+    "priority": "critical",
+    "test_hint": "Send various messages and verify the JSON output is concise and only contains specified fields when true."
+  }
+]

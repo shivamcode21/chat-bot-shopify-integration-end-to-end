@@ -1,0 +1,81 @@
+{
+  "global": {
+    "enabled": true,
+    "description": "Mock system for external vendor API calls only. Set USE_MOCK_SERVICES=true in env to enable."
+  },
+  "what_gets_mocked": {
+    "description": "Only EXTERNAL API calls are mocked. DB/config data is NOT mocked (it's static).",
+    "mocked": [
+      "Shopify API calls (orders, products, customers)",
+      "Shiprocket API calls (tracking, shipments, delivery estimates)",
+      "All vendor adapter methods"
+    ],
+    "not_mocked": [
+      "Database queries (ConfigManager)",
+      "Discount coupons (from DB)",
+      "Category URLs (from DB)",
+      "Return/Exchange policies (from DB)",
+      "Vendor inquiry data (from DB)",
+      "Any config fetched via get_config(), get_json_config()"
+    ]
+  },
+  "vendors": {
+    "shopify": {
+      "adapter": "MockOrderAdapter, MockProductAdapter",
+      "methods": {
+        "get_order_details": "Returns mock order from JSON",
+        "get_orders_by_phone": "Returns mock orders list",
+        "cancel_order": "Returns success mock",
+        "create_order": "Returns success mock data",
+        "update_order": "Returns success mock",
+        "get_customer_by_phone": "Returns mock customer",
+        "add_order_note": "Returns success mock",
+        "add_order_tags": "Returns success mock"
+      }
+    },
+    "shiprocket": {
+      "adapter": "MockLogisticsAdapter",
+      "methods": {
+        "get_tracking_details": "Returns mock tracking from JSON",
+        "get_order_data": "Returns mock logistics order",
+        "create_shipment": "Returns success mock",
+        "cancel_shipment": "Returns success mock",
+        "get_delivery_estimate": "Returns calculated mock estimate",
+        "update_shipment_address": "Returns success mock"
+      }
+    },
+    "product": {
+      "adapter": "MockProductAdapter",
+      "methods": {
+        "get_product_details_by_url": "Returns mock product",
+        "get_product_details_by_id": "Returns mock product",
+        "search_products": "Returns mock search results",
+        "get_top_selling_products": "Returns mock top products"
+      }
+    }
+  },
+  "enrichers": {
+    "mock_status": "MockStatusEnricher - adds mock Shiprocket status",
+    "mock_tracking": "MockTrackingEnricher - adds mock tracking data",
+    "mock_graphql": "MockGraphQLEnricher - adds mock line items/images"
+  },
+  "processors": {
+    "mock_processor": "MockOrderProcessor - transforms mock data to DTOs"
+  },
+  "how_to_use": {
+    "enable_mocking": "export USE_MOCK_SERVICES=true",
+    "enable_debug_logs": "export DEBUG_FACTORY_ROUTES=true",
+    "mock_data_location": "fashion_bot/mock/data/clients/groovee/"
+  },
+  "logging": {
+    "log_mock_calls": true,
+    "log_fallbacks": true,
+    "icons": {
+      "🧪 MOCK": "Mock adapter being used",
+      "🔴 PRODUCTION": "Real vendor adapter being used",
+      "📦": "MockOrderAdapter method",
+      "🚚": "MockLogisticsAdapter method",
+      "🛍️": "MockProductAdapter method"
+    }
+  }
+}

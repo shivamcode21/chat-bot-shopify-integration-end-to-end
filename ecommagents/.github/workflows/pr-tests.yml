@@ -1,0 +1,45 @@
+name: PR Tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r fashion_bot/requirements.txt
+
+      - name: Write .env from secret
+        run: echo "${{ secrets.DOTENV_FILE }}" > fashion_bot/fashion_bot/.env
+
+      # Self-contained: mocks its dependencies, needs no database. Runs first and
+      # separately so a contract regression is distinguishable from the live-DB
+      # suite failing on connectivity or credentials.
+      - name: Run contract tests (no DB)
+        working-directory: fashion_bot
+        run: |
+          python -m pytest \
+            tests/test_customization_config_contract.py \
+            -v --tb=short
+
+      - name: Run tests
+        working-directory: fashion_bot
+        run: |
+          python -m pytest \
+            tests/test_place_order_tools.py \
+            tests/test_cancel_or_update_tools.py \
+            tests/test_product_details_tools.py \
+            -v --tb=short

@@ -1,0 +1,370 @@
+{
+  "test_scenarios": [
+    {
+      "id": "contract-policy_handler-1",
+      "description": "Verifies identification of 'delivery policy' category for shipping questions.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Identifies 'delivery policy' category"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your shipping policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Identifies 'delivery policy' category"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-2",
+      "description": "Tests that the tool is called with the correct policy category.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Calls tool with 'delivery policy'"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "How long does shipping take?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Calls tool with 'delivery policy'",
+          "expected_tool_calls": [
+            {
+              "tool_name": "get_policy_config",
+              "input": {
+                "policy_category": "delivery policy"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-3",
+      "description": "Verifies that the response is based on retrieved Q&A data, not generated.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Response is based on retrieved data"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Response is based on retrieved data"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-4",
+      "description": "Ensures the answer is derived solely from the retrieved policy content.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Answer is directly from policy data"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What are the warranty terms?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Answer is directly from policy data"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-5",
+      "description": "Tests for precise and accurate answers based on retrieved policy information.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Provides exact and correct policy answer"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the maximum weight for standard shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides exact and correct policy answer"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-6",
+      "description": "Verifies the specific error message for technical tool failures.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Responds with specific technical error message"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Tell me about your privacy policy."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Responds with specific technical error message",
+          "expected_message": "I won\u2019t be able to answer your query due to a technical error."
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-7",
+      "description": "Tests that the agent does not handle order cancellations and redirects appropriately.",
+      "client_name": "casence",
+      "initial_state_fixture": "mid_cancellation_flow",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Redirects to appropriate channels for cancellations"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "I want to cancel my order GV12345."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Redirects to appropriate channels for cancellations"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-8",
+      "description": "Ensures the agent does not invent policy details not present in the data.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not fabricate policy details"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on returning items purchased more than 5 years ago?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not fabricate policy details"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-9",
+      "description": "Verifies that internal system messages or tool names are not exposed.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not expose internal system details"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on international shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not expose internal system details",
+          "forbidden_keywords": [
+            "get_policy_config",
+            "internal_error"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-10",
+      "description": "Ensures raw errors or tool outputs are not exposed verbatim.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Does not expose raw errors or tool outputs"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on damaged goods?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Does not expose raw errors or tool outputs",
+          "forbidden_keywords": [
+            "error_code",
+            "raw_output"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-11",
+      "description": "Provides the closest relevant policy when the exact question is not covered.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Provides closest relevant policy"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What about policies for custom orders?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides closest relevant policy"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-12",
+      "description": "Acknowledges limitations and shares available information when policy data is partially missing.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Acknowledges limitations and shares available info"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on extended warranties for electronics?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Acknowledges limitations and shares available info"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-13",
+      "description": "Maintains conversational context for follow-up policy questions.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintains conversational context"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is your return policy?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides return policy information"
+        },
+        {
+          "role": "customer",
+          "message": "And what about exchanges?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains conversational context"
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-14",
+      "description": "Completes the tool-to-response chain and stops, not handling non-policy requests.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Completes policy handling and stops"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "What is the policy on free shipping?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Provides free shipping policy and stops"
+        },
+        {
+          "role": "customer",
+          "message": "Can you also tell me the status of my order GV12345?"
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Completes policy handling and stops",
+          "forbidden_keywords": [
+            "order status"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contract-policy_handler-15",
+      "description": "Maintains a friendly, professional, and customer-centric tone.",
+      "client_name": "casence",
+      "initial_state_fixture": "cold_start",
+      "target_agent": "policy_handler",
+      "context_assertions": {
+        "expected_behaviors": [
+          "Maintains friendly and professional tone"
+        ]
+      },
+      "conversation": [
+        {
+          "role": "customer",
+          "message": "Hello, I have a question about your return policy."
+        },
+        {
+          "role": "bot",
+          "expected_behavior": "Maintains friendly and professional tone"
+        }
+      ]
+    }
+  ]
+}

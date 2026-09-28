@@ -1,0 +1,134 @@
+[
+  {
+    "category": "must_do",
+    "rule": "Return ONLY the final WhatsApp-ready message.",
+    "priority": "critical",
+    "test_hint": "Ensure the output contains only the message, no prefixes or analysis."
+  },
+  {
+    "category": "must_do",
+    "rule": "Apply language rules based on customer's messages.",
+    "priority": "critical",
+    "test_hint": "Test with Hinglish-preferring customer and English-preferring customer."
+  },
+  {
+    "category": "must_do",
+    "rule": "Apply character limits (\u2264200 chars, max 250 for long responses, max 400 for size guides).",
+    "priority": "critical",
+    "test_hint": "Generate a response that exceeds the character limit and verify truncation or rephrasing."
+  },
+  {
+    "category": "must_do",
+    "rule": "Add max 2 emojis.",
+    "priority": "high",
+    "test_hint": "Generate a response with more than 2 emojis and verify the count."
+  },
+  {
+    "category": "must_do",
+    "rule": "Maintain a professional, conversational tone.",
+    "priority": "high",
+    "test_hint": "Evaluate the tone of generated messages for professionalism and conversational flow."
+  },
+  {
+    "category": "must_do",
+    "rule": "Keep draft facts intact, no new information.",
+    "priority": "critical",
+    "test_hint": "Introduce new information into the draft and verify it's not included in the final message."
+  },
+  {
+    "category": "must_do",
+    "rule": "Use ONLY English letters (A-Z) when in doubt about language.",
+    "priority": "critical",
+    "test_hint": "Test with ambiguous customer input and verify English output with only A-Z characters."
+  },
+  {
+    "category": "must_do",
+    "rule": "Rephrase similar recent responses.",
+    "priority": "medium",
+    "test_hint": "Send two identical customer messages and verify the agent's responses are rephrased."
+  },
+  {
+    "category": "must_do",
+    "rule": "Show empathy if customer seems frustrated.",
+    "priority": "medium",
+    "test_hint": "Simulate a frustrated customer and verify empathetic language in the response."
+  },
+  {
+    "category": "must_do",
+    "rule": "Generate an appropriate apologetic response for [EMPTY_RESPONSE] based on customer's recent messages.",
+    "priority": "critical",
+    "test_hint": "Trigger an [EMPTY_RESPONSE] with various customer inquiry types (product, order, return, payment, general) and verify the correct apologetic message."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do NOT change the draft reply fundamentally. The meaning and intent must remain the same.",
+    "priority": "critical",
+    "test_hint": "Alter the core meaning of the draft reply and verify the agent does not incorporate the change."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Never alter the core message or facts.",
+    "priority": "critical",
+    "test_hint": "Modify a fact in the draft reply and verify the agent does not include the altered fact."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do NOT include analysis, commentary, or prefixes in the output.",
+    "priority": "critical",
+    "test_hint": "Add commentary to the draft reply and verify it's excluded from the final output."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do NOT use generic closers ('If you have any questions...', 'Let me know if you need help', 'Feel free to ask', etc.).",
+    "priority": "critical",
+    "test_hint": "Include a generic closer in the draft reply and verify its removal from the final message."
+  },
+  {
+    "category": "must_not_do",
+    "rule": "Do NOT fake contact details.",
+    "priority": "high",
+    "test_hint": "Include fake contact details in the draft and verify their removal."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Use Hinglish ONLY if 90%+ certain customer prefers it.",
+    "priority": "critical",
+    "test_hint": "Test with customer messages that meet Hinglish criteria and verify Hinglish output. Test with messages that do not meet criteria and verify English output."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Respond in ENGLISH if any ENGLISH TRIGGERS are met.",
+    "priority": "critical",
+    "test_hint": "Trigger each ENGLISH TRIGGER individually and verify English output."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Add ONE gentle purchase nudge ('place the order', 'order for you') IF customer asked 2+ product/discount questions in recent messages AND no nudge in recent assistant messages.",
+    "priority": "high",
+    "test_hint": "Simulate customer asking 2+ product/discount questions and verify nudge. Simulate customer asking fewer than 2 questions and verify no nudge. Simulate nudge already present and verify no repeat nudge."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "Never repeat purchase nudges.",
+    "priority": "high",
+    "test_hint": "Trigger nudge condition multiple times and verify the nudge is not repeated."
+  },
+  {
+    "category": "conditional_behavior",
+    "rule": "If draft reply is [EMPTY_RESPONSE], generate specific apologetic response based on customer inquiry type.",
+    "priority": "critical",
+    "test_hint": "See test hint for 'must_do' rule regarding [EMPTY_RESPONSE] handling."
+  },
+  {
+    "category": "escalation_rules",
+    "rule": "Not explicitly defined in the prompt.",
+    "priority": "low",
+    "test_hint": "No specific escalation rules to test based on the provided prompt."
+  },
+  {
+    "category": "data_handling",
+    "rule": "Not explicitly defined in the prompt.",
+    "priority": "low",
+    "test_hint": "No specific data handling rules to test based on the provided prompt."
+  }
+]

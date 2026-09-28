@@ -1,0 +1,3796 @@
+{
+    "test_scenarios": [
+        {
+            "id": "escalation--randomquestion-asking-place-bulk-order-1",
+            "description": "Customer is asking placing bulk order",
+            "dimension": "Escalation",
+            "sub_dimension": "Random Question",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "i want to place bulk order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team"
+                    ],
+                    "expected_behavior": "Sure! We'll have a team member contact you soon. Alternatively, feel free to call us at 9980896588 to discuss your bulk order. "
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--delivery_timeline_query--cod_fast_order",
+            "description": "Customer wants COD, fast delivery, and order assistance",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "delivery_timeline_query",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "phone",
+                        "name",
+                        "address"
+                    ],
+                    "expected_behavior": "To proceed with your order, please provide:Your full name Your phone number Your complete shipping address Once I have this info, I can assist in placing the order for you! Thank you."
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "pincode",
+                        "size"
+                    ],
+                    "expected_behavior": "To provide an accurate delivery estimate, please share your pincode and the size you're interested in for the product. Once I have this info, I can assist further! "
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "size"
+                    ],
+                    "expected_behavior": "The estimated delivery date for shipping to pincode 560076 is August 16, 2025, via Blue Dart Air. Let me know your preferred size to check availability!"
+                },
+                {
+                    "role": "customer",
+                    "message": "32"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "order"
+                    ],
+                    "expected_behavior": "The size 32 for 8TH: THE HOUSE OF TRANSFORMATION is available! 🎉 Delivery to 560076 is by Aug 16, 2025 via Blue Dart Air. Ready to order? Please share your full name, phone number, and address."
+                },
+                {
+                    "role": "customer",
+                    "message": "I want COD only but i would need it fast"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "COD",
+                        "Delivery"
+                    ],
+                    "expected_behavior": "Good news! Size 32 for 8TH: THE HOUSE OF TRANSFORMATION is available with COD. 🎉 Delivery to 560076 is by Aug 16, 2025, via Blue Dart Air. Need it faster? Let me know! Ready to order? Just share your full name, phone number, and address"
+                },
+                {
+                    "role": "customer",
+                    "message": "Thanks"
+                },
+                {
+                    "role": "customer",
+                    "message": "is size 48 available"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "out of stock",
+                        "Delivery"
+                    ],
+                    "expected_behavior": "Unfortunately, the size 48 for 8TH: THE HOUSE OF TRANSFORMATION is out of stock. 😞 Available sizes: 30, 28, 38, 34, 32, 40, and 36. Let me know if any interest you, and I can provide the delivery timeline! "
+                }
+            ]
+        },
+        {
+            "id": "escalation--randomquestion-asking-where-are-you-based-out-of1",
+            "description": "Customer is asking random question about where are you based out of",
+            "dimension": "Escalation",
+            "sub_dimension": "Random Question",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "where are you based out of "
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Delhi",
+                        "manufacturing"
+                    ],
+                    "expected_behavior": "Hello! Groovee is based in Delhi, and we have our own manufacturing unit. For more details, contact our support at admin@groovee.in or call +91 86078 45846 / +91 95182 17803. We're here to help! Would you like me to place the order for you?"
+                }
+            ]
+        },
+        {
+            "id": "escalation--mix_routing--1",
+            "description": "Customer is switching between human escalation and inquiry",
+            "dimension": "Escalation",
+            "sub_dimension": "Mix Routing",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I want to talk to human"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team"
+                    ],
+                    "expected_behavior": "I’ll transfer you to a team member who will reach out shortly. Thank you for your patience!"
+                },
+                {
+                    "role": "customer",
+                    "message": "i want to connect to human"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "pateince",
+                        "Thank you"
+                    ],
+                    "expected_behavior": "This seems important. I’ll transfer you to a team member who will reach out to you shortly. Thank you for your patience! "
+                },
+                {
+                    "role": "customer",
+                    "message": "no talk to huamn"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team"
+                    ],
+                    "expected_behavior": "I’ll transfer you to a team member who will reach out shortly. Thank you for your patience! "
+                },
+                {
+                    "role": "customer",
+                    "message": "i want to know about my order status"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "phone number"
+                    ],
+                    "expected_behavior": "Could you please provide your order ID or the phone number associated with your order? This will help me locate your order status for you. Thank you!"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--product_found-1",
+            "description": "Customer wants to place order and asks about delivery time for available product",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order."
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "name",
+                        "phone number",
+                        "address",
+                        "create"
+                    ],
+                    "expected_behavior": "To assist with your order, please share:Full name Phone number Complete address (city, state, zip) Once I have these, I can create the order for you. Thank you! "
+                },
+                {
+                    "role": "customer",
+                    "message": "When will I get the order if i place it today"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "pincode"
+                    ],
+                    "expected_behavior": "Could you please provide the delivery pincode? That way, I can give you more accurate delivery information."
+                },
+                {
+                    "role": "customer",
+                    "message": "493118"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "delivery date"
+                    ],
+                    "expected_behavior": "If you place the order today, the estimated delivery date to pincode 493118 is August 17, 2025, via Blue Dart Air. 🎉 Would you like me to place the order for you?"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--ordering_combination",
+            "description": "Customer provides product link upfront and asks about delivery",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Hey there! 👋 I’m here to help you with your order, product info, or anything else you need."
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! 👋 I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "kab aayega product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": "pincode",
+                    "expected_behavior": "Found pincode: 560076. To assist you better, are you enquiring about a specific product? If yes, please share the product name or link; otherwise, reply 'general'."
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "pincode",
+                        "general"
+                    ],
+                    "expected_behavior": "Found pincode: 560076. To assist you better, are you enquiring about a specific product? If yes, please share the product name or link; otherwise, reply 'general'."
+                },
+                {
+                    "role": "customer",
+                    "message": "general"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": "delivery",
+                    "expected_behavior": "Estimated delivery from our warehouse (pincode 110034) to your location (560076) is August 16, 2025, via Blue Dart Air.If you need more help, just let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Please create the order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "name",
+                        "delivery address",
+                        "size",
+                        "product",
+                        "phone number",
+                        "address",
+                        "place order"
+                    ],
+                    "expected_behavior": "To create your order, please share these details: Product Name/Link Size (if needed) Quantity (confirm 1) Full Name Phone Number Shipping Address Once I have this info, I can place the order for you!"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--product_not_found-2",
+            "description": "Customer asks about delivery for product that is not available in requested size",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "size",
+                        "phone number",
+                        "address",
+                        "order"
+                    ],
+                    "expected_behavior": "To place order, Could you share your preferred size, phone number for order confirmation, delivery address (street, city, state, and PIN code), and full name? "
+                },
+                {
+                    "role": "customer",
+                    "message": "kab aayega order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "order"
+                    ],
+                    "expected_behavior": "Could you please let me know your preferred size? Also, provide your phone number, delivery address, and full name for order confirmation."
+                },
+                {
+                    "role": "customer",
+                    "message": "when will the order come"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size"
+                    ],
+                    "expected_behavior": "Please specify the size you want for the order.Once I have your preferred size, I can assist you further!"
+                },
+                {
+                    "role": "customer",
+                    "message": "32"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": "delivery",
+                    "expected_behavior": "To give you an accurate delivery timeline, I need your delivery PIN code. Once I have it, I'll check the availability of size 32 and provide you with the delivery details. "
+                },
+                {
+                    "role": "customer",
+                    "message": "Thanks, not interested"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--delivery_method",
+            "description": "Customer asks about delivery method and charges",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "size",
+                        "phone number",
+                        "address",
+                        "order"
+                    ],
+                    "expected_behavior": "To place order. Could you please share your preferred size, phone number for order confirmation, delivery address (street, city, state, PIN), and your full name?"
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "order"
+                    ],
+                    "expected_behavior": "Great! I've received the product link. Please share your preferred size, and I'll assist you with your order."
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "size",
+                        "address",
+                        "delivery"
+                    ],
+                    "expected_behavior": "To place order, Could you please share your preferred size, phone number for order confirmation, delivery address (street, city, state, PIN), and your full name?"
+                },
+                {
+                    "role": "customer",
+                    "message": "Through which courier you will send the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "ShipRocket",
+                        "delivery"
+                    ],
+                    "expected_behavior": " We are with Shiprocket as our delivery partner and we courier it using Blue Dart or DTDC based on the pincode."
+                },
+                {
+                    "role": "customer",
+                    "message": "Is the delivery free?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Shipping",
+                        "free"
+                    ],
+                    "expected_behavior": "Hello!  Yes, shipping is free across India. If you have any more questions or need further assistance, feel free to reach out. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "So i will not pay for any delivery"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "free"
+                    ],
+                    "expected_behavior": "Hello!  Yes, shipping is free across India"
+                }
+            ]
+        },
+        {
+            "id": "sales--return_exchange--policy_basic",
+            "description": "Customer asks about return and exchange policy",
+            "dimension": "Sales",
+            "sub_dimension": "Return and exchange",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, there"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Is return available"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Return",
+                        "Groovee",
+                        "wallet",
+                        "3 days"
+                    ],
+                    "expected_behavior": "Hello! Yes, returns are available. You can return the product within 3 days of delivery, with a Rs 200 deduction. The rest will be credited to your Groovee wallet for future purchases. If you need more help, feel free to reach out to our support team!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Ok, what if i dont like the product can i return it"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "Groovee",
+                        "wallet",
+                        "3 days"
+                    ],
+                    "expected_behavior": "Hello! If you don't like the product, you can return it within 3 days of delivery. A Rs 200 deduction applies, and the rest is credited to your Groovee wallet for future purchases. If you need more help, feel free to contact our support team. We're here to assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Good, will i get the money in my account"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Bank account",
+                        "wallet"
+                    ],
+                    "expected_behavior": "Hello! If you return a product, the paid amount minus Rs 200 will be credited to your Groovee wallet. The money won't go to your bank account. For more help, contact our support team!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Will you refund the entire money"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "refund",
+                        "Rs 200",
+                        "wallet",
+                        "Groovee"
+                    ],
+                    "expected_behavior": "Hello! Thanks for reaching out. When you return a product, Rs 200 will be deducted, and the rest will be credited to your Groovee wallet for future purchases. For more details, contact our support team. We're here to help!"
+                }
+            ]
+        },
+        {
+            "id": "sales--return_exchange--refund_insistence",
+            "description": "Customer insists on account refund instead of wallet",
+            "dimension": "Sales",
+            "sub_dimension": "Return and exchange",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, there"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what is exchange policy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "free exchange",
+                        "7 days"
+                    ],
+                    "expected_behavior": "Hello! You can initiate a one-time free exchange within 7 days of delivery via your account at groovee.in. Need help? Contact our support team!"
+                },
+                {
+                    "role": "customer",
+                    "message": "how does exchange works"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Free exchange",
+                        "7 days",
+                        "delivery"
+                    ],
+                    "expected_behavior": "Hello! You can initiate a one-time free exchange within 7 days of delivery at groovee.in. The exchanged product ships after we pick up the original.Need more help? Contact our support team!"
+                },
+                {
+                    "role": "customer",
+                    "message": "how much time it takes to exchange"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "exchange",
+                        "7 days",
+                        "delivery",
+                        "1 day",
+                        "after"
+                    ],
+                    "expected_behavior": "Hello!Thanks for your question about our exchange process. You can initiate an exchange 1 day after delivery and within 7 days. The new product ships after the original is picked up. Need help? Contact support!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Thank you"
+                }
+            ]
+        },
+        {
+            "id": "sales--return_exchange--fraud_concern",
+            "description": "Customer expresses concern about fraud and requests team call",
+            "dimension": "Sales",
+            "sub_dimension": "Return and exchange",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to know about for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Product",
+                        "price",
+                        "Fabric"
+                    ],
+                    "expected_behavior": "Product Name: 8TH: THE HOUSE OF TRANSFORMATION. Sizes: 28-40. Price: ₹2,999. Fabric: 100% Cotton Denim."
+                },
+                {
+                    "role": "customer",
+                    "message": "and what about this one https://groovee.in/collections/designer-hoodies/products/the-dreamscape-dropout-hoodie?variant=50123015881026"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Size",
+                        "price",
+                        "fabric"
+                    ],
+                    "expected_behavior": "Available in size S only. Price: ₹2,199. Fabric: 350GSM heavy cotton. If you'd like, I can help place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "is the quality good"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Groovee",
+                        "streetwear",
+                        "manufacturing unit",
+                        "Delhi",
+                        "quality",
+                        "contact",
+                        "support"
+                    ],
+                    "expected_behavior": "Hello! Groovee is a trendsetting streetwear brand with its own manufacturing unit in Delhi, ensuring quality control. For more details, contact support at admin@groovee.in or +91 86078 45846, Mon-Sat, 11 AM-7 PM"
+                },
+                {
+                    "role": "customer",
+                    "message": "where in Delhi"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "manufacturing unit",
+                        "Delhi",
+                        "Warehouse"
+                    ],
+                    "expected_behavior": "Hello! Groovee primarily operates online but has a manufacturing unit and warehouse in Delhi at WZ 273, Ground Floor, Shakur Pur Village, New Delhi. For more info, contact admin@groovee.in or +91 86078 45846. We're here to help! "
+                },
+                {
+                    "role": "customer",
+                    "message": "how can i trust you guys"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Team",
+                        "Reach",
+                        "Patience"
+                    ],
+                    "expected_behavior": "This seems important. I’ll transfer you to a team member who will reach out to you shortly. Thank you for your patience! If you'd like, I can help place the order for you once you're ready."
+                },
+                {
+                    "role": "customer",
+                    "message": "what if i dont get the product what i see in the website"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Return",
+                        "3 days"
+                    ],
+                    "expected_behavior": "Hello! Yes, returns are available. You can return the product within 3 days of delivery, with a Rs 200 deduction. The rest will be credited to your Groovee wallet for future purchases. If you need more help, feel free to reach out to our support team!"
+                },
+                {
+                    "role": "customer",
+                    "message": "but you just said return is available within 3 days of delivery"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Important",
+                        "team",
+                        "reach"
+                    ],
+                    "expected_behavior": "This seems important. I’ll transfer you to a team member who will reach out to you shortly. Thank you for your patience!"
+                },
+                {
+                    "role": "customer",
+                    "message": "thank you"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Nice day",
+                        "help"
+                    ],
+                    "expected_behavior": "Happy to help. Have a nice day and please reach out to me if you need any other info or you want to place an order"
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--product_quality",
+            "description": "Customer asks about product availability and quality",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "hey, can you help me"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Is size 32 available in this product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "product",
+                        "link"
+                    ],
+                    "expected_behavior": "Could you share the product name or link so I can check the availability for size 32?"
+                },
+                {
+                    "role": "customer",
+                    "message": "eagle jeans"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Eagle",
+                        "size",
+                        "order"
+                    ],
+                    "expected_behavior": "Yes, the Eagle Reign jeans are available in size 32. Sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Whats the quality, will it be same as it looks in the picture"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Quality",
+                        "Jeans",
+                        "Denim"
+                    ],
+                    "expected_behavior": "The Eagle Reign jeans are 100% cotton denim, offering a soft and durable feel. The quality matches the images, featuring puff-printing across both legs. Let me know if you'd like to order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Whats the material?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Denim"
+                    ],
+                    "expected_behavior": "100% Cotton Denim. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what does 100% cotton denim means"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Denim",
+                        "fabric",
+                        "denim",
+                        "look"
+                    ],
+                    "expected_behavior": "100% cotton denim means the jeans are made from cotton, giving a natural, breathable, and durable fabric with a classic denim look and feel. Would you like to place the order? "
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--product_quality",
+            "description": "Customer asks about product availability and quality",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "hey, can you help me"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Is size XL available in this product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "product",
+                        "link"
+                    ],
+                    "expected_behavior": "Could you share the product name or link so I can check the availability for size XL?"
+                },
+                {
+                    "role": "customer",
+                    "message": "that shirt man"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Several",
+                        "options",
+                        "exact",
+                        "product"
+                    ],
+                    "expected_behavior": "I found several options: BUTTERFLY WINGS OF WONDER T-shirt, The Bull Oversized T-shirt (Black, Red), MADZEE Dawg Stay Outta My Territory Oversized T-shirt, FUGAZEE Lilac Striped Knitted Bowling Shirt. Please share the exact product link or full name."
+                },
+                {
+                    "role": "customer",
+                    "message": "no that white color shcaket"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Name",
+                        "link",
+                        "exact",
+                        "product"
+                    ],
+                    "expected_behavior": "Could you please share the exact product link or full name of the white shacket you are interested in? "
+                },
+                {
+                    "role": "customer",
+                    "message": "evolve shacket"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Evolve",
+                        "sizes",
+                        "order"
+                    ],
+                    "expected_behavior": "Available sizes for the Evolve: The Cosmic Shacket are XL, S, M, and L. If you'd like, I can help place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Whats the quality, will it be same as it looks in the picture"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Quality",
+                        "Shacked",
+                        "Fabric"
+                    ],
+                    "expected_behavior": "The Evolve: The Cosmic Shacket is made from banana crepe fabric with an oversized fit. It should match the quality and appearance shown in the images. Would you like me to help place the order for you? "
+                },
+                {
+                    "role": "customer",
+                    "message": "Whats the material?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "quality",
+                        "fabric",
+                        "banana crepe"
+                    ],
+                    "expected_behavior": "The material for the Evolve: The Cosmic Shacket is banana crepe fabric. It offers an oversized fit and matches the quality and appearance in the images. Would you like me to help place the order for you? "
+                },
+                {
+                    "role": "customer",
+                    "message": "what does 100% cotton denim means"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Banana crepe",
+                        "fabric",
+                        "durable",
+                        "soft"
+                    ],
+                    "expected_behavior": "Banana Crepe is a type of crepe fabric, usually made from polyester yarns, known for its soft, durable, and drapey quality. Evolve shacked is meant for comfort, quality and style"
+                },
+                {
+                    "role": "customer",
+                    "message": "what's the print like"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Shacked",
+                        "design",
+                        "specific",
+                        "prints"
+                    ],
+                    "expected_behavior": "The Evolve: The Cosmic Shacket features prints that evoke cosmic flow, magic, power, joy, and synchronicity. Design specifics aren't detailed, but it truly captures these themes! Let me know if you need anything else"
+                },
+                {
+                    "role": "customer",
+                    "message": "the print will not go away right after wash"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Last",
+                        "designed",
+                        "hand wash",
+                        "harsh chemicals"
+                    ],
+                    "expected_behavior": "The print on the Evolve: The Cosmic Shacket is designed to last. Hand wash inside out with cold water and mild detergent. Avoid harsh chemicals and dry in shade to maintain the print quality. "
+                },
+                {
+                    "role": "customer",
+                    "message": "can i wash in washing machine"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Isn't",
+                        "recommended",
+                        "dry cleaning",
+                        "hand wash"
+                    ],
+                    "expected_behavior": "Machine washing isn't recommended for the Evolve: The Cosmic Shacket. For best results, hand wash inside out with cold water and mild detergent, or opt for dry cleaning. Let me know if you need further assistance!"
+                },
+                {
+                    "role": "customer",
+                    "message": "and iron"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Avoid",
+                        "directly",
+                        "print",
+                        "low-heat"
+                    ],
+                    "expected_behavior": "For ironing the Evolve: The Cosmic Shacket, use a low-heat setting with a pressing cloth on the reverse side only. Avoid ironing directly on the print. 😊 Let me know if you'd like to place an order!"
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--size_confusion",
+            "description": "Customer confused about size and gets sizing help",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Hi, I would like to know about https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "specific",
+                        "product",
+                        "price"
+                    ],
+                    "expected_behavior": "Certainly! The product you're interested in, 8TH: The House of Transformation, is priced at ₹2,999. If you have any other specific questions about the product, feel free to ask!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I am not sure what size will fit in"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size guide",
+                        "jeans"
+                    ],
+                    "expected_behavior": "Here's the size guide for the jeans:Size 28: Hip 38, Thigh 23, Length 42 Size 30: Hip 40, Thigh 23.5, Length 42 Size 32: Hip 42, Thigh 24, Length 42 Size 34: Hip 44, Thigh 24.5, Length 42 Size 36: Hip 46, Thigh 25, Length 42 Size 38: Hip 48, Thigh 25.5, Length 42 Size 40: Hip 50, Thigh 26, Length 42.5 The..."
+                },
+                {
+                    "role": "customer",
+                    "message": "i normally wear 32 size what should i order here"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Order",
+                        "size",
+                        "32"
+                    ],
+                    "expected_behavior": "Since you usually wear size 32, you should order size 32 for the 8TH: The House of Transformation jeans. They fit true to waist and have a relaxed, roomy silhouette. Would you like me to place the order for you?"
+                },
+                {
+                    "role": "customer",
+                    "message": "what if it does not fit"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Free",
+                        "Exchange"
+                    ],
+                    "expected_behavior": "if the product doesn't fit, you can use our exchange policy! Start a one-time free exchange within 7 days at groovee.in, 1 day after delivery. A Rs 300 charge applies for additional exchanges. Reach out anytime for help! "
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--size_with_exchange_policy",
+            "description": "Customer asks about size fit and gets exchange policy assurance",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "size",
+                        "name",
+                        "address",
+                        "delivery"
+                    ],
+                    "expected_behavior": "To place order, Please share your preferred size, phone number for confirmation, delivery address (street, city, state, PIN), and full name"
+                },
+                {
+                    "role": "customer",
+                    "message": "wait before that i have some questions"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "assist",
+                        "sizing",
+                        "material",
+                        "delivery"
+                    ],
+                    "expected_behavior": "Certainly! I'm here to assist with any questions about the product or ordering process. 😊 Let me know if you need info on sizing, material, or delivery options. Ready to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "ohh sorry i was looking at this one https://groovee.in/collections/fresh-drop/products/evolve-the-cosmic-shacket?variant=50489780109634"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Shacket",
+                        "size",
+                        "price",
+                        "fabric"
+                    ],
+                    "expected_behavior": "Sure! What would you like to know about Evolve: The Cosmic Shacket? Please specify your questions about size, price, fabric, or care instructions."
+                },
+                {
+                    "role": "customer",
+                    "message": "size"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Regular fit",
+                        "Oversized look",
+                        "sizes"
+                    ],
+                    "expected_behavior": "Available sizes for Evolve: The Cosmic Shacket are XL, S, M, and L. For a regular fit, consider going one size down; for the intended oversized look, pick your true size.Would you like me to place the order for you?"
+                },
+                {
+                    "role": "customer",
+                    "message": "i am not sure..i wear generally XL"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "XL",
+                        "Oversized look"
+                    ],
+                    "expected_behavior": "For Evolve: The Cosmic Shacket, since you generally wear XL, you can choose XL for the intended oversized look. 😊 Would you like to proceed with the order?"
+                },
+                {
+                    "role": "customer",
+                    "message": "send size chart please"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Chest",
+                        "length",
+                        "sleeve"
+                    ],
+                    "expected_behavior": "Size Guide for Evolve: The Cosmic Shacket:S: Chest 46, Length 26, Sleeve 8 M: Chest 48, Length 27, Sleeve 9 L: Chest 50, Length 28, Sleeve 10 XL: Chest 52, Length 29, Sleeve 11 Fit Note: Model is 5 11, chest 38, wearing L. For a regular fit, go one size down; for oversized, pick true size. 😊 Let me know if..."
+                },
+                {
+                    "role": "customer",
+                    "message": "my chest size is 36"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Chest size",
+                        "36",
+                        "S",
+                        "regular fit",
+                        "oversized look"
+                    ],
+                    "expected_behavior": "Based on your chest size of 36, consider size S for a regular fit. For the oversized look, size S is your best option since it's the smallest available. Let me know if you need more help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what if it does not fit or does not look good"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Return",
+                        "3 days",
+                        "7 days",
+                        "regular fit",
+                        "exchange"
+                    ],
+                    "expected_behavior": "Hello! If the product doesn't fit or look right, you can return it within 3 days (Rs 200 fee) or make a one-time free exchange within 7 days. Visit groovee.in for details. Need help placing the order?"
+                },
+                {
+                    "role": "customer",
+                    "message": "great thanks i will order later"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Thanks",
+                        "groovee.in"
+                    ],
+                    "expected_behavior": "Sure, thanks a lot for visiting us. Please visit us at groovee.in to see our new designer streetwear"
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--gym_wear_suitability",
+            "description": "Gym-goer asks about product suitability for workout",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to know about for https://groovee.in/collections/fresh-drop/products/the-domin8-trackpants?variant=50623869157698"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "sizes",
+                        "Domin8",
+                        "questions",
+                        "product"
+                    ],
+                    "expected_behavior": "Hello! The Domin8 Trackpants are available in sizes XL, S, M, and L. If you have any other questions about the product or need help placing an order, feel free to ask!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I am not sure what size will fit in"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size guide",
+                        "baggy fit"
+                    ],
+                    "expected_behavior": "Please refer to the size guide: SIZE UNSTRETCHED WAIST (In) STRETCHED WAIST (In) LENGTH(In) S: 28, 34, 40; M: 30, 36, 41; L: 32, 38, 42; XL: 34, 40, 43. They have a baggy fit and a comfy elastic waistband. Go with your usual size."
+                },
+                {
+                    "role": "customer",
+                    "message": "unable to understand the size chart"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Size guide",
+                        "waist",
+                        "length"
+                    ],
+                    "expected_behavior": "Here's the size guide for the Domin8 Trackpants:S: Waist 28-34, Length 40 M: Waist 30-36, Length 41 L: Waist 32-38, Length 42 XL: Waist 34-40, Length 43 Baggy fit with a comfy elastic waistband. Feel free to ask if you need further help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I am a gym goer and i want to track pants which are comfortable."
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "cotton",
+                        "baggy",
+                        "Domin8"
+                    ],
+                    "expected_behavior": "The Domin8 Trackpants are made from 100% breathable cotton, perfect for gym-goers with their baggy fit and elastic waistband. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "But will it look good and fit on compression shirt"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "design",
+                        "Domin8",
+                        "shirt",
+                        "look",
+                        "baggy"
+                    ],
+                    "expected_behavior": "he Domin8 Trackpants feature a minimal-luxury design that pairs well with a compression shirt. Their baggy fit and comfy elastic waistband offer a relaxed yet trendy look. Let me know if you'd like to place an order!"
+                }
+            ]
+        },
+        {
+            "id": "sales--inquiry--customization_request",
+            "description": "Customer asks for product customization",
+            "dimension": "Sales",
+            "sub_dimension": "Inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I would like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "product",
+                        "delivery address",
+                        "name"
+                    ],
+                    "expected_behavior": "To place order, Could you please share your preferred size, phone number for order confirmation, delivery address (street, city, state, PIN code), and your full name?"
+                },
+                {
+                    "role": "customer",
+                    "message": "can you customize it for me"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Design changes",
+                        "size",
+                        "queries"
+                    ],
+                    "expected_behavior": " Certainly! I appreciate your interest in customizing the item. Could you share more about the customization you need, like design changes or size alterations? I'm here to help with any product details or order queries."
+                },
+                {
+                    "role": "customer",
+                    "message": "an you shorten the length"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Length",
+                        "shorter",
+                        "preferences"
+                    ],
+                    "expected_behavior": "I want to ensure we get your request just right. When you mention shortening the length, are you referring to the garment? Please specify how much shorter you want it. Your preferences are important to us! "
+                },
+                {
+                    "role": "customer",
+                    "message": "I am looking for 31 waist and 46 inch in length"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Size",
+                        "available"
+                    ],
+                    "expected_behavior": "For the Neo Tribe: Inked jeans, available sizes are 28, 30, 32, 34, 36, and 38. Unfortunately, a 31-inch waist size is not available. Let me know if you'd like help placing the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "can you make the length 39 inches and waist i will take 30"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Pre paid",
+                        "COD",
+                        "order"
+                    ],
+                    "expected_behavior": "Surely we can do that. We can reduce the length of the jeans to 39 inches. I would also like to tell you that for customization it has to pre paid order. We do not support customization on COD orders."
+                }
+            ]
+        },
+        {
+            "id": "sales--discounts--available_offers",
+            "description": "Customer asks about available discounts and offers",
+            "dimension": "Sales",
+            "sub_dimension": "Discounts",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Hi"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Do you have any discounts going on"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "online"
+                    ],
+                    "expected_behavior": " Hello! We have some great discounts: Use code NEW10 for 10% off. Buy over Rs 4000 for Rs 500 off, or Rs 7000 for Rs 700 off. Pay online for an extra 10% off. Let me know if you’d like to place an order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "can you give more discounts"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help",
+                        "offers",
+                        "current"
+                    ],
+                    "expected_behavior": "Thank you for reaching out! The discounts I shared are the current offers. We update promotions often, so check back later for new deals. If you have any more questions, I'm here to help! "
+                }
+            ]
+        },
+        {
+            "id": "sales--discounts--more_discount_request",
+            "description": "Customer asks for additional discount beyond available offers",
+            "dimension": "Sales",
+            "sub_dimension": "Discounts",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                
+                        "help"
+
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "koi offer hai kya"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "payment"
+                    ],
+                    "expected_behavior": "Sure! We have some great offers for you:Use code NEW10 for a 10% discount. Rs 500 off on orders over Rs 4000. Rs 700 off on orders over Rs 7000. Extra 10% off with online payment. Let me know if you need help placing your order! "
+                },
+                {
+                    "role": "customer",
+                    "message": "what if i want to order multiple products"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "payment"
+                    ],
+                    "expected_behavior": "ertainly! You can maximize savings with multiple products: Use code NEW10 for a 10% discount. Rs 500 off on Rs 4000+ orders. Rs 700 off on Rs 7000+ orders. Extra 10% off with online payment. Ready to place your order?"
+                }
+            ]
+        },
+        {
+            "id": "sales--discounts--price_inquiry",
+            "description": "Customer asks about price and gets discount information",
+            "dimension": "Sales",
+            "sub_dimension": "Discounts",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "hey there"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Price"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "link",
+                        "product name"
+                    ],
+                    "expected_behavior": "Could you share the product name or link you're interested in?"
+                },
+                {
+                    "role": "customer",
+                    "message": "jeans"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "options",
+                        "product",
+                        "link",
+                        "name"
+                    ],
+                    "expected_behavior": " I found several options: MADZEE STREET START RIPPED DENIM JEANS, MADZEE RIPPED DENIM CARGO JEANS - Black, MULTI POCKETS, COLOUR BLOCK CARGO JEANS-Blue, RIPPED DENIM JEANS - Blue. Please share the product link or name."
+                },
+                {
+                    "role": "customer",
+                    "message": "can you share me the jeans collection"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "jeans",
+                        "collection"
+                    ],
+                    "expected_behavior": " Hey there! Thanks for reaching out. Here are our categories: Hoodies 👕: https://groovee.in/collections/designer-hoodies T-Shirts 👚: https://groovee.in/collections/oversized-tshirts Fresh Drop 🌟: https://groovee.in/collections/fresh-drop Denim Jeans 👖: https://groovee.in/collections/denim-jeans Check out our jeans collection for more options! Let me know if you need any help"
+                },
+                {
+                    "role": "customer",
+                    "message": "eagle jeans"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "price",
+                        "2999",
+                        "10%",
+                        "online payment"
+                    ],
+                    "expected_behavior": "Certainly! The Eagle Reign jeans are ₹2,999. Use code NEW10 for a 10% discount, plus another 10% off for online payment. Combining these offers, you can save more. Need help placing an order?"
+                },
+                {
+                    "role": "customer",
+                    "message": "final price"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "price",
+                        "2999",
+                        "10%",
+                        "online payment",
+                        "order"
+                    ],
+                    "expected_behavior": "Certainly! The Eagle Reign jeans are ₹2,999. Use code NEW10 for a 10% discount, lowering the price to ₹2,699.10. Pay online for another 10% off, making it around ₹2,429.19. Need help with the order?"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--product_found-2",
+            "description": "Customer wants to place order and asks about delivery time for available product",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                 
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "When will I get the order if i place it today"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "pincode"
+                    ],
+                    "expected_behavior": "Hi! To give you an accurate delivery estimate, I need your delivery pincode. Could you share that with me?"
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "560076",
+                        "delivery",
+                        "help",
+                        "today",
+                        "order"
+                    ],
+                    "expected_behavior": "If you order today, delivery to 560076 is estimated by August 17, 2025, with Blue Dart Air. Let me know if you have more questions or need further help!"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--ordering_combination-2",
+            "description": "Customer provides product link upfront and asks about delivery",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the neo jeans"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "multiple",
+                        "products",
+                        "name",
+                        "link"
+                    ],
+                    "expected_behavior": " found multiple products matching 'neo jeans': Neo Tribe Denim and Neo Tribe: Inked. Please share the exact product name or link so I can assist you further!"
+                },
+                {
+                    "role": "customer",
+                    "message": "neo tribe"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "time",
+                        "size",
+                        "pincode",
+                        "delivery"
+                    ],
+                    "expected_behavior": "To provide a delivery timeline for the Neo Tribe: Inked jeans, I need two details Size: Which size are you interested in? Pincode: Please share your delivery pincode. Once I have these, I'll check size availability and estimate delivery time."
+                },
+                {
+                    "role": "customer",
+                    "message": "32 and 560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "32",
+                        "estimated",
+                        "delivery",
+                        "order"
+                    ],
+                    "expected_behavior": "Great news! The Neo Tribe: Inked jeans in size 32 are available. Estimated delivery to pincode 560076 is August 17, 2025, via Blue Dart Air. Let me know if you'd like me to place the order! "
+                },
+                {
+                    "role": "customer",
+                    "message": "can you deliver it a little faster"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "fastest",
+                        "delivery",
+                        "pincode"
+                    ],
+                    "expected_behavior": "The Neo Tribe: Inked jeans in size 32 are available, with delivery to pincode 560076 by August 17, 2025, via Blue Dart Air. This is the fastest option. Let me know if you need help or want to explore other options!"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--delivery_method",
+            "description": "Customer asks about delivery method and charges",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "pincode",
+                        "help"
+                    ],
+                    "expected_behavior": "Hi! Could you please share your delivery pincode? This will help us provide you with accurate delivery information. Thanks!"
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "found",
+                        "assist",
+                        "product",
+                        "name",
+                        "link",
+                        "general"
+                    ],
+                    "expected_behavior": "Found pincode: 560076. To assist you better, are you asking about a specific product? If yes, please share the product name or link. Otherwise, just reply 'general'."
+                },
+                {
+                    "role": "customer",
+                    "message": "Through which courier you will send the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "ShipRocket",
+                        "Blue Dart",
+                        "DTDC"
+                    ],
+                    "expected_behavior": "Hello! 😊 We ship with Shiprocket, and you'll get updates once your product is dispatched. Blue Dart or DTDC are typically used for 560076. Need more help? Contact our support. Have a great day! "
+                },
+                {
+                    "role": "customer",
+                    "message": "Is the delivery free?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "free",
+                        "team",
+                        "customer support"
+                    ],
+                    "expected_behavior": "Y Hi there! 😊 Yes, shipping is free across India. If you have any other questions or need more details, feel free to reach out to our customer support team. We're here to help! 📦✨ Would you like me to place the order for you?"
+                },
+                {
+                    "role": "customer",
+                    "message": "So i will not pay for any delivery"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "free"
+                    ],
+                    "expected_behavior": "Hello! Great news—shipping is free across India! So, you won't need to pay for any delivery charges. If you have more questions or need further assistance, feel free to reach out to our customer support team. We're here to help!"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--delivery_method",
+            "description": "Customer asks about delivery method and charges",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                     
+                        "help"
+                        
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "pincode",
+                        "help"
+                    ],
+                    "expected_behavior": "Hi! Could you please share your delivery pincode? This will help us provide you with accurate delivery information. Thanks!"
+                },
+                {
+                    "role": "customer",
+                    "message": "111111"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "error",
+                        "not valid",
+                        "Indian pincode"
+                    ],
+                    "expected_behavior": "It seems there was an error because the pincode 1111111 is not valid. Could you please double-check and provide a 6-digit Indian pincode? This will help me give you the accurate delivery estimate."
+                },
+                {
+                    "role": "customer",
+                    "message": "sorry its 560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivered",
+                        "order",
+                        "pincode",
+                        "560076"
+                    ],
+                    "expected_behavior": "Your order is estimated to be delivered by Aug 17, 2025, via Blue Dart Air to pincode 560076. If there's anything else you need, feel free to ask! "
+                },
+                {
+                    "role": "customer",
+                    "message": "when can you deliver this https://owr.life/products/raptor-22"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "sorry",
+                        "product"
+                    ],
+                    "expected_behavior": "Sorry, I am not able to find this product.  Here are our categories: Hoodies 👕: https://groovee.in/collections/designer-hoodies T-Shirts 👚: https://groovee.in/collections/oversized-tshirts Fresh Drop 🌟: https://groovee.in/collections/fresh-drop Denim Jeans 👖: https://groovee.in/collections/denim-jeans Check out our jeans collection for more options! Let me know if you need any help"
+                }
+            ]
+        },
+        {
+            "id": "sales--delivery_enquiry--product_found-2",
+            "description": "Customer wants to place order and asks about delivery time for available product",
+            "dimension": "Sales",
+            "sub_dimension": "Delivery Enquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                      
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "do you deliver in UAE"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "India",
+                        "UAE",
+                        "don't deliver"
+                    ],
+                    "expected_behavior": "Hello! Thanks for your question. Unfortunately, we don't deliver to the UAE, only within India. If you need more help, feel free to contact our support team. They're happy to assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "in london"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "India",
+                        "london",
+                        "don't deliver"
+                    ],
+                    "expected_behavior": "Hello! Thanks for your question. Unfortunately, we don't deliver to the UAE, only within India. If you need more help, feel free to contact our support team. They're happy to assist!"
+                }
+            ]
+        },
+        {
+            "id": "sales--return_exchange--policy_basic",
+            "description": "Customer asks about return and exchange policy",
+            "dimension": "Sales",
+            "sub_dimension": "Return and exchange",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Is return available"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "available",
+                        "3 days",
+                        "return",
+                        "delivery"
+                    ],
+                    "expected_behavior": "Hello! 😊 Yes, returns are available. You can return the product within 3 days of delivery with a Rs 200 deduction. The balance goes to your Groovee wallet for future purchases. Need more help? Just ask!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Ok, what if i dont like the product can i return it"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "3 days",
+                        "wallet",
+                        "Groovee"
+                    ],
+                    "expected_behavior": "Hi there! 😊 If you don't like the product, you can return it within 3 days with a Rs 200 deduction. The rest goes to your Groovee wallet for future purchases. Need more help? Contact our support team anytime!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Good, will i get the money in my account"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "3 days",
+                        "wallet",
+                        "Groovee"
+                    ],
+                    "expected_behavior": "Hello! 😊 When you return a product, Rs 200 is deducted, and the rest is credited to your Groovee wallet for future purchases. Unfortunately, refunds aren't made to your bank account. Need more help? We're here!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Will you refund the entire money"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "3 days",
+                        "wallet",
+                        "Groovee",
+                        "Rs 200"
+                    ],
+                    "expected_behavior": "Hello! 😊 When you return a product within 3 days, Rs 200 is deducted, and the rest is credited to your Groovee wallet for future purchases. For more details, contact our support team."
+                }
+            ]
+        },
+        {
+            "id": "sales--return_exchange--refund_insistence",
+            "description": "Customer insists on account refund instead of wallet",
+            "dimension": "Sales",
+            "sub_dimension": "Return and exchange",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                 
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "return kar sakta hoon"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "3 din"
+                    ],
+                    "expected_behavior": "Namaste! 😊 Haan, aap product ko return kar sakte hain, lekin aapko delivery ke 3 din ke andar return initiate karna hoga. Return par Rs 200 deduct hoga aur bachi amount aapke Groovee wallet mein credit hogi, jise future purchases ke liye use kar sakte hain. Agar aur koi sawaal hai, toh customer support se sampark karein. Hum yahan hain!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I dont care about exchange but i need refund in me account only if i dont like the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "wallet",
+                        "policy",
+                        "help"
+                    ],
+                    "expected_behavior": "Hello! Thanks for asking about our return policy. You can return the product within 3 days of delivery. A Rs 200 deduction applies, and the rest goes to your Groovee wallet for future purchases. Direct refunds aren't available. For more help, contact customer support. Let me know if you have more questions! "
+                },
+                {
+                    "role": "customer",
+                    "message": "But what if you guys are fraud and send me a different product or bad product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "connect",
+                        "team"
+                    ],
+                    "expected_behavior": "This seems important. I'll connect you with a team member who will reach out soon. Thank you for your patience!"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--delivery_timeline_query--store_location_inquiry",
+            "description": "Customer asks about delivery timeline and store location",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "delivery_timeline_query",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "when will you deliver the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "pincode",
+                        "delivery"
+                    ],
+                    "expected_behavior": "Could you please provide the delivery pincode so I can assist you better with the delivery details?"
+                },
+                {
+                    "role": "customer",
+                    "message": "560076"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "pincode",
+                        "560076",
+                        "assist",
+                        "general",
+                        "product",
+                        "name",
+                        "link"
+                    ],
+                    "expected_behavior": "Found pincode: 560076. To assist you better, are you enquiring about a specific product? If yes, please share the product name or link; otherwise, reply 'general'."
+                },
+                {
+                    "role": "customer",
+                    "message": "general"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery date",
+                        "560076",
+                        "warehouse",
+                        "specific",
+                        "product"
+                    ],
+                    "expected_behavior": "The estimated delivery date for products from our warehouse (pincode 110034) to 560076 is August 17, 2025, via Blue Dart Air. 🚚✨ If you have a specific product in mind, let me know for more details!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Where is your store?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "manufacturing",
+                        "Delhi",
+                        "Groovee",
+                        "help"
+                    ],
+                    "expected_behavior": "Hello! Groovee is an online-only streetwear brand. We don't have physical stores but have a manufacturing unit in Delhi. For more help, email us at admin@groovee.in or call +91 86078 45846. We're here to assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Can i come there pickup the product"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "physical",
+                        "don't",
+                        "Groovee",
+                        "online-only",
+                        "store"
+                    ],
+                    "expected_behavior": "Hello!Groovee is an online-only store, so we don't have a physical pick-up location. Our warehouse is in Delhi at WZ 273, Ground Floor, Shakur Pur Village. For more help, contact us at admin@groovee.in or +91 86078 45846"
+                },
+                {
+                    "role": "customer",
+                    "message": "who are you guys"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Groovee",
+                        "streetwear",
+                        "GenZ",
+                        "apparel",
+                        "online",
+                        "Delhi"
+                    ],
+                    "expected_behavior": "Hello! We are Groovee, a trendsetting streetwear brand for GenZ and millennials. Our edgy apparel includes oversized hoodies, tees, and unique bottoms. We operate online with a unit in Delhi. For more info, contact admin@groovee.in or call +91 86078 45846. We're here to help! "
+                },
+                {
+                    "role": "customer",
+                    "message": "can i trust you"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "streetwear",
+                        "contact",
+                        "Delhi"
+                    ],
+                    "expected_behavior": "Hello! Thanks for reaching out. Groovee is a trendsetting streetwear brand for GenZ and millennials, based in Delhi. For more info, contact us at admin@groovee.in or +91 86078 45846. We're here to help! "
+                },
+                {
+                    "role": "customer",
+                    "message": "not fraud right, i mean there are so many on instagram nowadays"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "concern",
+                        "Groovee",
+                        "manufacturing",
+                        "Delhi",
+                        "contact"
+                    ],
+                    "expected_behavior": "Hello! I understand your concern about online fraud with many brands on Instagram. Rest assured, Groovee is genuine with its own manufacturing unit in Delhi. For more details, contact admin@groovee.in or call +91 86078 45846, +91 95182 17803, or +91 80760 38573, Mon-Sat, 11 AM-7 PM. They're here to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "ok i will order one and see..else i will report you guys"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "member",
+                        "reach",
+                        "patience",
+                        "order"
+                    ],
+                    "expected_behavior": "I’ll transfer you to a team member who will reach out shortly. Thank you for your patience! 🙏 If you decide to order, just let us know, and we can help place the order for you"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--delivery_timeline_query--open_delivery_concern",
+            "description": "Customer asks about delivery timeline and open delivery concerns",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "delivery_timeline_query",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                     
+                        "help"
+                       
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "can you tell me one thing about this shacket"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Shacket",
+                        "need"
+                    ],
+                    "expected_behavior": "The Cosmic Shacket is made from banana crepe fabric. Let me know if you need more details! "
+                },
+                {
+                    "role": "customer",
+                    "message": "Do you support open delivery?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "don't",
+                        "open delivery",
+                        "products"
+                    ],
+                    "expected_behavior": "Hello! Thanks for your question. We don't support open delivery. If you need more help or want to know more about our products, feel free to ask! Our team is here for you."
+                },
+                {
+                    "role": "customer",
+                    "message": "But I need open delivery as i dont trust online. I have seen many frauds happening"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "contact",
+                        "team",
+                        "patience"
+                    ],
+                    "expected_behavior": "I'll transfer you to a team member who'll contact you shortly. Thank you for your patience! "
+                },
+                {
+                    "role": "customer",
+                    "message": "Sure Thank you"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                 
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know if you have more questions! "
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--delivery_timeline_query--hindi_delivery_inquiry",
+            "description": "Customer asks about delivery timeline in Hindi",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "delivery_timeline_query",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                   
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Kab aayega"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order Id",
+                        "status"
+                    ],
+                    "expected_behavior": "Could you please provide your order ID to check the status? You can find it in your order confirmation message on your mobile."
+                },
+                {
+                    "role": "customer",
+                    "message": "bhai abhi tak order nahin kiya hoon"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "pincode"
+                    ],
+                    "expected_behavior": "I need a few details to help you better. Could you please provide the delivery pincode? "
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--return_exchange_policy--refund_wallet_only",
+            "description": "Customer asks about return policy and insists on account refund",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "return_exchange_policy",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I owuld like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "order",
+                        "delivery address",
+                        "name",
+                        "size"
+                    ],
+                    "expected_behavior": "To place order, Could you please share your preferred size, phone number for order confirmation, delivery address (street, city, state, PIN code), and your full name? "
+                },
+                {
+                    "role": "customer",
+                    "message": "can you guys remove the price tag and send..i want to gift someone"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "price tag",
+                        "gift",
+                        "help"
+                    ],
+                    "expected_behavior": "Certainly! We can send the gift without a price tag. 🎁 Please confirm if that's correct. Let us know any other instructions or questions you have. I'm here to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "thats great..so i stay in delhi but i want to send this directly to someone in mumbai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "order",
+                        "delivery address",
+                        "name",
+                        "size"
+                    ],
+                    "expected_behavior": "To place order, Could you share your preferred size, phone number for order confirmation, and delivery address (street, city, state, PIN)? Your full name too, please!"
+                },
+                {
+                    "role": "customer",
+                    "message": "shall i give the billing or shipping address?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "billing",
+                        "address",
+                        "product"
+                    ],
+                    "expected_behavior": "Please provide the shipping address where you want us to deliver the product"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--discount--price_inquiry_hindi",
+            "description": "Customer asks about price in Hindi and expresses concern about cost",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "discount",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                     
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "daam kya hai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "name",
+                        "link"
+                    ],
+                    "expected_behavior": "Could you share the product name or link?"
+                },
+                {
+                    "role": "customer",
+                    "message": "woh sunfire jeans bhaiya"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "2,999",
+                        "help"
+                    ],
+                    "expected_behavior": "Price: ₹2,999. If you have any more questions or need help placing the order, just let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "mehanga hai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "online payment",
+                        "order"
+                    ],
+                    "expected_behavior": "We have multiple offers also running now. We have some great offers for youUse code NEW10 for a 10% discount. Rs 500 off on orders over Rs 4000. Rs 700 off on orders over Rs 7000. Extra 10% off with online payment. Let me know if you need help placing your order!"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--discount--student_discount_request",
+            "description": "Student asks for additional discount on product",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "discount",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI, I owuld like to place an order for https://groovee.in/collections/fresh-drop/products/8th-the-house-of-transformation?variant=50466649276738"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "product",
+                        "delivery address",
+                        "order",
+                        "name"
+                    ],
+                    "expected_behavior": "To place order, Could you please share your preferred size, phone number for order confirmation, delivery address (street, city, state, and PIN code), and full name? "
+                },
+                {
+                    "role": "customer",
+                    "message": "how much"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "2,999",
+                        "size",
+                        "order"
+                    ],
+                    "expected_behavior": "Price: ₹2,999. Let me know your preferred size, phone number, delivery address, and full name, and I can place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "please i am a student and i like the design please reduce a little"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "discount"
+                    ],
+                    "expected_behavior": "Hello! 😊 You can use code NEW10 for a 10% discount. Pay online for another 10% off. Buying items worth ₹4000+ gives ₹500 off, and ₹7000+ gives ₹700 off. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "I have instagram followers and i can refer my friends also..can you give more discounts"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "discounts",
+                        "updates",
+                        "help"
+                    ],
+                    "expected_behavior": "Thank you for your enthusiasm and interest in sharing our brand! The discounts shared are current. Check back later for updates. Need any help or ready to order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "so you will not give any more discounts at all"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "reach",
+                        "patience"
+                    ],
+                    "expected_behavior": "This seems important. I’ll transfer you to a team member who will reach out to you shortly. Thank you for your patience!"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--discount--multiple_products_request",
+            "description": "Customer wants to buy multiple products and asks for discount",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "discount",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                    
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "i want to buy multiple products"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "link",
+                        "size",
+                        "name"
+                    ],
+                    "expected_behavior": " Could you please share the product link or name, your preferred size, phone number for order confirmation, delivery address (street, city, state, PIN), and your full name?"
+                },
+                {
+                    "role": "customer",
+                    "message": "do you have special discounts if i buy multiple products"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "multiple products"
+                    ],
+                    "expected_behavior": "Certainly! We have great discounts for multiple products. Spend ₹4000+ for ₹500 off or ₹7000+ for ₹700 off. Use code NEW10 for 10% off, plus an extra 10% with online payment. Let me know if you need help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the total price i want shacket, eagle jeans and K-denim jeans"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "sizes",
+                        "discounts",
+                        "payment"
+                    ],
+                    "expected_behavior": "To assist you better, please share the sizes and preferred colors/styles for the shacket, eagle jeans, and K-denim jeans. If you need help with discounts or payment options, I'm here to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "first tell me after discount how much it will cost me"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "prices",
+                        "discounts",
+                        "order"
+                    ],
+                    "expected_behavior": "Certainly! Here's a breakdown of the discounts for you: Prices: Please check the product pages for prices of the shacket, eagle jeans, and K-denim jeans. Discounts: Use code NEW10 for 10% off, ₹500 off ₹4000+, or ₹700 off ₹7000+. Online payment gives an extra 10% off. Need help placing the order?"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--discount--wholesale_inquiry",
+            "description": "Customer asks about wholesale pricing and bulk orders",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "discount",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                     
+                        "help"
+                        
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "jeans ka price kya hai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "several jeans",
+                        "product",
+                        "name",
+                        "link"
+                    ],
+                    "expected_behavior": " I found several jeans options: MADZEE STREET START RIPPED DENIM, MADZEE RIPPED DENIM CARGO - Black, MULTI POCKETS DESIGN CARGO, COLOUR BLOCK CARGO - Blue, RIPPED DENIM - Blue. Please share the exact product name or link."
+                },
+                {
+                    "role": "customer",
+                    "message": "i want to buy in wholesale"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "member",
+                        "call",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Sure, we'll have a team member reach out to you. Alternatively, you can call 9980896588 for more details. If you're ready, I can help place your order too!"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--discount--best_discount_inquiry",
+            "description": "Customer asks for best discount in Hindi",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "discount",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                     
+                        "help"
+                      
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Gavie me best decaun"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "payment",
+                        "discounts"
+                    ],
+                    "expected_behavior": "Hello! Here are our best discounts: Use code NEW10 for 10% off any order. Get Rs 500 off if you spend Rs 4000+ or Rs 700 off if you spend Rs 7000+. Enjoy an extra 10% off with online payment. These can be combined! Let me know if you'd like to proceed with an order."
+                },
+                {
+                    "role": "customer",
+                    "message": "is shipping free in mumbai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "free",
+                        "help",
+                        "order"
+                    ],
+                    "expected_behavior": "Hello! 😊 Yes, shipping is free in Mumbai and across India. If you have more questions or need help, feel free to reach out to our customer support. Ready to place the order? Let me know!"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--payment_policy--cod_availability",
+            "description": "Customer asks about COD availability and coupon codes",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "payment_policy",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                  
+                        "help"
+                    
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "COD hai"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Yes",
+                        "cash on delivery",
+                        "available"
+                    ],
+                    "expected_behavior": "Hello! Yes, Cash on Delivery (COD) is available. If you have more questions or need help, just let me know. Happy shopping!"
+                },
+                {
+                    "role": "customer",
+                    "message": "any coupon code"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "10%",
+                        "payments",
+                        "online"
+                    ],
+                    "expected_behavior": "Hello! Enjoy a 10% discount with code NEW10. Plus, get Rs 500 off on Rs 4000+ and Rs 700 off on Rs 7000+. Online payments get an extra 10% off! Let me know if you want to place the order. Happy shopping!"
+                },
+                {
+                    "role": "customer",
+                    "message": "thanks"
+                }
+            ]
+        },
+        {
+            "id": "sales_product_discovery--payment_policy--payment_partner_inquiry",
+            "description": "Customer asks about payment partner and coupon codes",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "payment_policy",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                  
+                        "help"
+                       
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "who is your payment partner"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Gokwik",
+                        "10% discount",
+                        "payment"
+                    ],
+                    "expected_behavior": "Hello! 😊 Our online payment is powered by GoKwik, offering a 10% discount on purchases with this payment mode. If you have more questions or need help, our customer support team is ready to assist!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what if the payment fails"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "online payment",
+                        "CODf",
+                        "EMI",
+                        "Groovee Wallet"
+                    ],
+                    "expected_behavior": "Hi there! If your payment fails, check for issues like insufficient funds or connectivity. Try another method Online Payment: Credit/debit cards, UPI, Google Pay, Amazon Wallet (10% off). COD EMI (5% off) Groovee Wallet Need help? Contact our support team!"
+                }
+            ]
+        },
+        {
+            "id": "sales--payment_policy--amazon_wallet_inquiry-1",
+            "description": "Customer wants to place order but asks about Amazon wallet payment option which is not available",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "payment_policy",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                    
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "do you have amazon wallet?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "delivery timelines",
+                        "order status"
+                    ],
+                    "expected_behavior": "I'm here to help with Groovee product info, order status, delivery timelines, and more. Let me know how I can assist with your purchase or any questions you have! "
+                },
+                {
+                    "role": "customer",
+                    "message": "i want to order but I dont see amazon wallet as an option"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "another",
+                        "payment method"
+                    ],
+                    "expected_behavior": "I apologize for any confusion. We don't support Amazon Wallet at the moment. Can you try another payment method? Let me know if you need help or have other questions!"
+                }
+            ]
+        },
+        {
+            "id": "sales--payment_policy--direct_payment_request-2",
+            "description": "Customer wants to place order and requests direct payment options like UPI or payment link",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "payment_policy",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                   
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "can i transfer to you directly / UPI handle please / please send me your payment link"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "reach",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Sure, we'll have a team member reach out to you. Alternatively, you can call 9980896588 for more details. If you're ready, I can help place your order too!"
+                },
+                {
+                    "role": "customer",
+                    "message": "no, i will pay directly"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "contact",
+                        "support",
+                        "admin@groovee.in",
+                        "86078 45846",
+                        "95182 17803",
+                        "help"
+                    ],
+                    "expected_behavior": "Hello! 😊 You can pay using Credit/Debit Card, UPI, Google Pay, or Amazon Wallet for a 10% discount. COD and EMI (5% off) options are also available. contact our support at admin@groovee.in or call +91 86078 45846 / +91 95182 17803. We're here to help! Would you like me to place the order for you?!"
+                }
+            ]
+        },
+        {
+            "id": "sales--vendor_inquiry--wholesale_english-3",
+            "description": "Customer asks about wholesale options and pricing in English",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "vendor_inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Wholesale?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "yes",
+                        "wholesale",
+                        "team",
+                        "reach",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Yes, we do have wholesale.We'll have a team member reach out to you. Alternatively, feel free to call us at 9980896588 to discuss further."
+                },
+                {
+                    "role": "customer",
+                    "message": "But can you tell me the price"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "specific",
+                        "sorry",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "I'm sorry, I don't have the specific pricing details right now. Our team will contact you soon with the information. Feel free to call us at 9980896588 for quicker assistance! "
+                }
+            ]
+        },
+        {
+            "id": "sales--vendor_inquiry--wholesale_hindi-4",
+            "description": "Customer asks about bulk orders in Hindi",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "vendor_inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "bulk me dete ho?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Bulk Discount"
+                    ],
+                    "expected_behavior": " Certainly! We offer several discounts you might find appealing: Code: NEW10 – Get 10% off on any purchase. Bulk Discounts: Rs 500 off for purchases over Rs 4000. Rs 700 off for purchases over Rs 7000. Payment Offers: 10% off if you pay onlineYou can combine these offers for greater savings! 😊 Let me know if..."
+                },
+                {
+                    "role": "customer",
+                    "message": "I mean wholesale"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "team",
+                        "reach",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Sure, we can have a team member reach out to you. Alternatively, feel free to call 9980896588 for more details. 😊 Let me know if you'd like me to help place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Thank you"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                
+                        "help"
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know if you'd like me to help place the order!"
+                }
+            ]
+        },
+        {
+            "id": "sales--vendor_inquiry--bulk_order_pricing-5",
+            "description": "Customer asks about bulk order availability and pricing",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "vendor_inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                    
+                        "help"
+                      
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "Wholesale?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "yes",
+                        "wholesale",
+                        "team",
+                        "reach",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Yes, we do have wholesale.We'll have a team member reach out to you. Alternatively, feel free to call us at 9980896588 to discuss further."
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the MOQ"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "yes",
+                        "wholesale",
+                        "team",
+                        "reach",
+                        "9980896588"
+                    ],
+                    "expected_behavior": "Yes, we do have wholesale.We'll have a team member reach out to you. Alternatively, feel free to call us at 9980896588 to discuss further."
+                }
+            ]
+        },
+        {
+            "id": "sales--vendor_inquiry--bulk_order_pricing-5",
+            "description": "Customer asks about bulk order availability and pricing",
+            "dimension": "Sales & Product Discovery",
+            "sub_dimension": "vendor_inquiry",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "HI"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+
+                        "help"
+                      
+                    ],
+                    "expected_behavior": "Hey there! I'm here to help you with your order, product info, or anything else you need. Let me know how I can assist you today!"
+                },
+                {
+                    "role": "customer",
+                    "message": "want to know about https://groovee.in/collections/fresh-drop/products/sunfire-denim?variant=51012444717378"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Sunfire",
+                        "2,999",
+                        "cotton",
+                        "sizes",
+                        "order"
+                    ],
+                    "expected_behavior": "The Sunfire Denim is priced at ₹2,999. It's made from 14oz heavyweight cotton denim and available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the material"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "fabric",
+                        "denim",
+                        "cotton",
+                        "order"
+                    ],
+                    "expected_behavior": "The fabric is 14oz heavyweight cotton denim. Let me know if you have any other questions or if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "is the quality good"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Groovee",
+                        "manufacturing",
+                        "Delhi",
+                        "quality",
+                        "86078 45846"
+                    ],
+                    "expected_behavior": "Hello! Groovee is a trendsetting streetwear brand with its own manufacturing unit in Delhi, ensuring quality control. For specific product details, contact them at admin@groovee.in or +91 86078 45846"
+                },
+                {
+                    "role": "customer",
+                    "message": "and whats the print type"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "contact",
+                        "print"
+                    ],
+                    "expected_behavior": "The print type for the Sunfire Denim isn't specified. For more details, please contact Groovee directly at admin@groovee.in or call +91 86078 45846."
+                },
+                {
+                    "role": "customer",
+                    "message": "ok..will the print go away after wash"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "care",
+                        "contact"
+                    ],
+                    "expected_behavior": "To care for your Sunfire Denim, wash inside out on a cold gentle cycle (30°C max) with similar colors. Avoid bleach and strong detergents. Line dry in shade, and iron inside out on low heat if needed. For more details, please contact Groovee at admin@groovee.in or +91 86078 45846."
+                },
+                {
+                    "role": "customer",
+                    "message": "so can i wash in washing machine"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "yes",
+                        "wash",
+                        "order"
+                    ],
+                    "expected_behavior": "Yes, you can wash the Sunfire Denim in a washing machine. Turn them inside out and wash on a cold gentle cycle (30°C max) with similar colors. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "great..i like baggy, is this jeans baggy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "yes",
+                        "baggy",
+                        "order"
+                    ],
+                    "expected_behavior": "Yes, the Sunfire Denim has a baggy fit.Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "what are the sizes available"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "available",
+                        "sizes",
+                        "order"
+                    ],
+                    "expected_behavior": "Available in sizes: 28, 30, 32, 34, 36, 38, 40. Let me know if you'd like me to place the order for you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "i want 32..when can you deliver"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "estimate",
+                        "pincode"
+                    ],
+                    "expected_behavior": "To estimate delivery for the Sunfire Denim size 32, I'll check availability. Please share your delivery pincode for accurate timing"
+                },
+                {
+                    "role": "customer",
+                    "message": "493118"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "32",
+                        "available",
+                        "pincode",
+                        "order"
+                    ],
+                    "expected_behavior": "The Sunfire Denim in size 32 is available, and delivery to pincode 493118 is estimated by August 18, 2025, via Blue Dart Air. 😊 Let me know if you'd like to proceed with the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "is the delivery free"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "free",
+                        "reach",
+                        "order"
+                    ],
+                    "expected_behavior": "Hello! Yes, delivery is free across India. If you have any more questions or need further assistance, feel free to reach out. Let me know if you'd like me to place the order for you. Happy shopping!"
+                },
+                {
+                    "role": "customer",
+                    "message": "do you have open deliery"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "do not",
+                        "open delivery",
+                        "contact"
+                    ],
+                    "expected_behavior": "Hello! Thank you for reaching out with your question. We currently do not support open delivery. If you have any other questions or need further assistance, feel free to contact us. We're always happy to help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "so what if the product i recieve is bad"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "concern",
+                        "return/exchange",
+                        "3 days"
+                    ],
+                    "expected_behavior": "I'm sorry to hear about your concern with a potentially bad product. Here's our return/exchange process: If the product is damaged, you can initiate a return within 3 days. No extra shipping costs for faulty items. Please share your order ID or phone number, and I'll assist you further!"
+                },
+                {
+                    "role": "customer",
+                    "message": "whats the return policy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "3 days",
+                        "200",
+                        "help"
+                    ],
+                    "expected_behavior": "Hello! You can return your product within 3 days of delivery. A Rs 200 deduction applies, with the rest credited to your Groovee wallet for future purchases. Need more help? Our support team is here!"
+                },
+                {
+                    "role": "customer",
+                    "message": "and exchange policy"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "exchange",
+                        "7 days",
+                        "free",
+                        "delivery"
+                    ],
+                    "expected_behavior": "Hello!You can initiate a one-time free exchange within 7 days of delivery via groovee.in. Multiple exchanges incur a Rs 300 fee. Need help or ready to order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "and what are your payment options"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "payment options",
+                        "UPI",
+                        "Credit/Debit Card",
+                        "Google Pay",
+                        "cash on delivery",
+                        "EMI",
+                        "Groovee Wallet"
+                    ],
+                    "expected_behavior": "Hello! We offer several payment options: Credit/Debit Card, UPI, Google Pay, Amazon Wallet, Cash on Delivery, EMI via Snapmint, and Groovee Wallet. Ready to place your order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "any discounts?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "discounts",
+                        "10%",
+                        "online payments"
+                    ],
+                    "expected_behavior": "Hello! Thanks for inquiring about discounts. Use code NEW10 for 10% off. Plus, enjoy another 10% off with online payments. Combine offers for more savings! Ready to order? Let me know!"
+                },
+                {
+                    "role": "customer",
+                    "message": "so what will be the final price"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "price",
+                        "2,429.19",
+                        "10%",
+                        "order"
+                    ],
+                    "expected_behavior": "Hello!The final price for Sunfire Denim Jeans is approx. ₹2,429.19 after using code NEW10 (10% off) and paying online (extra 10% off). Let me know if you'd like to place the order!"
+                },
+                {
+                    "role": "customer",
+                    "message": "no i want COD"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "COD",
+                        "shiiping",
+                        "name",
+                        "phone number"
+                    ],
+                    "expected_behavior": " To proceed with your order for Sunfire Denim Jeans using COD, please send your shipping details including phone number and address. I'll create the order for you. Thank you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "so COD is available?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "COD",
+                        "Yes",
+                        "name",
+                        "phone number"
+                    ],
+                    "expected_behavior": " Yes, COD is available for the Sunfire Denim Jeans. 😊 Please provide your shipping details, including phone number and address. Once I have this info, I can create the order for you. Thank you!"
+                },
+                {
+                    "role": "customer",
+                    "message": "and any discounts for COD"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "COD",
+                        "available",
+                        "10%"
+                    ],
+                    "expected_behavior": "Certainly!For the Sunfire Denim Jeans, the price is ₹2,999. COD is available, but online payments get a 10% discount with code NEW10. Add more items to save ₹500 on ₹4,000+ purchases. Let me know if you need more help!"
+                },
+                {
+                    "role": "customer",
+                    "message": "great..you helped a lot..i will trust you guys and i hope the product is same as it looks in the imges"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "product",
+                        "online"
+                    ],
+                    "expected_behavior": "Thank you for your trust! We ensure our products match the images online. For any concerns or help, email admin@groovee.in or call +91 86078 45846 or +91 95182 17803. We're here to help!"
+                }
+            ]
+        }
+    ],
+    "dummy_test_scenarios_will_not_be_used": [
+        {
+            "id": "order_status_with_phone",
+            "description": "Order status query with pre-provided phone number",
+            "initial_state": {
+                "phone_number": "+1234567890",
+                "known_orders": {
+                    "+1234567890": [
+                        {
+                            "order_id": "ORD001",
+                            "status": "shipped",
+                            "tracking": "TRK123456"
+                        },
+                        {
+                            "order_id": "ORD002",
+                            "status": "processing",
+                            "estimated_delivery": "2024-01-15"
+                        }
+                    ]
+                },
+                "order_status_by_id": {
+                    "ORD001": {
+                        "status": "shipped",
+                        "tracking": "TRK123456"
+                    },
+                    "ORD002": {
+                        "status": "processing",
+                        "estimated_delivery": "2024-01-15"
+                    }
+                }
+            },
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "where is my order ORD001"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "ORD001",
+                        "status",
+                        "shipped",
+                        "tracking"
+                    ],
+                    "expected_behavior": "Should provide order status for ORD001 since phone number is already known"
+                }
+            ]
+        },
+        {
+            "id": "order_status_without_phone",
+            "description": "Order status query without pre-provided phone number",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "where is my order ORD001"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "ORD001",
+                        "phone number",
+                        "help"
+                    ],
+                    "expected_behavior": "Should ask for phone number since it's not provided in initial state"
+                }
+            ]
+        },
+        {
+            "id": "basic_product_query_conversation",
+            "description": "Multi-turn conversation about product information",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Hi, I'm looking for a t-shirt"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "t-shirt",
+                        "help",
+                        "available"
+                    ],
+                    "expected_behavior": "Should greet and ask for more details about the t-shirt"
+                },
+                {
+                    "role": "customer",
+                    "message": "What sizes do you have available?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "M",
+                        "L",
+                        "XL",
+                        "sizes",
+                        "available"
+                    ],
+                    "expected_behavior": "Should list available sizes from product data"
+                },
+                {
+                    "role": "customer",
+                    "message": "Great! And what colors are there?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Black",
+                        "White",
+                        "colors",
+                        "available"
+                    ],
+                    "expected_behavior": "Should list available colors and provide complete product information"
+                }
+            ]
+        },
+        {
+            "id": "order_status_conversation",
+            "description": "Multi-turn conversation about order status",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I need to check my order status"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "status",
+                        "help",
+                        "order number",
+                        "phone number"
+                    ],
+                    "expected_behavior": "Should ask for order number or phone number to look up the order"
+                },
+                {
+                    "role": "customer",
+                    "message": "My order number is 12345"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "12345",
+                        "status",
+                        "shipped",
+                        "processing"
+                    ],
+                    "expected_behavior": "Should attempt to fetch and provide order status for order 12345"
+                },
+                {
+                    "role": "customer",
+                    "message": "When will it be delivered?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "delivery",
+                        "estimated",
+                        "date",
+                        "tracking"
+                    ],
+                    "expected_behavior": "Should provide delivery estimate or tracking information"
+                }
+            ]
+        },
+        {
+            "id": "frustration_escalation_conversation",
+            "description": "Multi-turn conversation with customer frustration and escalation",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I'm really frustrated with my order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "understand",
+                        "frustrated",
+                        "help",
+                        "apologize"
+                    ],
+                    "expected_behavior": "Should acknowledge the frustration and offer to help"
+                },
+                {
+                    "role": "customer",
+                    "message": "I've been waiting for weeks and no one is helping me!"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "apologize",
+                        "escalate",
+                        "manager",
+                        "supervisor",
+                        "help"
+                    ],
+                    "expected_behavior": "Should detect high frustration and offer escalation"
+                },
+                {
+                    "role": "customer",
+                    "message": "Yes, I want to speak to a manager"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "manager",
+                        "escalate",
+                        "contact",
+                        "phone",
+                        "supervisor"
+                    ],
+                    "expected_behavior": "Should provide escalation contact information or transfer process"
+                }
+            ]
+        },
+        {
+            "id": "product_selection_conversation",
+            "description": "Multi-turn conversation helping customer select a product",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I need help choosing a t-shirt"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "help",
+                        "choose",
+                        "t-shirt",
+                        "sizes",
+                        "colors"
+                    ],
+                    "expected_behavior": "Should offer to help with product selection and ask preferences"
+                },
+                {
+                    "role": "customer",
+                    "message": "I'm looking for something in black"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "Black",
+                        "available",
+                        "sizes",
+                        "t-shirt"
+                    ],
+                    "expected_behavior": "Should confirm black color availability and ask about size preference"
+                },
+                {
+                    "role": "customer",
+                    "message": "What size should I get if I'm 6 feet tall?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "size",
+                        "6 feet",
+                        "tall",
+                        "recommend",
+                        "L",
+                        "XL"
+                    ],
+                    "expected_behavior": "Should provide size recommendation based on height"
+                }
+            ]
+        },
+        {
+            "id": "stock_inquiry_conversation",
+            "description": "Multi-turn conversation about product availability",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Do you have the t-shirt in stock?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "stock",
+                        "available",
+                        "t-shirt",
+                        "yes"
+                    ],
+                    "expected_behavior": "Should check and confirm stock availability"
+                },
+                {
+                    "role": "customer",
+                    "message": "What about in size L and black color?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "L",
+                        "Black",
+                        "available",
+                        "stock",
+                        "size",
+                        "color"
+                    ],
+                    "expected_behavior": "Should check specific size and color availability"
+                },
+                {
+                    "role": "customer",
+                    "message": "Perfect! How much does it cost?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "cost",
+                        "price",
+                        "dollars",
+                        "currency"
+                    ],
+                    "expected_behavior": "Should provide pricing information for the specific product"
+                }
+            ]
+        },
+        {
+            "id": "order_without_number_conversation",
+            "description": "Multi-turn conversation about order status without order number",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I want to check my order"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "order",
+                        "check",
+                        "order number",
+                        "phone number"
+                    ],
+                    "expected_behavior": "Should ask for order number or phone number"
+                },
+                {
+                    "role": "customer",
+                    "message": "I don't have the order number"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "phone number",
+                        "email",
+                        "look up",
+                        "help"
+                    ],
+                    "expected_behavior": "Should ask for alternative information like phone number or email"
+                },
+                {
+                    "role": "customer",
+                    "message": "My phone number is 555-1234"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "phone",
+                        "555-1234",
+                        "orders",
+                        "find",
+                        "look up"
+                    ],
+                    "expected_behavior": "Should attempt to find orders using the phone number"
+                }
+            ]
+        },
+        {
+            "id": "return_refund_conversation",
+            "description": "Multi-turn conversation about returns and refunds",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I want to return my t-shirt"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "return",
+                        "t-shirt",
+                        "help",
+                        "policy"
+                    ],
+                    "expected_behavior": "Should ask about the return reason and provide return policy information"
+                },
+                {
+                    "role": "customer",
+                    "message": "It doesn't fit properly"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "fit",
+                        "size",
+                        "exchange",
+                        "refund",
+                        "return"
+                    ],
+                    "expected_behavior": "Should offer size exchange or refund options"
+                },
+                {
+                    "role": "customer",
+                    "message": "Can I get a refund instead?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "refund",
+                        "process",
+                        "return",
+                        "money",
+                        "credit"
+                    ],
+                    "expected_behavior": "Should explain refund process and timeline"
+                }
+            ]
+        },
+        {
+            "id": "general_inquiry_conversation",
+            "description": "Multi-turn conversation with general questions",
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Tell me about your products"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "products",
+                        "t-shirt",
+                        "sizes",
+                        "colors",
+                        "available"
+                    ],
+                    "expected_behavior": "Should provide general product information and ask for specific interests"
+                },
+                {
+                    "role": "customer",
+                    "message": "What's your shipping policy?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "policy",
+                        "delivery",
+                        "time",
+                        "cost"
+                    ],
+                    "expected_behavior": "Should explain shipping options, costs, and delivery times"
+                },
+                {
+                    "role": "customer",
+                    "message": "How long does shipping take?"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "shipping",
+                        "time",
+                        "days",
+                        "delivery",
+                        "estimate"
+                    ],
+                    "expected_behavior": "Should provide specific shipping timeframes and delivery estimates"
+                }
+            ]
+        },
+        {
+            "id": "customer_with_preferences",
+            "description": "Product query with customer preferences already known",
+            "initial_state": {
+                "customer_preferences": {
+                    "preferred_size": "L",
+                    "preferred_color": "Black",
+                    "previous_purchases": [
+                        "ORD001",
+                        "ORD002"
+                    ]
+                },
+                "conversation_context": {
+                    "last_interaction": "product_inquiry",
+                    "customer_tier": "premium"
+                }
+            },
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "I want to buy another t-shirt"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "t-shirt",
+                        "L",
+                        "Black",
+                        "preferred",
+                        "size",
+                        "color"
+                    ],
+                    "expected_behavior": "Should suggest preferred size and color based on customer preferences"
+                }
+            ]
+        },
+        {
+            "id": "returning_customer_with_orders",
+            "description": "Returning customer with multiple orders",
+            "initial_state": {
+                "phone_number": "+1234567890",
+                "known_orders": {
+                    "+1234567890": [
+                        {
+                            "order_id": "ORD001",
+                            "status": "delivered",
+                            "items": [
+                                "Black T-Shirt L"
+                            ]
+                        },
+                        {
+                            "order_id": "ORD002",
+                            "status": "shipped",
+                            "items": [
+                                "White T-Shirt XL"
+                            ]
+                        },
+                        {
+                            "order_id": "ORD003",
+                            "status": "processing",
+                            "items": [
+                                "Black T-Shirt M"
+                            ]
+                        }
+                    ]
+                },
+                "order_status_by_id": {
+                    "ORD001": {
+                        "status": "delivered",
+                        "items": [
+                            "Black T-Shirt L"
+                        ]
+                    },
+                    "ORD002": {
+                        "status": "shipped",
+                        "items": [
+                            "White T-Shirt XL"
+                        ]
+                    },
+                    "ORD003": {
+                        "status": "processing",
+                        "items": [
+                            "Black T-Shirt M"
+                        ]
+                    }
+                }
+            },
+            "conversation": [
+                {
+                    "role": "customer",
+                    "message": "Show me all my orders"
+                },
+                {
+                    "role": "bot",
+                    "expected_keywords": [
+                        "orders",
+                        "ORD001",
+                        "ORD002",
+                        "ORD003",
+                        "delivered",
+                        "shipped",
+                        "processing"
+                    ],
+                    "expected_behavior": "Should list all orders for the customer with their statuses"
+                }
+            ]
+        }
+    ],
+    "evaluation_criteria": {
+        "logical_correctness": "The response should accurately address the user's question and provide correct information based on available product data",
+        "conciseness": "The response should be brief and to the point without unnecessary verbosity",
+        "helpfulness": "The response should provide actionable information or clear next steps for the user",
+        "tone": "The response should maintain a professional and helpful tone",
+        "completeness": "The response should address all aspects of the user's question",
+        "context_awareness": "The response should be appropriate for the context (order status vs product info vs frustration)",
+        "conversation_flow": "The response should maintain natural conversation flow and build on previous exchanges",
+        "memory_retention": "The bot should remember and reference information from previous messages in the conversation"
+    }
+}

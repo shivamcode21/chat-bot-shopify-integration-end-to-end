@@ -1,0 +1,96 @@
+---
+description: Core design principles for the ecommagents project — architecture, LangGraph patterns, data flow, prompt engineering, search pipeline, and code conventions.
+alwaysApply: true
+---
+
+# EcommAgents Design Principles
+
+## Architecture
+
+- **Two delivery surfaces**: WebSocket chat (LangGraph agent) and Demo chat (stateless HTTP/SSE). Both share the same underlying search and data pipeline.
+- **Shared utilities over duplication**: Common logic lives in `fashion_bot/utils/` (e.g., `product_utils.py`, `context_helpers.py`, `agent_utils.py`). Never reimplement the same function in two surfaces.
+- **No agent state for cross-layer data**: Do not store transient data (images, product cards) in LangGraph `state` for frontend consumption. Use the `###PRODUCT_IMAGES:json###` delimiter pattern — embed structured data in the response text, strip it before display.
+- **Stateless endpoints**: Demo chat endpoints (`demo_chat_router.py`) must not rely on server-side session state. All context comes from the request payload.
+
+## LangGraph Node Patterns
+
+- **Nodes are functions, not classes**: Each node is a function that receives `SupportState` and returns a `Dict[str, Any]` merged into state. Use closures (via factory functions like `create_generic_skill_node()`) for parameterization.
+- **Intent detection is the router**: `detect_intent_node` classifies the user message into intents and sets `parent_intent`, `detected_intents`, `detected_tags`. The graph routes conditionally on `detected_intents` to the appropriate skill node.
+- **Intent → skill mapping lives in `graph_meta.py`**: Do not hardcode routing logic inside nodes. Each intent maps to a specific handler node (e.g., `product_details` → `product_details_intent`, `recommendations` → `recommendations_intent`).
+- **Skill nodes are generic**: `create_generic_skill_node(agent_name, topic, entity_type)` is the single factory for all skill nodes. Agent-specific behavior comes from the prompt and tools, not from code branches inside the node.
+- **Tool-first philosophy**: Skill nodes instruct the LLM to use tools before answering. The prompt includes "CRITICAL: YOU MUST USE TOOLS TO ANSWER". The LLM decides when and how to call tools; the node executes them.
+
+## Topic and Context Management
+
+- **Topic-centric state**: `conversation_context` holds `topics` (list), `entities` (global), `active_topic_id`, and `focal_entity`. Each skill node finds or creates a topic via `find_or_create_topic()`.
+- **Entity lifecycle**: Entities (products, orders) are extracted from tool results via `_extract_entities_from_intermediate_steps()`, added globally via `add_entities_to_global()`, and linked to topics via `add_entity_refs_to_topic()`.
+- **Focal entity**: The currently discussed product/order. Updated by intent detection when the user references a known entity, and by skill nodes via `determine_focal_entity_from_topic()`.
+- **Summary updates**: The LLM emits a `summary_update` block with topic summary, status, and awaiting state. This is parsed and stripped before reaching the customer.
+- **Scratchpad for continuity**: Intent detection stores `last_parent_intent`, `last_intents`, and `reason` in `scratchpad` so the next turn has continuity context.
+
+## Intent Detection
+
+- **Minimal JSON output**: The LLM returns compact JSON (`{"p":"CODE","i":"intent"}`) to minimize tokens. `expand_minimal_response()` converts this to full format.
+- **Escalation rules**: Callback requests → escalation. Frustration → escalation (with loop prevention). Media messages → always escalation.
+- **Recommendations follow-up vs topic change**: When recommendations were shown and user sends a new message, intent detection determines if it's a follow-up (e.g., "tell me more about the second one") or a topic change. This is signaled via `is_topic_change_from_recommendations`.
+- **Agent/bot mode switching**: If user is in agent mode and says "bot/chatbot", switch back to bot mode and return "Greetings & Small Talk" without an LLM call.
+
+## Tool Calling and Multi-Step Reasoning
+
+- **Native tool loop** (`_invoke_native_tool_loop`): Uses `llm.bind_tools(tools)` and runs the loop manually — LLM → tool calls → `ToolMessage` → repeat — until no more tool calls or max iterations (default 20).
+- **Tools come from the registry**: `get_tools_for_agent(agent_name, state)` loads agent-specific tools. Do not instantiate tools inside nodes.
+- **Tools must be stateless**: Tools must not read or modify `state` variables (e.g., `conversation_context`, `messages`, `scratchpad`). The only state a tool may access is `client_id` and `phone_number` for API/DB lookups. All other context flows in via tool arguments and out via return values. State mutation is the responsibility of the skill node, not the tool.
+- **Tool trace**: After execution, a compact tool trace is built via `_build_tool_trace_system_message()` for persistence across turns, and a structured trace via `_build_tool_trace_struct()` for logging.
+- **Recovery on max iterations**: `_recover_response_from_intermediate_steps()` extracts a usable response from intermediate tool results. If that fails, escalate.
+- **Empty response failover**: If the LLM returns an empty or generic response, retry with `gemini-2.5-flash`. If still empty, attempt manual recovery for specific agents (e.g., `order_status`).
+
+
+## Prompt Engineering
+
+- **Client-specific prompts live in Postgres** (`agents_config` table, keyed by `client_id` + `agent_name`). Never hardcode client-specific taxonomy, categories, or brand names in Python code.
+- **Loading order**: `get_agent_prompt_with_caching(client_id, prompt_name)` → Redis cache → Postgres → fallback default in code (`get_default_prompt_for_agent(agent_name)` or `DEFAULT_*_PROMPT` constant).
+- **Cache-aware**: Prompts are cached in Redis (TTL 600s). After a DB update, wait for cache expiry or restart to pick up changes.
+- **Dynamic placeholders**: Prompts use placeholders like `{schema_text}`, filled at runtime by `_fill_agent_specific_placeholders()`. Curly braces in prompts must be escaped for LangChain templates via `escape_braces()`.
+- **Keep prompts under control**: Demo chat system prompts should stay under ~12K chars. Use `_smart_truncate_page_text` to cap raw page content.
+- **No hallucination of structured data**: The LLM must never generate the `###PRODUCT_IMAGES###` block, product URLs, or prices from memory. These are always injected programmatically.
+
+## Search Pipeline
+
+- **Single pipeline pattern**: `upstash_search_products` (demo chat) and `search_products_pipeline` (main bot) follow the same flow: QU → search → rerank → format.
+- **Follow-up questions**: QU returns an optional `follow_up`. Pass it through to the LLM so the agent asks it after presenting results. Never block results to wait for a follow-up answer.
+- **Fallback chain**: Upstash Search with filters → relax to `in_stock = true` → VectorDB fallback. Log each fallback step.
+- **Exclude current product**: When showing recommendations on a product page, filter out the product the user is currently viewing.
+- **Max 3 product cards**: Cap carousel/card results at 3 for both surfaces.
+
+## Error Handling
+
+- **Boundary-level catch**: Wrap the outermost node/endpoint in `try/except`. Inner functions should propagate exceptions.
+- **Report errors**: Use `report_error()` with `trace_id`, `client_id`, and `node` name for Rollbar/error tracking.
+- **Preserve context on failure**: On error, always return `conversation_context` unchanged so state is not corrupted.
+- **Graceful fallback responses**: On failure, return a generic user-friendly message ("I'm having trouble processing that") rather than exposing errors.
+- **Log with `exc_info=True`** on unexpected failures.
+
+## Logging and Tracing
+
+- **Logger instances**: Use `logging.getLogger("module_name")` (e.g., `"meta_nodes"`, `"generic_skill_node"`, `"demo_chat"`). Never use `print()`.
+- **Traceable logs**: Use `log_with_trace_id(state, message)` in LangGraph nodes for correlation.
+- **Emoji prefixes** for scanability: `🤖` LLM calls, `🔍` search, `📦` products, `🧠` intent, `📤` output, `🚀` node entry, `🧰` tools, `❌` errors, `⚠️` warnings, `✅` success.
+- **LangSmith tracing**: Wrap key operations with `traced_operation()` and `set_trace_io()` for LLM and tool runs.
+- **Debug gating**: Use `DebugLogger` class methods for verbose page text / prompt logging. These must not dump to production logs.
+
+## Model Selection
+
+- `gpt-4o` — response generation (skill nodes, demo chat response).
+- `gpt-4o-mini` — lightweight classification (intent analysis in demo chat, QU intent detection prompt).
+- `gpt-4o` — Query Understanding (search query builder).
+- `gemini-2.5-flash` — empty-response failover retry.
+- Document the model choice in a comment if it deviates from these defaults.
+
+## When Adding a New Feature
+
+1. Check if the feature needs to work on **both** WebSocket and Demo chat. If yes, build the core logic as a shared utility first.
+2. If the feature involves passing data from backend to frontend, prefer the delimiter approach or structured response fields — never hidden state variables.
+3. If the feature needs a client-specific prompt, add it to `agents_config` in Postgres with a fallback default in code.
+4. If adding a new intent, add the mapping in `graph_meta.py` and create a skill node via `create_generic_skill_node()` — do not create a custom node class.
+5. If adding a new tool, register it in the tool registry and assign it to the relevant agent names. The skill node will pick it up automatically.
+6. Write a brief design note in `design_docs/` for non-trivial changes that affect data flow across multiple files.

@@ -1,0 +1,72 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="720" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8FA"/>
+      <stop offset="1" stop-color="#F8EEF3"/>
+    </linearGradient>
+    <linearGradient id="g1" x1="0" y1="0" x2="320" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8C4C63"/>
+      <stop offset="0.5" stop-color="#C97C97"/>
+      <stop offset="1" stop-color="#F1C0CF"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" y1="0" x2="320" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A8486C"/>
+      <stop offset="0.52" stop-color="#D97FA0"/>
+      <stop offset="1" stop-color="#F6CAD9"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0" y1="0" x2="320" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7A4058"/>
+      <stop offset="0.56" stop-color="#B56A88"/>
+      <stop offset="1" stop-color="#E7B6C8"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-60%" width="140%" height="220%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#9A5F79" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="720" rx="24" fill="url(#bg)"/>
+
+  <text x="72" y="92" fill="#4F3440" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">
+    Underneat Launcher Pink Directions
+  </text>
+  <text x="72" y="128" fill="#7A5A68" font-family="Arial, Helvetica, sans-serif" font-size="20">
+    Three richer pink palettes for the running-text launcher pill
+  </text>
+
+  <g transform="translate(72 180)">
+    <text x="0" y="-20" fill="#6A4654" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">1. Rose Mauve</text>
+    <rect x="0" y="0" width="320" height="72" rx="36" fill="url(#g1)" filter="url(#shadow)"/>
+    <text x="28" y="45" fill="#FFF8FB" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="274" cy="36" r="26" fill="rgba(255,255,255,0.18)"/>
+    <circle cx="274" cy="36" r="19" fill="#FFF8FB" fill-opacity="0.16"/>
+    <text x="0" y="110" fill="#7A5A68" font-family="Arial, Helvetica, sans-serif" font-size="18">#8C4C63 → #C97C97 → #F1C0CF</text>
+  </g>
+
+  <g transform="translate(440 180)">
+    <text x="0" y="-20" fill="#6A4654" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">2. Blush Berry</text>
+    <rect x="0" y="0" width="320" height="72" rx="36" fill="url(#g2)" filter="url(#shadow)"/>
+    <text x="28" y="45" fill="#FFF8FB" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="274" cy="36" r="26" fill="rgba(255,255,255,0.18)"/>
+    <circle cx="274" cy="36" r="19" fill="#FFF8FB" fill-opacity="0.16"/>
+    <text x="0" y="110" fill="#7A5A68" font-family="Arial, Helvetica, sans-serif" font-size="18">#A8486C → #D97FA0 → #F6CAD9</text>
+  </g>
+
+  <g transform="translate(808 180)">
+    <text x="0" y="-20" fill="#6A4654" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">3. Dusty Orchid Pink</text>
+    <rect x="0" y="0" width="320" height="72" rx="36" fill="url(#g3)" filter="url(#shadow)"/>
+    <text x="28" y="45" fill="#FFF8FB" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="600">Ask about shapewear, bras, fit…</text>
+    <circle cx="274" cy="36" r="26" fill="rgba(255,255,255,0.18)"/>
+    <circle cx="274" cy="36" r="19" fill="#FFF8FB" fill-opacity="0.16"/>
+    <text x="0" y="110" fill="#7A5A68" font-family="Arial, Helvetica, sans-serif" font-size="18">#7A4058 → #B56A88 → #E7B6C8</text>
+  </g>
+
+  <g transform="translate(72 410)">
+    <text x="0" y="0" fill="#4F3440" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">My recommendation</text>
+    <text x="0" y="42" fill="#6F5260" font-family="Arial, Helvetica, sans-serif" font-size="22">
+      Rose Mauve is the strongest fit: premium, feminine, warm, and still readable.
+    </text>
+    <text x="0" y="84" fill="#6F5260" font-family="Arial, Helvetica, sans-serif" font-size="22">
+      It feels more intimatewear than a generic bright pink and should suit Underneat well.
+    </text>
+  </g>
+</svg>

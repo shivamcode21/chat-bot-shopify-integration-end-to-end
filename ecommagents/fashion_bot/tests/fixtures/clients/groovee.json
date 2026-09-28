@@ -1,0 +1,44 @@
+{
+    "client_name": "groovee",
+    "client_id_env_var": "TEST_GROOVEE_CLIENT_ID",
+    "client_id_fallback": "81e80e20-fe91-470a-ab3d-e9dfc2eebf4a",
+    "description": "Groovee - streetwear brand with mobile cases & fashion products",
+    "mock_config": {
+        "prompts_source": "database",
+        "llm_model": "gemini-2.5-flash-lite",
+        "gupshup_source": "15557872987"
+    },
+    "expected_behaviors": {
+        "cancellation": {
+            "policy": "never_cancel_directly_always_escalate",
+            "description": "Should NOT cancel in Shopify/Shiprocket. Must escalate, update order notes, provide contact info.",
+            "contact_info": "+91 8882174388, Monday to Saturday, 11:30 AM to 6:30 PM"
+        },
+        "return_exchange": {
+            "return_window_days": 3,
+            "exchange_window_days": 7,
+            "return_deduction": 200,
+            "exchange_fee_multiple": 300
+        },
+        "product_change": {
+            "differential_zero": "auto_change",
+            "differential_nonzero": "escalate_do_not_change"
+        },
+        "address_update": {
+            "never_ask_for": ["first_name", "last_name", "phone"],
+            "auto_fill_from": "order_details_and_verified_state"
+        }
+    },
+    "test_agents": [
+        "cancel_or_update_order",
+        "product_details",
+        "order_status",
+        "return_exchange",
+        "delivery_timeline",
+        "discount",
+        "place_order",
+        "recommendations",
+        "escalation"
+    ]
+}
+

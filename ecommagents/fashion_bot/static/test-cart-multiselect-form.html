@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart Multi-Select Form Preview</title>
+  <style>
+    :root {
+      --bg: #f6f3fb;
+      --panel: #ffffff;
+      --border: #d9d0ef;
+      --text: #2c2345;
+      --muted: #6f658a;
+      --primary: #7d66e8;
+    }
+    body {
+      margin: 0;
+      background: linear-gradient(180deg, #faf8ff 0%, var(--bg) 100%);
+      font-family: "Open Sans", sans-serif;
+      color: var(--text);
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    .chat-shell {
+      width: min(420px, calc(100vw - 24px));
+      height: min(720px, calc(100vh - 24px));
+      margin: 0 auto;
+      border: 1px solid #cfc7e6;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #f4f1fa;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 32px rgba(84, 64, 168, 0.14);
+    }
+    .chat-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      background: #f8f6ff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+    .bot-bubble {
+      max-width: 90%;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #43395d;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 8px 20px rgba(84, 64, 168, 0.08);
+    }
+    .title {
+      margin: 0 0 4px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .hint {
+      margin: 0 0 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .rows {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .row {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fcfbff;
+    }
+    .label {
+      flex: 1;
+      min-width: 0;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .qty {
+      min-width: 64px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5px 8px;
+      background: #fff;
+      color: var(--text);
+      font-size: 12px;
+    }
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #fff;
+      color: var(--text);
+    }
+    button.primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+    }
+    .chat-input {
+      border-top: 1px solid var(--border);
+      background: #f8f6ff;
+      padding: 10px 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .chat-input input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+    }
+    .chat-input .send {
+      border-radius: 999px;
+      padding: 8px 12px;
+    }
+    @media (max-width: 420px) {
+      body { padding: 8px; }
+      .chat-shell {
+        width: calc(100vw - 16px);
+        height: calc(100vh - 16px);
+        border-radius: 14px;
+      }
+      .row { padding: 7px 8px; gap: 6px; }
+      .label { font-size: 12px; }
+      .qty { min-width: 58px; font-size: 11px; padding: 4px 6px; }
+      button { font-size: 11px; padding: 6px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-shell">
+    <div class="chat-header">Ask Bloom</div>
+    <div class="messages">
+      <div class="bot-bubble">Sure. Please choose what you want to add.</div>
+      <div class="card">
+        <p class="title">Select Products To Add</p>
+        <p class="hint">Latest carousel products with quantity picker.</p>
+        <div class="rows">
+          <label class="row"><input type="checkbox" /><span class="label">The Eclipse Edge Denim</span><select class="qty"><option>Qty 1</option><option>Qty 2</option><option>Qty 3</option></select></label>
+          <label class="row"><input type="checkbox" /><span class="label">8TH: The House Of Transformation</span><select class="qty"><option>Qty 1</option><option>Qty 2</option><option>Qty 3</option></select></label>
+          <label class="row"><input type="checkbox" /><span class="label">Darkwave Hoodie</span><select class="qty"><option>Qty 1</option><option>Qty 2</option><option>Qty 3</option></select></label>
+        </div>
+        <div class="actions"><button>Cancel</button><button class="primary">Add Selected</button></div>
+      </div>
+      <div class="bot-bubble">Please select the cart items to remove.</div>
+      <div class="card">
+        <p class="title">Select Products To Remove</p>
+        <p class="hint">Cart products with default quantity set to cart quantity.</p>
+        <div class="rows">
+          <label class="row"><input type="checkbox" /><span class="label">The Eclipse Edge denim</span><select class="qty"><option>Qty 1</option></select></label>
+          <label class="row"><input type="checkbox" /><span class="label">8TH: The House Of Transformation</span><select class="qty"><option>Qty 1</option><option selected>Qty 2</option></select></label>
+        </div>
+        <div class="actions"><button>Cancel</button><button class="primary">Remove Selected</button></div>
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" value="Type your message..." readonly />
+      <button class="primary send">Send</button>
+    </div>
+  </div>
+</body>
+</html>

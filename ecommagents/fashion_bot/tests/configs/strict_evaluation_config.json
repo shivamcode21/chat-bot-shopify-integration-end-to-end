@@ -1,0 +1,105 @@
+{
+  "langsmith": {
+    "api_key": null,
+    "project_name": "fashion-bot-strict-testing",
+    "dataset_name": "strict-evaluation-scenarios"
+  },
+  "llm_judge": {
+    "model": "gpt-4",
+    "temperature": 0,
+    "max_tokens": 1500
+  },
+  "evaluation_criteria": {
+    "logical_correctness": {
+      "weight": 0.25,
+      "description": "Do the responses accurately address the user's questions and provide correct information?",
+      "min_score": 4.0
+    },
+    "conciseness": {
+      "weight": 0.10,
+      "description": "Are the responses brief and to the point without unnecessary verbosity?",
+      "min_score": 3.5
+    },
+    "helpfulness": {
+      "weight": 0.25,
+      "description": "Do the responses provide actionable information or clear next steps?",
+      "min_score": 4.0
+    },
+    "tone": {
+      "weight": 0.10,
+      "description": "Do the responses maintain a professional and helpful tone throughout?",
+      "min_score": 4.0
+    },
+    "completeness": {
+      "weight": 0.10,
+      "description": "Do the responses address all aspects of the user's questions?",
+      "min_score": 3.5
+    },
+    "context_awareness": {
+      "weight": 0.10,
+      "description": "Are the responses appropriate for the context and conversation flow?",
+      "min_score": 4.0
+    },
+    "conversation_flow": {
+      "weight": 0.05,
+      "description": "Does the conversation feel natural and build on previous exchanges?",
+      "min_score": 3.5
+    },
+    "memory_retention": {
+      "weight": 0.05,
+      "description": "Does the bot remember and reference information from previous messages?",
+      "min_score": 3.5
+    }
+  },
+  "string_matching": {
+    "keyword_score_threshold": 0.8,
+    "case_sensitive": false,
+    "partial_match": true,
+    "synonyms": {
+      "sizes": ["size", "sizing", "measurements", "fit"],
+      "colors": ["color", "colour", "shade", "hue"],
+      "order": ["order", "purchase", "buy", "transaction"],
+      "status": ["status", "state", "condition", "progress"],
+      "stock": ["stock", "inventory", "available", "supply"],
+      "help": ["help", "assist", "support", "aid"],
+      "apologize": ["apologize", "sorry", "apology", "regret"],
+      "escalate": ["escalate", "escalation", "manager", "supervisor"],
+      "delivery": ["delivery", "shipping", "arrival", "dispatch"],
+      "refund": ["refund", "return", "money back", "reimbursement"],
+      "frustrated": ["frustrated", "angry", "upset", "annoyed", "disappointed"]
+    }
+  },
+  "test_thresholds": {
+    "overall_pass_rate": 85.0,
+    "individual_test_pass": {
+      "keyword_score": 0.8,
+      "llm_overall_score": 4.0,
+      "conversation_length": 2
+    },
+    "response_quality": {
+      "min_length": 15,
+      "max_length": 400
+    },
+    "conversation_quality": {
+      "min_turns": 2,
+      "max_turns": 8,
+      "turn_response_time": 4.0
+    }
+  },
+  "report": {
+    "generate_markdown": true,
+    "generate_json": true,
+    "include_detailed_scores": true,
+    "include_keyword_analysis": true,
+    "include_performance_metrics": true,
+    "include_conversation_flow": true,
+    "output_directory": "tests/strict_evaluation_reports"
+  },
+  "performance": {
+    "response_time_threshold": 4.0,
+    "memory_usage_threshold": 80,
+    "concurrent_requests": 5,
+    "conversation_length_target": 3,
+    "max_conversation_time": 25.0
+  }
+} 

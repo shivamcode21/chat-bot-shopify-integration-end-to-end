@@ -1,0 +1,154 @@
+{
+  "scenarios": {
+    "out_for_delivery": {
+      "tracking_data": {
+        "track_status": 1,
+        "shipment_status": 7,
+        "shipment_track": [
+          {
+            "id": 123456,
+            "awb_code": "SRKT123456789",
+            "courier_company_id": 24,
+            "shipment_id": 567890,
+            "order_id": "GRV1001",
+            "pickup_date": "2025-12-02",
+            "delivered_date": null,
+            "weight": "0.5",
+            "packages": 1,
+            "current_status": "Out for Delivery",
+            "delivered_to": null,
+            "destination": "Bangalore",
+            "consignee_name": "Rahul Sharma",
+            "origin": "Mumbai",
+            "courier_agent_details": null,
+            "edd": "2025-12-06"
+          }
+        ],
+        "shipment_track_activities": [
+          {
+            "date": "2025-12-05 14:00:00",
+            "status": "Out for Delivery",
+            "activity": "Shipment out for delivery",
+            "location": "Bangalore Hub",
+            "sr-status": "7",
+            "sr-status-label": "Out for Delivery"
+          },
+          {
+            "date": "2025-12-05 08:00:00",
+            "status": "In Transit",
+            "activity": "Shipment arrived at destination hub",
+            "location": "Bangalore Hub",
+            "sr-status": "6",
+            "sr-status-label": "In Transit"
+          },
+          {
+            "date": "2025-12-03 10:00:00",
+            "status": "In Transit",
+            "activity": "Shipment in transit",
+            "location": "Pune Hub",
+            "sr-status": "6",
+            "sr-status-label": "In Transit"
+          },
+          {
+            "date": "2025-12-02 18:00:00",
+            "status": "Picked Up",
+            "activity": "Shipment picked up",
+            "location": "Mumbai Warehouse",
+            "sr-status": "4",
+            "sr-status-label": "Picked Up"
+          }
+        ]
+      }
+    },
+    "delivered": {
+      "tracking_data": {
+        "track_status": 1,
+        "shipment_status": 8,
+        "shipment_track": [
+          {
+            "id": 123457,
+            "awb_code": "SRKT987654321",
+            "courier_company_id": 24,
+            "shipment_id": 567891,
+            "order_id": "GRV1000",
+            "pickup_date": "2025-11-28",
+            "delivered_date": "2025-12-01",
+            "weight": "0.3",
+            "packages": 1,
+            "current_status": "Delivered",
+            "delivered_to": "Rahul Sharma",
+            "destination": "Bangalore",
+            "consignee_name": "Rahul Sharma",
+            "origin": "Mumbai",
+            "courier_agent_details": "Delivered by Ramesh (9876543210)",
+            "edd": "2025-12-01"
+          }
+        ],
+        "shipment_track_activities": [
+          {
+            "date": "2025-12-01 16:30:00",
+            "status": "Delivered",
+            "activity": "Shipment delivered successfully",
+            "location": "Customer Location",
+            "sr-status": "8",
+            "sr-status-label": "Delivered"
+          },
+          {
+            "date": "2025-12-01 09:00:00",
+            "status": "Out for Delivery",
+            "activity": "Shipment out for delivery",
+            "location": "Bangalore Hub",
+            "sr-status": "7",
+            "sr-status-label": "Out for Delivery"
+          }
+        ]
+      }
+    },
+    "pending_pickup": {
+      "tracking_data": {
+        "track_status": 1,
+        "shipment_status": 2,
+        "shipment_track": [
+          {
+            "id": 123458,
+            "awb_code": "SRKT555555555",
+            "courier_company_id": 24,
+            "shipment_id": 567892,
+            "order_id": "GRV1002",
+            "pickup_date": null,
+            "delivered_date": null,
+            "weight": "0.6",
+            "packages": 1,
+            "current_status": "Pending Pickup",
+            "delivered_to": null,
+            "destination": "Mumbai",
+            "consignee_name": "Priya Patel",
+            "origin": "Mumbai",
+            "courier_agent_details": null,
+            "edd": "2025-12-10"
+          }
+        ],
+        "shipment_track_activities": [
+          {
+            "date": "2025-12-06 09:00:00",
+            "status": "Pending Pickup",
+            "activity": "Shipment created, pending pickup",
+            "location": "Mumbai Warehouse",
+            "sr-status": "2",
+            "sr-status-label": "Pending Pickup"
+          }
+        ]
+      }
+    }
+  },
+  "default_scenario": "out_for_delivery",
+  "mapping": {
+    "GRV1001": "out_for_delivery",
+    "GRV1000": "delivered",
+    "GRV1002": "pending_pickup",
+    "SRKT123456789": "out_for_delivery",
+    "SRKT987654321": "delivered",
+    "SRKT555555555": "pending_pickup"
+  }
+}
+
