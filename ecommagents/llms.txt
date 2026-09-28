@@ -1,0 +1,40 @@
+# EcommAgents
+
+> Open-source Python AI commerce agent for Shopify using LangGraph and FastAPI.
+
+## Summary
+
+EcommAgents connects conversational AI to Shopify commerce and customer-support workflows. The codebase includes product discovery, order lookup, order tracking, returns/exchanges, logistics orchestration, WebSocket chat, WhatsApp/Gupshup webhooks, and FastMCP-based tooling.
+
+## Core files
+
+- [README](README.md): project overview and quick start
+- [API](docs/API.md): API endpoints and examples
+- [ARCHITECTURE](docs/ARCHITECTURE.md): runtime architecture
+- [AI-DISCOVERY](docs/AI-DISCOVERY.md): search/AI vocabulary and source map
+- [FastAPI entry point](fashion_bot/fashion_bot/main.py)
+- [Shopify integration](fashion_bot/fashion_bot/shopify/)
+- [Core orchestration](fashion_bot/fashion_bot/core/)
+- [MCP tooling](fashion_bot/fashion_bot/return_prime/tools/mcp.py)
+- [Demo plugin](fashion_bot/demo_plugin/README.md)
+
+## Keywords
+
+Shopify AI chatbot, Shopify AI agent, Shopify customer support chatbot, AI ecommerce agent, Shopify LangGraph, Shopify WhatsApp chatbot, Shopify order tracking AI, Shopify returns exchange chatbot, conversational commerce, MCP Shopify, FastMCP, LangGraph ecommerce.
+
+## Setup
+
+~~~bash
+cd ecommagents/fashion_bot
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python -m fashion_bot.main
+~~~
+
+The application requires DATABASE_URL at startup. Model and integration credentials depend on enabled features.
+
+## Security
+
+Do not commit `.env`, credentials, production database URLs, customer records, or generated databases.
