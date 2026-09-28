@@ -10,7 +10,110 @@ EcommAgents connects **Shopify + LLMs + LangGraph + FastAPI + commerce tools** t
 
 ---
 
-## 🚀 What can you use it for?
+## ⚡ Install the Demo Plugin — 5 Minutes
+
+Want to see the AI shopping agent working in a browser? **Start here.**
+
+The repository includes a Chrome extension + FastAPI backend. You can run it locally and point it at a Shopify storefront.
+
+### 1. Start the demo backend
+
+`bash
+cd ecommagents/fashion_bot/demo_plugin/backend
+
+pip install -r requirements.txt
+
+export OPENAI_API_KEY="your-openai-api-key"
+
+uvicorn demo_chat_backend:app --port 8001 --reload
+`
+
+Windows PowerShell:
+
+`powershell
+cd ecommagents/fashion_bot/demo_plugin/backend
+
+pip install -r requirements.txt
+
+$env:OPENAI_API_KEY="your-openai-api-key"
+
+uvicorn demo_chat_backend:app --port 8001 --reload
+`
+
+Verify it:
+
+`text
+http://localhost:8001/health
+`
+
+### 2. Install the Chrome extension
+
+In Google Chrome:
+
+1. Open `chrome://extensions/`
+2. Turn on **Developer mode**
+3. Click **Load unpacked**
+4. Select:
+
+`text
+ecommagents/fashion_bot/demo_plugin/chrome_extension/
+`
+
+### 3. Configure the extension
+
+Click the **Product Chat Demo** extension icon.
+
+Set:
+
+`text
+Backend URL:
+http://localhost:8001
+
+Enable Chat Widget:
+ON
+`
+
+If you have an indexed product catalog, also enter the store's **Client ID** used by the product-search backend.
+
+Click **Save Settings**, then **Test Connection**.
+
+### 4. Open a Shopify store
+
+Open any Shopify storefront you want to test.
+
+For a product page, try:
+
+`text
+What is this product?
+Show me similar products
+`
+
+For catalog search:
+
+`text
+Show me black shirts
+Show me products under ₹2,000
+Show me products from the men's collection
+`
+
+### 5. Connect a Shopify product catalog
+
+For the full product-search experience, use a Shopify storefront's public catalog endpoints:
+
+`text
+https://your-store.com/products.json
+https://your-store.com/collections.json
+`
+
+Load the catalog → normalize products → create embeddings → index them in **Upstash Vector/Search or another vector/search engine** → connect the search implementation to EcommAgents.
+
+**Basic page-aware chat can run without your own catalog index. Semantic product discovery requires a searchable product catalog.**
+
+👉 **[Complete Demo Plugin installation + catalog setup guide](ecommagents/fashion_bot/demo_plugin/README.md)**
+
+---
+
+# 🚀 What can you use it for?
 
 Use the existing agent for your own Shopify or e-commerce use case:
 
